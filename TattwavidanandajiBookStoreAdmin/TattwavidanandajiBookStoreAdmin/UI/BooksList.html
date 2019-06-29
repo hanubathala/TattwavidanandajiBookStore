@@ -137,9 +137,10 @@
                                     </tr>
                                 <tbody>
                                     <tr ng-repeat="c in BookList| filter:{BookTitle:cname}">
-                                        <td>{{c.BookImage}}</td>
-                                        <td> {{c.BookTitle}}</td>
-                                        <td style="text-wrap:unset">{{c.BookDescription}}</td>
+                                        
+                                        <td><a href="#" ng-click="openimagetoshow(c)"><img src="{{c.BookImage}}" style="width:200px;height:150px;" /></a></td></td>
+                                        <td valign="middle"> {{c.BookTitle}}</td>
+                                        <td style="text-wrap:initial">{{c.BookDescription}}</td>
                                         <td>{{c.BookType}}</td>
                                         <td>{{c.BookStock}}</td>
                                         <td>{{c.BookPrice}}</td>
@@ -226,7 +227,7 @@
                             <label for="Description" class="col-md-5 control-label" style="color:red;">Select files:<span class='require'></span></label>
                         </div>
                         <div class="col-md-6">
-                            <input type="file" name="fileInput" id="fileInput" ngf-pattern="'image/*,application/pdf'" ng-file-select="onFileSelect($files,$event)" class="btn btn-green" accept=".pdf,.jpg,.png,.gif" ng-model="Book.doc" ng-click="validateFile($event)" />
+                            <input type="file" name="fileInput" id="fileInput" ng-file-select="onFileSelect1($files)" class="btn btn-green" accept=".jpg,.png,.gif,.jpeg" ng-model="BookImage" />
                         </div>
                     </div>
                     <div class="row mbm">
@@ -307,7 +308,7 @@
                             <label for="Description" class="col-md-5 control-label" style="color:red;">Select files:<span class='require'></span></label>
                         </div>
                         <div class="col-md-6">
-                            <input type="file" name="fileInput" id="fileInput" ngf-pattern="'image/*,application/pdf'" ng-file-select="onFileSelect($files,$event)" class="btn btn-green" accept=".pdf,.jpg,.png,.gif" ng-model="Book.doc" ng-click="validateFile($event)" />
+                            <input type="file" name="fileInput" id="fileInput" ng-file-select="onFileSelect1($files)" class="btn btn-green" accept=".jpg,.png,.gif,.jpeg"  ng-model="BookImage" />
                         </div>
                     </div>
                     <div class="row mbm">
@@ -377,7 +378,12 @@
         <script src="js/libs/ui-bootstrap.js"></script>
         <script src="js/ngStorage.js"></script>
         <script src="js/ui-bootstrap-tpls-1.3.3.js"></script>
-        <script src="js/BookList.js"></script>
+    <script src="js/fileupload/angular-file-upload.js"></script>
+    <script src="js/fileupload/angular-file-upload-shim.js"></script>
+    <!--<script src="Js/Playlist.js"></script>-->
+    <script src="js/BookList.js"></script>
+    <script src="js/fileupload/Upload.js"></script>
+        
     <!--CORE JAVASCRIPT-->
 </body>
 </html>
