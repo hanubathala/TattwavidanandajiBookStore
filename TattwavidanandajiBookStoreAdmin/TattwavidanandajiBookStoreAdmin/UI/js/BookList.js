@@ -124,13 +124,19 @@ var ctrl = app.controller('myCtrl', function ($scope, $http, $localStorage, $int
         $http.get('/api/Books/GetBooksList').then(function (res, data) {
             $scope.BookList = res.data;
         });
-    }
-    $scope.addbook = function () {
+
         $http.get('/api/Books/Gettypesdata?booktype=1').then(function (res, data) {
             $scope.bok = res.data;
         }, function (error) {
-           // alert(error.data.ExceptionMessage);
+            // alert(error.data.ExceptionMessage);
         });
+    }
+    $scope.addbook = function () {
+        //$http.get('/api/Books/Gettypesdata?booktype=1').then(function (res, data) {
+        //    $scope.bok = res.data;
+        //}, function (error) {
+        //   // alert(error.data.ExceptionMessage);
+        //});
 
     }
     $scope.onFileSelect1 = function () {
@@ -187,12 +193,14 @@ var ctrl = app.controller('myCtrl', function ($scope, $http, $localStorage, $int
             data: booklist
         }
         $http(req).then(function (res) {
-            $scope.InitConfig();
-            $scope.Course = '';
-            $scope.Coursedit = '';
+            Book = '';
+            $scope.Book = '';
+            $scope.BookImage = '';
+            $scope.tt = '';
             alert('Books Saved Successfully...!');
+            $scope.InitConfig();
             $('#Modal-header-new').modal('hide');
-            $('#Modal-header-new-Edit').modal('hide');
+          
         }, function (ee) {
             alert(ee.data.ExceptionMessage);
             $scope.errmsg = ee;
@@ -203,7 +211,7 @@ var ctrl = app.controller('myCtrl', function ($scope, $http, $localStorage, $int
         $scope.bookedit = grp;
 
         for (i = 0; i < $scope.bok.length; i++) {
-            if ($scope.bok[i].Id == $scope.bok.BookType) {
+            if ($scope.bok[i].Name == grp.BookType) {
                 $scope.bookedit.BookType = $scope.bok[i];
                 break;
             }

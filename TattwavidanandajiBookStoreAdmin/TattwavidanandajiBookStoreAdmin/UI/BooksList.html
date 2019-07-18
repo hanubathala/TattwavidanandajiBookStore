@@ -172,6 +172,7 @@
             </div>
         </div>
     </div>
+    <!--Add New Book-->
     <div id="Modal-header-new" tabindex="-1" role="dialog" aria-labelledby="modal-header-primary-label" aria-hidden="true" class="modal">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -223,13 +224,18 @@
                         </div>
                     </div>
                     <div class="row mbm">
-                        <div style="margin-left:30px;">
-                            <label for="Description" class="col-md-5 control-label" style="color:red;">Select files:<span class='require'></span></label>
+                        <div class="col-md-6">
+                            <label for="Description" class="col-md-5 control-label" style="color:red;">Select files:<span class='require'>*</span></label>
+                            <div class="col-md-6">
+                                <input type="file" name="fileInput" id="fileInput" ng-file-select="onFileSelect1($files)" class="btn btn-green" accept=".jpg,.png,.gif,.jpeg" ng-model="BookImage" />
+                            </div>
                         </div>
                         <div class="col-md-6">
-                            <input type="file" name="fileInput" id="fileInput" ng-file-select="onFileSelect1($files)" class="btn btn-green" accept=".jpg,.png,.gif,.jpeg" ng-model="BookImage" />
-                        </div>
-                    </div>
+                            <label for="Description" class="col-md-5 control-label" style="color:red;"><span class='require'>*</span></label>
+                            <div class="col-md-6">
+                                <img id="cmpLogo" ng-src="{{BookImage}}" style="border: solid 1px; width: 150px; height: 80px;" ng-model="tt" />
+                            </div>
+                       </div>
                     <div class="row mbm">
                         <div class="col-md-12">
                             <div class="col-md-12">
@@ -250,8 +256,8 @@
         </div>
     </div>
         </div>
-        </div>
-
+        
+     </div>
     <!--Edit Books list start-->
     <div id="Modal-header-new-Edit" tabindex="-1" role="dialog" aria-labelledby="modal-header-primary-label" aria-hidden="true" class="modal">
         <div class="modal-dialog modal-lg">
