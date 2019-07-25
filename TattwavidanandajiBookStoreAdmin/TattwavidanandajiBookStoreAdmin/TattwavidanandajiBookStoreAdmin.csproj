@@ -130,6 +130,8 @@
     <Content Include="eshopper\images\cart\three.png" />
     <Content Include="eshopper\images\cart\two.png" />
     <Content Include="eshopper\images\home\bg_border.png" />
+    <Content Include="eshopper\images\home\book2.jpg" />
+    <Content Include="eshopper\images\home\book3.jpg" />
     <Content Include="eshopper\images\home\gallery1.jpg" />
     <Content Include="eshopper\images\home\gallery2.jpg" />
     <Content Include="eshopper\images\home\gallery3.jpg" />
@@ -155,6 +157,7 @@
     <Content Include="eshopper\images\home\product4.jpg" />
     <Content Include="eshopper\images\home\product5.jpg" />
     <Content Include="eshopper\images\home\product6.jpg" />
+    <Content Include="eshopper\images\home\book1.jpg" />
     <Content Include="eshopper\images\home\recommend1.jpg" />
     <Content Include="eshopper\images\home\recommend2.jpg" />
     <Content Include="eshopper\images\home\recommend3.jpg" />
@@ -185,6 +188,7 @@
     <Content Include="eshopper\js\jquery.scrollUp.min.js" />
     <Content Include="eshopper\js\main.js" />
     <Content Include="eshopper\js\price-range.js" />
+    <Content Include="eshopper\js\Source.js" />
     <Content Include="eshopper\login.html" />
     <Content Include="eshopper\product-details.html" />
     <Content Include="eshopper\shop.html" />
@@ -1864,7 +1868,9 @@
     <Content Include="UI\vendors\tc-angular-chartjs-master\test\angular-1-2\karma.conf.js" />
     <Content Include="UI\vendors\tc-angular-chartjs-master\test\angular-1-5\karma.conf.js" />
     <Content Include="UI\vendors\tc-angular-chartjs-master\test\unit\tc-angular-chartjs.spec.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
