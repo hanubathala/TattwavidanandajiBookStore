@@ -19,7 +19,7 @@ var ctrl = app.controller('myCtrl', function ($scope, $http, $localStorage) {
     $scope.InitConfig = function () {
         var InitParams = parseLocation(window.location.search)['Id'];
         $http.get('/api/Books/GetBookListbyId?Id=' + InitParams).then(function (res, data) {
-            $scope.bookdetails = res.data;
+            $scope.bookdetails = res.data[0];
            
         });
     }
