@@ -5,8 +5,6 @@ var ctrl = app.controller('myCtrl', function ($scope, $http, $localStorage) {
             $scope.BookList = res.data;
         });
          }
-    
-  
     $scope.AddNewBook = function (Book, flag) {
         if (Book.BookTitle == null) {
             alert('Please Enter Details.');
@@ -57,8 +55,6 @@ var ctrl = app.controller('myCtrl', function ($scope, $http, $localStorage) {
             $scope.errmsg = ee;
         });
     }
-   
-   
     
    });
 

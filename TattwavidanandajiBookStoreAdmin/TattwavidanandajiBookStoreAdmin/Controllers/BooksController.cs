@@ -155,5 +155,39 @@ namespace TattwavidanandajiBookStoreAdmin.Controllers
             return dt;
         }
 
+        [HttpGet]
+        [Route("api/Books/GetBookListbyId")]
+        public DataTable GetBookListbyId(int Id)
+        {
+            DataTable dt = new DataTable();
+            SqlConnection con = new SqlConnection();
+            try
+            {
+                con.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings["VIHE_DB_Connection"].ToString();
+
+                SqlCommand cmd = new SqlCommand();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "GetBookListbyId";
+                cmd.Connection = con;
+
+                cmd.Parameters.Add(new SqlParameter("@Id", SqlDbType.Int)).SqlValue = Id;
+
+                SqlDataAdapter db = new SqlDataAdapter(cmd);
+                db.Fill(dt);
+                return dt;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (con != null && con.State == ConnectionState.Open)
+                {
+                    con.Close();
+                }
+
+            }
+        }
     }
 }
