@@ -1203,8 +1203,8 @@ h2.title {
     border: 1px solid #F7F7F0;
     overflow: hidden;
     padding-bottom: 60px;
-    padding-left: 60px;
-    padding-top: 60px;
+    padding-left: 10px;
+    padding-top: 10px;
     position: relative;
 }
 
@@ -2438,4 +2438,7 @@ textarea {
 
 .contact-info .social-networks ul li a:hover {
     color: #FE980F;
+}
+#mtop {
+margin-top:20px;
 }

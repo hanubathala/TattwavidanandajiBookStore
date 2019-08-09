@@ -157,7 +157,7 @@
                 <div class="col-sm-12 padding-right">
                    
                     <div class="product-details">
-                        <div class="col-sm-5">
+                        <div class="col-sm-3">
                             <div class="view-product">
                                 <img src="{{bookdetails.BookImage}}" alt="" />
                                 <h3>ZOOM</h3>
@@ -182,55 +182,99 @@
                                       <a href=""><img src="images/product-details/similar3.jpg" alt=""></a>
                                     </div>
 
-                                </div>-->
-                                <!-- Controls -->
+                                </div>
+                             
                                 <a class="left item-control" href="#similar-product" data-slide="prev">
                                     <i class="fa fa-angle-left"></i>
                                 </a>
                                 <a class="right item-control" href="#similar-product" data-slide="next">
                                     <i class="fa fa-angle-right"></i>
-                                </a>
+                                </a>-->
                             </div>
 
                         </div>
-                        <div class="col-sm-7">
+                        <div class="col-sm-9">
                             <div class="product-information">
                                 <!--/product-information-->
-                                <!--<img src="images/product-details/new.jpg" class="newarrival" alt="" />-->
+                                <!--<p> <img src="images/product-details/new.jpg" class="newarrival" alt="" /></p>-->
                                 <h1>{{bookdetails.BookTitle}}</h1>
                                 <p>ISBN: 1089772</p>
-                                <img src="images/product-details/rating.png" alt="" />
+                                <p><img src="images/product-details/rating.png" alt="" /></p>
                                 <span>
+
                                     <span>Rs.{{bookdetails.BookPrice}}</span>
                                     <label>Quantity:</label>
                                     <input type="text" value="3" />
                                     <button type="button" class="btn btn-fefault cart">
                                         <i class="fa fa-shopping-cart"></i>
-                                        Add to cart
+                                        <a href="cart.html" style="color:white;">Add to cart</a>
                                     </button>
                                 </span>
-                                <p><b>Availability:</b> In Stock</p>
-                                <p><b>Condition:</b> New</p>    
-                                <p><b>Type:</b> {{bookdetails.BookType}}</p>
-                                <p><b>Description:</b> {{bookdetails.BookDescription}}</p>
+                                <p id="mtop"><b>Availability:</b> In Stock</p>
+                                <p id="mtop"><b>Condition:</b> New</p>
+                                <p id="mtop"><b>Type:</b> {{bookdetails.BookType}}</p>
+                                <p id="mtop"><b>Categories:</b>Book,New Arrivals</p>
+                                <!--<p id="mtop"><b>Description:</b> {{bookdetails.BookDescription}}</p>-->
                                 <!--<a href=""><img src="images/product-details/share.png" class="share img-responsive" alt="" /></a>-->
                             </div>
-                                <!--/product-information-->
+                            <!--/product-information-->
                         </div>
                     </div>
-
+                    <div class="row">
+                        <div class="col-md-2">
+                            <h4>Description</h4>
+                        </div>
+                        <div class="col-md-8">
+                            
+                          <p>Swami  Nityasthananda, a senior monk of the Ramakrishna Order, who served as an Acharya at the Training Centre for Brahmacharins at Belur Math, has made a deep study of the subject based on the Shastras including Patanjali Yoga Sutras, Bhagavad Gita, Yoga Vasishtha, Vivekachudamani , Srimad Bhagavatam etc. and the works of Swami Yatishwarananda, Sri Aurobindo etc. as well as the Western Psychology.</p> 
+                            <br />  
+                            This was brought out serially in the Prabuddha Bharata and has been thoroughly revised by the Author for this publication.
+                        </div>
+                    </div>
+                    <div class="row">
+                        <hr />
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <h4>Additional Information</h4>
+                        </div>
+                        <div class="col-md-8">
+                            <table width="100%">
+                                <tbody>
+                                    <tr style="height: 40px; border-bottom: 1px solid #F7F7F0;">
+                                        <td width="20%">Weight</td>
+                                        <td width="80%">1025g</td>
+                                    </tr>
+                                    <tr style="height: 40px; border-bottom: 1px solid #F7F7F0; ">
+                                        <td width="20%">LANGUAGE</td>
+                                        <td width="80%">English</td>
+                                    </tr>
+                                    <tr style="height: 40px; border-bottom: 1px solid #F7F7F0; ">
+                                        <td width="20%">ISBN</td>
+                                        <td width="80%">102513556456</td>
+                                    </tr>
+                                    <tr style="height: 40px;">
+                                        <td width="20%">PUBLISHER</td>
+                                        <td width="80%">Janatha Printers</td>
+                                    </tr>
+                                    
+                                </tbody>
+                            </table> 
+                            
+                        </div>
+                    </div>
                     <div class="category-tab shop-details-tab">
                         <!--category-tab-->
                         <div class="col-sm-12">
-                            <ul class="nav nav-tabs">
-                                <li><a href="#details" data-toggle="tab">Details</a></li>
+                            <ul class="nav nav-tabs" style="background-color:lightgrey;border-bottom:none;">
+                                <!--<li><a href="#details" data-toggle="tab">Details</a></li>-->
                                 <!--<li><a href="#companyprofile" data-toggle="tab">Company Profile</a></li>-->
-                                <<!--li><a href="#tag" data-toggle="tab">Tag</a></li>-->
-                                <li class="active"><a href="#reviews" data-toggle="tab">Reviews (5)</a></li>
+                                <!--li><a href="#tag" data-toggle="tab">Tag</a></li>-->
+                                <li class="active"><a href="#reviews" data-toggle="tab">Reviews (5) for {{bookdetails.BookTitle}}</a></li>
                             </ul>
                         </div>
                         <div class="tab-content">
-                            <div class="tab-pane fade" id="details">
+                            <!--<div class="tab-pane fade" id="details">
                                 <div class="col-sm-3">
                                     <div class="product-image-wrapper">
                                         <div class="single-products">
@@ -279,7 +323,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div>-->
 
                             <!--<div class="tab-pane fade" id="companyprofile" >
                                 <div class="col-sm-3">
