@@ -1,5 +1,6 @@
 ﻿var app = angular.module('myApp', ['ngStorage']);
 var ctrl = app.controller('myCtrl', function ($scope, $http, $localStorage) {
+    $localStorage.addcart = new Array();
     $scope.InitConfig = function () {
         $http.get('/api/Books/GetBooksList').then(function (res, data) {
             $scope.BookList = res.data;
@@ -55,7 +56,9 @@ var ctrl = app.controller('myCtrl', function ($scope, $http, $localStorage) {
             $scope.errmsg = ee;
         });
     }
-    
+    $scope.addtocard = function (items) {
+        $localStorage.addcart
+    }
    });
 
 
