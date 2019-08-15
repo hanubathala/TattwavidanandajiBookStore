@@ -89,11 +89,11 @@
                     <div class="col-md-8 clearfix">
                         <div class="shop-menu clearfix pull-right">
                             <ul class="nav navbar-nav">
-
+                               
                                 <li><a href=""><i class="fa fa-user"></i> Account</a></li>
                                 <li><a href=""><i class="fa fa-star"></i> Wishlist</a></li>
                                 <li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Checkout</a></li>
-                                <li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Cart</a></li>
+                                <li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Cart &nbsp; &nbsp;<span><strong>{{addcartlength}}</strong></span></a></li>
                                 <li><a href="../Login.html"><i class="fa fa-lock"></i> Login</a></li>
 
                             </ul>
@@ -377,7 +377,7 @@
                                       <a href="product-details.html?Id={{d.Id}}"><img src="{{d.BookImage}}" alt="{{d.BookTitle}}" /></a>  
                                         <h2>${{d.BookPrice}}</h2>
                                         <p>{{d.BookTitle}}</p>
-                                        <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+                                        <a href="#" class="btn btn-default add-to-cart" ng-click="addtocard(d);"><i class="fa fa-shopping-cart"></i>Add to cart</a>
                                     </div>
                                     <!--<div class="product-overlay">
                                         <div class="overlay-content">

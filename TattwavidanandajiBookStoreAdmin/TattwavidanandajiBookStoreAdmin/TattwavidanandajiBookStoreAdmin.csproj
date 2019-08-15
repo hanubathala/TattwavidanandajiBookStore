@@ -189,6 +189,7 @@
     <Content Include="eshopper\js\main.js" />
     <Content Include="eshopper\js\price-range.js" />
     <Content Include="eshopper\js\ProductDetails.js" />
+    <Content Include="eshopper\js\Cart.js" />
     <Content Include="eshopper\js\Source.js" />
     <Content Include="eshopper\login.html" />
     <Content Include="eshopper\product-details.html" />
