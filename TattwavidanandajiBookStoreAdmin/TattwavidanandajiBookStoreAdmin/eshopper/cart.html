@@ -91,7 +91,7 @@
                                 <li><a href=""><i class="fa fa-user"></i> Account</a></li>
                                 <li><a href=""><i class="fa fa-star"></i> Wishlist</a></li>
                                 <li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Checkout</a></li>
-                                <li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Cart</a></li>
+                                <li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Cart&nbsp; &nbsp;<span><strong>{{addcartlength}}</strong></span></a></li>
                                 <li><a href="login.html"><i class="fa fa-lock"></i> Login</a></li>
                             </ul>
                         </div>
@@ -181,9 +181,9 @@
                             </td>
                             <td class="cart_quantity">
                                 <div class="cart_quantity_button">
-                                    <a class="cart_quantity_up" href="" ng-click="setquantity(cart)"> + </a>
+                                    <a class="cart_quantity_up" href="" ng-click="setquantity();"> + </a>
                                     <input class="cart_quantity_input" type="text" name="quantity" value="{{quantity}}" autocomplete="off" size="2">
-                                    <a class="cart_quantity_down" href="" ng-click="setquantity(0)"> - </a>
+                                    <a class="cart_quantity_down" href="" ng-click="setquantity();"> - </a>
                                 </div>
                             </td>
                             <td class="cart_total">
@@ -193,137 +193,99 @@
                                 <a class="cart_quantity_delete" href="" ng-click="deleteitem(cart)"><i class="fa fa-times"></i></a>
                             </td>
                         </tr>
-                        <tr>
-                            <td class="cart_product">
-                                <a href=""><img src="images/cart/two.png" alt=""></a>
-                            </td>
-                            <td class="cart_description">
-                                <h4><a href="">Colorblock Scuba</a></h4>
-                                <p>Web ID: 1089772</p>
-                            </td>
-                            <td class="cart_price">
-                                <p>$59</p>
-                            </td>
-                            <td class="cart_quantity">
-                                <div class="cart_quantity_button">
-                                    <a class="cart_quantity_up" href=""> + </a>
-                                    <input class="cart_quantity_input" type="text" name="quantity" value="1" autocomplete="off" size="2">
-                                    <a class="cart_quantity_down" href=""> - </a>
-                                </div>
-                            </td>
-                            <td class="cart_total">
-                                <p class="cart_total_price">$59</p>
-                            </td>
-                            <td class="cart_delete">
-                                <a class="cart_quantity_delete" href=""><i class="fa fa-times"></i></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="cart_product">
-                                <a href=""><img src="images/cart/three.png" alt=""></a>
-                            </td>
-                            <td class="cart_description">
-                                <h4><a href="">Colorblock Scuba</a></h4>
-                                <p>Web ID: 1089772</p>
-                            </td>
-                            <td class="cart_price">
-                                <p>$59</p>
-                            </td>
-                            <td class="cart_quantity">
-                                <div class="cart_quantity_button">
-                                    <a class="cart_quantity_up" href=""> + </a>
-                                    <input class="cart_quantity_input" type="text" name="quantity" value="1" autocomplete="off" size="2">
-                                    <a class="cart_quantity_down" href=""> - </a>
-                                </div>
-                            </td>
-                            <td class="cart_total">
-                                <p class="cart_total_price">$59</p>
-                            </td>
-                            <td class="cart_delete">
-                                <a class="cart_quantity_delete" href=""><i class="fa fa-times"></i></a>
-                            </td>
-                        </tr>
                     </tbody>
                 </table>
+                <div class="row">
+                    <hr />
+                    <label style="margin-left:20px;font-size:16px;  "> Customer Informartion: </label>
+                </div>
+                <div class="row bill-to" style="margin-bottom:5px;">
+                    <div class="col-md-8">
+                        <div class="col-md-6">
+                            <input type="text" placeholder="Email*" class="form-control" >
+                            <input type="text" placeholder="Surname Name *" class="form-control" style="margin-top:5px;">
+                            <input type="text" placeholder="Name *" class="form-control" style="margin-top:5px;">
+                            <input type="text" placeholder="Mobile Number *" class="form-control" style="margin-top:5px;">
+
+
+                        </div>
+                        <div class="col-md-6">
+                            <textarea rows="3" class="form-control" placeholder="Address 1 *"></textarea>
+                            <input type="text" class="form-control" placeholder="Land Mark" style="margin-top:5px;" />
+                            <input type="text" class="form-control" placeholder="Zip Code *" style="margin-top:5px;" />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+
+                        <div class="total_area">
+                            <ul>
+                                <li>Cart Sub Total <span>$59</span></li>
+                                <li>Eco Tax <span>$2</span></li>
+                                <li>Shipping Cost <span>Free</span></li>
+                                <li>Total <span>$61</span></li>
+                            </ul>
+                           
+                            
+
+                        </div>
+                        <button class="form-control pull-right" style="background-color:orange;color:white;width:150px;">Place Order</button>
+                    </div>
+                </div>
+                <!--<div class="col-sm-5 clearfix">
+            <div class="bill-to">
+                <p>Bill To</p>
+                <div class="form-one">
+                    <form>
+                        <input type="text" placeholder="Company Name">
+                        <input type="text" placeholder="Email*">
+                        <input type="text" placeholder="Title">
+                        <input type="text" placeholder="First Name *">
+                        <input type="text" placeholder="Middle Name">
+                        <input type="text" placeholder="Last Name *">
+                        <input type="text" placeholder="Address 1 *">
+                        <input type="text" placeholder="Address 2">
+                    </form>
+                </div>
+                <div class="form-two">
+                    <form>
+                        <input type="text" placeholder="Zip / Postal Code *">
+                        <select>
+                            <option>-- Country --</option>
+                            <option>United States</option>
+                            <option>Bangladesh</option>
+                            <option>UK</option>
+                            <option>India</option>
+                            <option>Pakistan</option>
+                            <option>Ucrane</option>
+                            <option>Canada</option>
+                            <option>Dubai</option>
+                        </select>
+                        <select>
+                            <option>-- State / Province / Region --</option>
+                            <option>United States</option>
+                            <option>Bangladesh</option>
+                            <option>UK</option>
+                            <option>India</option>
+                            <option>Pakistan</option>
+                            <option>Ucrane</option>
+                            <option>Canada</option>
+                            <option>Dubai</option>
+                        </select>
+                        <input type="password" placeholder="Confirm password">
+                        <input type="text" placeholder="Phone *">
+                        <input type="text" placeholder="Mobile Phone">
+                        <input type="text" placeholder="Fax">
+                    </form>
+                </div>
             </div>
-        </div>
+        </div>-->
+            </div>
+            
+
+                
+            </div>
     </section> <!--/#cart_items-->
-    <section id="do_action">
-        <div class="container">
-            <div class="heading">
-                <h3>What would you like to do next?</h3>
-                <p>Choose if you have a discount code or reward points you want to use or would like to estimate your delivery cost.</p>
-            </div>
-            <div class="row">
-                <div class="col-sm-6">
-                    <div class="chose_area">
-                        <ul class="user_option">
-                            <li>
-                                <input type="checkbox">
-                                <label>Use Coupon Code</label>
-                            </li>
-                            <li>
-                                <input type="checkbox">
-                                <label>Use Gift Voucher</label>
-                            </li>
-                            <li>
-                                <input type="checkbox">
-                                <label>Estimate Shipping & Taxes</label>
-                            </li>
-                        </ul>
-                        <ul class="user_info">
-                            <li class="single_field">
-                                <label>Country:</label>
-                                <select>
-                                    <option>United States</option>
-                                    <option>Bangladesh</option>
-                                    <option>UK</option>
-                                    <option>India</option>
-                                    <option>Pakistan</option>
-                                    <option>Ucrane</option>
-                                    <option>Canada</option>
-                                    <option>Dubai</option>
-                                </select>
-
-                            </li>
-                            <li class="single_field">
-                                <label>Region / State:</label>
-                                <select>
-                                    <option>Select</option>
-                                    <option>Dhaka</option>
-                                    <option>London</option>
-                                    <option>Dillih</option>
-                                    <option>Lahore</option>
-                                    <option>Alaska</option>
-                                    <option>Canada</option>
-                                    <option>Dubai</option>
-                                </select>
-
-                            </li>
-                            <li class="single_field zip-field">
-                                <label>Zip Code:</label>
-                                <input type="text">
-                            </li>
-                        </ul>
-                        <a class="btn btn-default update" href="">Get Quotes</a>
-                        <a class="btn btn-default check_out" href="">Continue</a>
-                    </div>
-                </div>
-                <div class="col-sm-6">
-                    <div class="total_area">
-                        <ul>
-                            <li>Cart Sub Total <span>$59</span></li>
-                            <li>Eco Tax <span>$2</span></li>
-                            <li>Shipping Cost <span>Free</span></li>
-                            <li>Total <span>$61</span></li>
-                        </ul>
-                        <a class="btn btn-default update" href="">Update</a>
-                        <a class="btn btn-default check_out" href="">Check Out</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section><!--/#do_action-->
+  
     <footer id="footer">
         <!--Footer-->
         <div class="footer-top">

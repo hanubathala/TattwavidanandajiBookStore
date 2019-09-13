@@ -4,7 +4,7 @@ var ctrl = app.controller('myCtrl', function ($scope, $http, $localStorage) {
     var r = $localStorage.addcart.length;
     $scope.addcartlength = r;
     $scope.cartlist = new Array();
-    $scope.cartlist=    $localStorage.addcart;
+    $scope.cartlist= $localStorage.addcart;
     $scope.quantity=1;
   
     $scope.setquantity = function (items) {

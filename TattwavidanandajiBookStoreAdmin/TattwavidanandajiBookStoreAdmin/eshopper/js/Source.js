@@ -1,11 +1,13 @@
 ﻿var app = angular.module('myApp', ['ngStorage']);
 var ctrl = app.controller('myCtrl', function ($scope, $http, $localStorage) {
-    
-
-    
-   
-    var r = $localStorage.addcart.length;
-    $scope.addcartlength = r;
+    //var r = ($localStorage.addcart == null) ? 0 : $localStorage.addcart.length;
+    //$scope.addcartlength = r;
+    if ($localStorage.addcart == null) {
+        $localStorage.addcart = [];
+    }
+    else {
+        $scope.addcartlength = $localStorage.addcart.length;
+    }
     $scope.InitConfig = function () {
         $http.get('/api/Books/GetBooksList').then(function (res, data) {
             $scope.BookList = res.data;
@@ -62,14 +64,21 @@ var ctrl = app.controller('myCtrl', function ($scope, $http, $localStorage) {
         });
     }
     $scope.addtocard = function (items) {
-       
-
-        $localStorage.addcart.push(items);
-        var r = $localStorage.addcart.length;
-        $scope.addcartlength = r;
-       
+        //$scope.addcartlist = [];
+       $localStorage.addcart.push(items);
+        //var r = $localStorage.addcart.length;
+        //$scope.addcartlist.push(items);
+       $scope.addcartlength = $localStorage.addcart.length;
+        //$localStorage.addcart.push(items)
     }
-
+    $scope.buynow = function (items) {
+        //$scope.addcartlist = [];
+        $localStorage.addcart.push(items);
+        //var r = $localStorage.addcart.length;
+        //$scope.addcartlist.push(items);
+        $scope.addcartlength = $localStorage.addcart.length;
+        //$localStorage.addcart.push(items)
+    }
    });
 
 

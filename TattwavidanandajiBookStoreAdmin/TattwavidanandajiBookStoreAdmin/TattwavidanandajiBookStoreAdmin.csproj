@@ -117,6 +117,7 @@
     <Content Include="eshopper\css\responsive.css" />
     <Content Include="eshopper\fonts\fontawesome-webfont.svg" />
     <Content Include="eshopper\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="eshopper\images\256692.svg" />
     <Content Include="eshopper\images\404\404.png" />
     <Content Include="eshopper\images\blog\blog-one.jpg" />
     <Content Include="eshopper\images\blog\blog-three.jpg" />
@@ -129,6 +130,7 @@
     <Content Include="eshopper\images\cart\one.png" />
     <Content Include="eshopper\images\cart\three.png" />
     <Content Include="eshopper\images\cart\two.png" />
+    <Content Include="eshopper\images\Holy.png" />
     <Content Include="eshopper\images\home\bg_border.png" />
     <Content Include="eshopper\images\home\book2.jpg" />
     <Content Include="eshopper\images\home\book3.jpg" />
@@ -139,6 +141,7 @@
     <Content Include="eshopper\images\home\girl1.jpg" />
     <Content Include="eshopper\images\home\girl2.jpg" />
     <Content Include="eshopper\images\home\girl3.jpg" />
+    <Content Include="eshopper\images\home\Holy.jpg" />
     <Content Include="eshopper\images\home\iframe1.png" />
     <Content Include="eshopper\images\home\iframe2.png" />
     <Content Include="eshopper\images\home\iframe3.png" />
@@ -164,6 +167,8 @@
     <Content Include="eshopper\images\home\sale.png" />
     <Content Include="eshopper\images\home\searchicon.png" />
     <Content Include="eshopper\images\home\shipping.jpg" />
+    <Content Include="eshopper\images\loginimage.jpg" />
+    <Content Include="eshopper\images\loginimage1.jpg" />
     <Content Include="eshopper\images\product-details\1.jpg" />
     <Content Include="eshopper\images\product-details\new.jpg" />
     <Content Include="eshopper\images\product-details\rating.png" />
