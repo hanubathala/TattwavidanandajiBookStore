@@ -7,13 +7,23 @@ var ctrl = app.controller('myCtrl', function ($scope, $http, $localStorage) {
     $scope.cartlist= $localStorage.addcart;
     $scope.quantity=1;
   
-    $scope.setquantity = function (items) {
+    $scope.setquantity = function (cartitems,status) {
         
-        if(items==1){
+        //alert(cartitems);
+        if (status == 'plus') {
             $scope.quantity=$scope.quantity+1
         }
-        if(items==0){
-            $scope.quantity=$scope.quantity-1
+        if (status == 'minus') {
+            $scope.quantity = $scope.quantity - 1
+            if($scope.quantity==0)
+                for (var i = 0; i < $scope.cartlist.length; i++) {
+                    if ($scope.cartlist[i].Id==cartitems.Id) {
+                        $scope.cartlist.splice(i, 1);
+                        $scope.addcartlength = $scope.cartlist.length;
+                    i--;
+                }
+            }
+
         }
        
     }

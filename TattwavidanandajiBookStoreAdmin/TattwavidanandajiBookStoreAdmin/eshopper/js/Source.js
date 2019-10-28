@@ -64,7 +64,10 @@ var ctrl = app.controller('myCtrl', function ($scope, $http, $localStorage) {
         });
     }
     $scope.addtocard = function (items) {
-        //$scope.addcartlist = [];
+        
+
+        items.quantity =1;
+       
        $localStorage.addcart.push(items);
         //var r = $localStorage.addcart.length;
         //$scope.addcartlist.push(items);

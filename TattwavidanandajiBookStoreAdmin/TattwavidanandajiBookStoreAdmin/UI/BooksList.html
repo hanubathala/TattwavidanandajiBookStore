@@ -299,7 +299,7 @@
                             <div class="col-md-6">
                                 <label for="selection of course" class="col-md-5 control-label" style="color:red;">Book Type:<span class='require'>*</span></label>
                                 <div class="col-md-6">
-                                    <select ng-options="b.Name for b in bok track by b.Id" ng-model="bookedit.BookType" class="form-control">
+                                    <select ng-options="b.Name for b in bok track by b.Id" ng-model="bookedit.BookType1" class="form-control">
                                         <option value="">Select</option>
                                     </select>
                                     <span class="help-block">(Ex:Hardbond)</span>
@@ -310,29 +310,32 @@
                         </div>
                     </div>
                     <div class="row mbm">
-                        <div style="margin-left:30px;">
-                            <label for="Description" class="col-md-5 control-label" style="color:red;">Select files:<span class='require'></span></label>
-                        </div>
-                        <div class="col-md-6">
-                            <input type="file" name="fileInput" id="fileInput" ng-file-select="onFileSelect1($files)" class="btn btn-green" accept=".jpg,.png,.gif,.jpeg"  ng-model="BookImage" />
-                        </div>
-                    </div>
-                    <div class="row mbm">
                         <div class="col-md-12">
+                            <div class="col-md-6">
+                                <!--<label for="Description" class="col-md-5 control-label" style="color:red;">Select files:<span class='require'></span></label>-->
+                                <img ng-src="{{BookImage2}}" style="height:200px;width:150px;margin-bottom:10px;" />
+                                <input type="file" name="fileInput" id="fileInput" ng-file-select="onFileSelect2($files)" class="btn btn-green" accept=".jpg,.png,.gif,.jpeg" ng-model="BookImage2" />
+                            </div>
+                        
+                        <div class="col-md-6">
+                            <label for="selection of course" class="col-md-5 control-label" style="color:red;">Description:<span class='require'>*</span></label>
                             <div class="col-md-12">
-                                <label for="selection of course" class="col-md-5 control-label" style="color:red;">Description:<span class='require'>*</span></label>
-                                <div class="col-md-12">
-                                    <textarea class="form-control" rows="3" ng-model="bookedit.BookDescription"></textarea>
-                                </div>
+                                <textarea class="form-control" rows="3" ng-model="bookedit.BookDescription"></textarea>
+                            </div>
+                            <div class="col-md-12" style="text-align:center;margin-top:20px;">
+                                <button class="btn btn-orange" ng-disabled="isSuperUser == 0 && CanCreate == 0" ng-click="updatebookdetails(bookedit,'U');">Save</button>
+                                <button type="button" data-dismiss="modal" class="btn btn-default" ng-click="clearGroup()">Cancel</button>
                             </div>
                         </div>
                     </div>
-                    <div class="form-actions mbm">
+                    </div>
+                    
+                    <!--<div class="form-actions mbm">
                         <div style="text-align:center;">
                             <button class="btn btn-orange" ng-disabled="isSuperUser == 0 && CanCreate == 0" ng-click="AddNewBook(bookedit,'U');">Save</button>
                             <button type="button" data-dismiss="modal" class="btn btn-default" ng-click="clearGroup()">Cancel</button>
                         </div>
-                    </div>
+                    </div>-->
                 </div>
             </div>
         </div>

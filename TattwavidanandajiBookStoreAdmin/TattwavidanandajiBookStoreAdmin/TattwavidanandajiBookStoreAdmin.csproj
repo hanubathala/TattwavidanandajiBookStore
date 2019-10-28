@@ -183,6 +183,7 @@
     <Content Include="eshopper\images\shop\product7.jpg" />
     <Content Include="eshopper\images\shop\product8.jpg" />
     <Content Include="eshopper\images\shop\product9.jpg" />
+    <Content Include="eshopper\images\swtattwavidananda.JPG" />
     <Content Include="eshopper\index.html" />
     <Content Include="eshopper\js\bootstrap.min.js" />
     <Content Include="eshopper\js\contact.js" />
@@ -197,6 +198,7 @@
     <Content Include="eshopper\js\Cart.js" />
     <Content Include="eshopper\js\Source.js" />
     <Content Include="eshopper\login.html" />
+    <Content Include="eshopper\AboutUs.html" />
     <Content Include="eshopper\product-details.html" />
     <Content Include="eshopper\shop.html" />
     <Content Include="Global.asax" />

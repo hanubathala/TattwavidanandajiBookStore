@@ -50,7 +50,7 @@ namespace TattwavidanandajiBookStoreAdmin.Controllers
         public DataTable SaveBooksList(Books bk)
         {
             DataTable dt = new DataTable();
-            SqlConnection con = new SqlConnection();
+            SqlConnection con = new SqlConnection();    
             try
             {
                 con.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings["VIHE_DB_Connection"].ToString();
@@ -58,6 +58,7 @@ namespace TattwavidanandajiBookStoreAdmin.Controllers
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "InsUpdDelBook";
                 cmd.Connection = con;
+                cmd.Connection.Open();
                 cmd.Parameters.Add(new SqlParameter("@BookTitle", SqlDbType.VarChar, 250)).SqlValue = bk.BookTitle;
                 cmd.Parameters.Add(new SqlParameter("@BookImage", SqlDbType.VarChar, -1)).SqlValue = bk.BookImage;
                 cmd.Parameters.Add(new SqlParameter("@BookStock", SqlDbType.Int)).SqlValue = bk.BookStock;

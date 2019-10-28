@@ -207,12 +207,60 @@ var ctrl = app.controller('myCtrl', function ($scope, $http, $localStorage, $int
         });
     }
    
-    $scope.setCourse = function (grp) {
-        $scope.bookedit = grp;
+    $scope.updatebookdetails = function (Book, flag) {
+        if (Book.BookTitle == null) {
+            alert('Please Enter Details.');
+            return
+        }
+        if (Book.BookTitle == null) {
+            alert('Please Enter Book Title.');
+            return
+        }
+        if (Book.BookPrice == null) {
+            alert('Please Enter Price.');
+            return
+        }
+        if (Book.BookStock == null) {
+            alert('Please Enter Book Stock.');
+            return
+        }
+        if (Book.BookType1.Id == null | Book.BookType1.Id == "") {
+            alert('Please Enter Book Type.');
+            return
+        }
+        var booklist = {
+            Id: (Book.Id != null || Book.Id != '') ? Book.Id : '',
+            BookTitle: Book.BookTitle,
+            BookPrice: Book.BookPrice,
+            BookStock: Book.BookStock,
+            BookType: Book.BookType1.Id,
+            BookDescription: Book.BookDescription,
+            BookImage: ($scope.BookImage2 == null) ? null : $scope.BookImage2,
+            flag: flag
+        };
+        var req = {
+            method: 'POST',
+            url: '/api/Books/SaveBooks',
+            data: booklist
+        }
+        $http(req).then(function (res) {
+            Book = ''
+            $scope.bookedit = '';
+            alert('Updated Book Details Successfully');
+            $scope.InitConfig();
+            $('#Modal-header-new-Edit').modal('hide');
 
+        }, function (ee) {
+            alert(ee.data.ExceptionMessage);
+            $scope.errmsg = ee;
+        });
+    }
+    $scope.setCourse = function (grp) {
+        $scope.bookedit = grp
+        $scope.BookImage2 = grp.BookImage;
         for (i = 0; i < $scope.bok.length; i++) {
             if ($scope.bok[i].Name == grp.BookType) {
-                $scope.bookedit.BookType = $scope.bok[i];
+                $scope.bookedit.BookType1 = $scope.bok[i];
                 break;
             }
         }
@@ -338,6 +386,24 @@ var ctrl = app.controller('myCtrl', function ($scope, $http, $localStorage, $int
         var blob = new Blob(byteArrays, { type: contentType });
         return blob;
     }
+
+    $scope.onFileSelect2 = function () {
+
+        fileReader.readAsDataUrl($scope.file, $scope).then(function (result) {
+
+            $scope.BookImage2 = result;
+        });
+    }
+    $scope.UploadImg = function () {
+        var fileinput = document.getElementById('fileInput');
+        fileinput.click();
+
+        //  
+        //if ($scope.file == null)
+        //{ $scope.file = fileinput.files[0]; }
+        //fileReader.readAsDataUrl($scope.file, $scope).then(function (result) { $scope.imageSrc = result; });
+        //fileReader.onLoad($scope.file, $scope).then(function (result) { $scope.imageSrc = result; });
+    };
    });
 
 
