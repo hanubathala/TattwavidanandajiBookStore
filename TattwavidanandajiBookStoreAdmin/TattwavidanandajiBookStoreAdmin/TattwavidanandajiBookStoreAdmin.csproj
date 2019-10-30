@@ -102,6 +102,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="DBScripts\LatestDataBase.sql" />
+    <Content Include="DBScripts\MasterData.sql" />
     <Content Include="eshopper\404.html" />
     <Content Include="eshopper\blog-single.html" />
     <Content Include="eshopper\blog.html" />

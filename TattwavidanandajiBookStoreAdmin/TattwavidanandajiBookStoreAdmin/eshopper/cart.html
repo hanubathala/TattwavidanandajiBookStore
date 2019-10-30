@@ -159,8 +159,8 @@
                 <table class="table table-condensed">
                     <thead>
                         <tr class="cart_menu">
-                            <td class="image">Item</td>
-                            <td class="description"></td>
+                            <td class="image">Cover Page</td>
+                            <td class="description">Title</td>
                             <td class="price">Price</td>
                             <td class="quantity">Quantity</td>
                             <td class="total">Total</td>
@@ -181,9 +181,9 @@
                             </td>
                             <td class="cart_quantity">
                                 <div class="cart_quantity_button">
-                                    <a class="cart_quantity_up" href="" ng-click="setquantity(cart,'plus');"> + </a>
-                                    <input class="cart_quantity_input" type="text" name="quantity" value="{{quantity}}" autocomplete="off" size="2" >
-                                    <a class="cart_quantity_down" href="" ng-click="setquantity(cart,'minus');"> - </a>
+                                    <a class="cart_quantity_up" href="" ng-click="setquantity(cart,'plus');" style="height:40px;width:40px; padding:5px;"> + </a>
+                                    <input class="cart_quantity_input" type="text" name="quantity" value="" autocomplete="off" ng-model="cart.quantity" style="height:40px;width:40px;">
+                                    <a class="cart_quantity_down" href="" ng-click="setquantity(cart,'minus');" style="height: 40px; width: 40px; padding: 5px;"> - </a>
                                 </div>
                             </td>
                             <td class="cart_total">
@@ -199,20 +199,20 @@
                     <hr />
                     <label style="margin-left:20px;font-size:16px;  "> Customer Informartion: </label>
                 </div>
-                <div class="row bill-to" style="margin-bottom:5px;">
+                <div class="row bill-to" style="margin-bottom:5px;" ng-model="c">
                     <div class="col-md-8">
                         <div class="col-md-6">
-                            <input type="text" placeholder="Email*" class="form-control" >
-                            <input type="text" placeholder="Surname Name *" class="form-control" style="margin-top:5px;">
-                            <input type="text" placeholder="Name *" class="form-control" style="margin-top:5px;">
-                            <input type="text" placeholder="Mobile Number *" class="form-control" style="margin-top:5px;">
+                            <input type="text" placeholder="Email*" class="form-control" ng-model="c.email" />
+                            <input type="text" placeholder="Surname Name *" class="form-control" style="margin-top:5px;" ng-model="c.sname"/>
+                            <input type="text" placeholder="Name *" class="form-control" style="margin-top:5px;" ng-model="c.name" />
+                            <input type="text" placeholder="Mobile Number *" class="form-control" style="margin-top:5px;" ng-model="c.mobileno" />
 
 
                         </div>
                         <div class="col-md-6">
-                            <textarea rows="3" class="form-control" placeholder="Address 1 *"></textarea>
-                            <input type="text" class="form-control" placeholder="Land Mark" style="margin-top:5px;" />
-                            <input type="text" class="form-control" placeholder="Zip Code *" style="margin-top:5px;" />
+                            <textarea rows="3" class="form-control" placeholder="Address 1 *" ng-model="c.address1"></textarea>
+                            <input type="text" class="form-control" placeholder="Land Mark" style="margin-top:5px;" ng-model="c.landmark" />
+                            <input type="text" class="form-control" placeholder="Zip Code *" style="margin-top:5px;" ng-model="c.zipcode" />
                         </div>
                     </div>
                     <div class="col-md-4">

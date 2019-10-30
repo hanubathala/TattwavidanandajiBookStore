@@ -380,7 +380,8 @@
                                       <a href="product-details.html?Id={{d.Id}}"><img src="{{d.BookImage}}" alt="{{d.BookTitle}}" /></a>  
                                         <h2>${{d.BookPrice}}</h2>
                                         <p>{{d.BookTitle}}</p>
-                                        <a href="#" class="btn btn-default add-to-cart" ng-click="addtocard(d);"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+                                        <a href="cart.html" class="btn btn-default add-to-cart"  ng-show="d.flag!=0"><i class="fa fa-shopping-cart"></i>View Cart</a>
+                                        <a href="#" class="btn btn-default add-to-cart" ng-click="addtocard(d);" ng-show="d.flag==0"><i class="fa fa-shopping-cart"></i>Add to cart</a>
                                     </div>
                                     <!--<div class="product-overlay">
                                         <div class="overlay-content">

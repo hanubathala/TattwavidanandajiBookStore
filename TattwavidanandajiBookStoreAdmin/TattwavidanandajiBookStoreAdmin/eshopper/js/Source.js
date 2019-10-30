@@ -11,6 +11,23 @@ var ctrl = app.controller('myCtrl', function ($scope, $http, $localStorage) {
     $scope.InitConfig = function () {
         $http.get('/api/Books/GetBooksList').then(function (res, data) {
             $scope.BookList = res.data;
+            if ($localStorage.addcart != null || $localStorage.addcart.length != 0) {
+
+                for (var i = 0; i < $scope.BookList.length; i++) {
+                    
+                    for (var j = 0; j < $localStorage.addcart.length; j++) {
+
+                        if ($scope.BookList[i].Id == $localStorage.addcart[j].Id) {
+
+                            $scope.BookList[i].flag = $localStorage.addcart[j].flag;
+                        }
+
+                    }
+
+
+                }
+
+            }
         });
          }
     $scope.AddNewBook = function (Book, flag) {
@@ -64,11 +81,16 @@ var ctrl = app.controller('myCtrl', function ($scope, $http, $localStorage) {
         });
     }
     $scope.addtocard = function (items) {
-        
+        items.flag = 1;
+        items.quantity = 1;
+        $localStorage.addcart.push(items);
+        for (var i = 0; i < $scope.BookList.length; i++) {
+            if ($scope.BookList[i].Id == items.Id) {
+                $scope.BookList[i].flag = 1;
+            }
+        }
 
-        items.quantity =1;
-       
-       $localStorage.addcart.push(items);
+
         //var r = $localStorage.addcart.length;
         //$scope.addcartlist.push(items);
        $scope.addcartlength = $localStorage.addcart.length;

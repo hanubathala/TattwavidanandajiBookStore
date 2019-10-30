@@ -204,10 +204,10 @@
 
                                     <span>Rs.{{bookdetails.BookPrice}}</span>
                                     <label>Quantity:</label>
-                                    <input type="text" value="3" />
+                                    <input type="text" value="" ng-model="quantity" />
                                     <button type="button" class="btn btn-fefault cart">
                                         <i class="fa fa-shopping-cart"></i>
-                                        <a href="cart.html" style="color:white;">Add to cart</a>
+                                        <a href="#" style="color:white;" ng-click="addtocard(bookdetails);">Add to cart</a>
                                     </button>
                                 </span>
                                 <p id="mtop"><b>Availability:</b> <span style="color:green;">In Stock</span> <span><strong style="border-radius:50%;background-color:green;padding:5px;color:white;">{{bookdetails.BookStock}}</strong></span></p>
