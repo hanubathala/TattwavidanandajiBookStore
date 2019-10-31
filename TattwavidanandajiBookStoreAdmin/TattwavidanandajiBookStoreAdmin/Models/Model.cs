@@ -5,6 +5,26 @@ using System.Web;
 
 namespace TattwavidanandajiBookStoreAdmin.Models
 {
+   
+    public class Orderlist
+    {
+        public string BookDescription { get; set; }
+        public string BookImage { get; set; }
+        public int BookPrice { get; set; }
+        public string BookTitle { get; set; }
+        public string BookType { get; set; }
+        public int quantity { get; set; }
+        public int Id { get; set; }
+        public string address { get; set; }
+        public string email { get; set; }
+        public string landmark { get; set; }
+        public string mobileno { get; set; }
+        public string name { get; set; }
+        public string sname { get; set; }
+        public string zipcode { get; set; }
+        public int BookStock { get; set; }
+        }
+
 
     public class GetTypeData
     {

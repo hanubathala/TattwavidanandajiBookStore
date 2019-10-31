@@ -57,23 +57,35 @@ var ctrl = app.controller('myCtrl', function ($scope, $http, $localStorage) {
     $scope.saveorder = function (custinfo) {
         var item;
         $scope.orderlist = [];
-        for (var i = 0; i < $localStorage.addcart.length; i++) {
-            custinfo.BookDescription = $localStorage.addcart[i].BookDescription;
-            custinfo.BookImage = $localStorage.addcart[i].BookImage;
-            custinfo.BookPrice = $localStorage.addcart[i].BookPrice;
-            custinfo.BookTitle = $localStorage.addcart[i].BookTitle;
-            custinfo.BookType = $localStorage.addcart[i].BookType;
-            custinfo.quantity = $localStorage.addcart[i].quantity;
-            custinfo.Id = $localStorage.addcart[i].Id;
-            $scope.orderlist.push(custinfo);
-            item = custinfo;
-            custinfo = null;
-            custinfo = item;
-            item = null;
-        }
+        $scope.rlist = [];
+        for(var i=0;i<$localStorage.addcart.length;i++){
+
+            $scope.rlist[i] = {
+                BookDescription :$localStorage.addcart[i].BookDescription,
+                BookImage : $localStorage.addcart[i].BookImage,
+                BookPrice : $localStorage.addcart[i].BookPrice,
+                BookTitle : $localStorage.addcart[i].BookTitle,
+                BookType : $localStorage.addcart[i].BookType,
+                quantity : $localStorage.addcart[i].quantity,
+                Id: $localStorage.addcart[i].Id,
+                address: custinfo.address1,
+                email: custinfo.email,
+                landmark: custinfo.landmark,
+                mobileno: custinfo.mobileno,
+                name: custinfo.name,
+                sname: custinfo.sname,
+                zipcode: custinfo.zipcode
+
+        };
+
+        $scope.orderlist.push($scope.rlist[i]);
+    }
+
+
+       
         var req = {
             method: 'POST',
-            //url: '/api/Books/SaveBooks',
+            url: '/api/Order/SaveOrder',
             data: $scope.orderlist
         }
         $http(req).then(function (res) {
