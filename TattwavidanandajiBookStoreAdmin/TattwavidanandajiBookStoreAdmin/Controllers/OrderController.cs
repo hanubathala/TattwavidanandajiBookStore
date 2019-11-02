@@ -48,7 +48,7 @@ namespace TattwavidanandajiBookStoreAdmin.Controllers
 
                     mail.From = new MailAddress(fromaddress);
                     mail.To.Add(fromaddress);
-                    mail.Subject = "User registration - Email OTP";
+                    mail.Subject = "Your Books Order";
                     mail.IsBodyHtml = true;
 
                     StringBuilder itemsList = new StringBuilder();
@@ -56,11 +56,12 @@ namespace TattwavidanandajiBookStoreAdmin.Controllers
                     dtime.AddDays(5);
 
                     int cnt = 1;
+                    
                     foreach (Orderlist m in list)
                     {
                         itemsList.Append("<tr>");
 
-                        itemsList.Append("<td>");
+                        itemsList.Append("<td align='center'>");
                         itemsList.Append(cnt++);
                         itemsList.Append("</td>");
 
@@ -69,71 +70,48 @@ namespace TattwavidanandajiBookStoreAdmin.Controllers
                         itemsList.Append("</td>");
 
                         itemsList.Append("<td>");
-                        itemsList.Append(m.BookType);
+                        itemsList.Append(m.BookDescription);
                         itemsList.Append("</td>");
 
-                        itemsList.Append("<td>");
+                        itemsList.Append("<td align='center'>");
                         itemsList.Append(m.quantity);
                         itemsList.Append("</td>");
 
                         //int subtotal = m.qty * m.perunit;
 
-                        itemsList.Append("<td>");
-                        itemsList.Append(m.BookStock);
+                        itemsList.Append("<td align='center'>");
+                        itemsList.Append(m.BookPrice);
                         itemsList.Append("</td>");
 
-                        itemsList.Append("<td>");
-                        itemsList.Append(m.BookDescription);
+                        itemsList.Append("<td align='center'>");
+                        itemsList.Append((m.BookPrice * m.quantity).ToString());
                         itemsList.Append("</td>");
 
-                        itemsList.Append("<td>");
-                        itemsList.Append(m.address);
-                        itemsList.Append("</td>");
-
-                        itemsList.Append("<td>");
-                        itemsList.Append(m.name);
-                        itemsList.Append("</td>");
-
-                        itemsList.Append("<td>");
-                        itemsList.Append(m.landmark);
-                        itemsList.Append("</td>");
-
-                        //int total = subtotal + m.tax + m.dis;
-
-                        itemsList.Append("<td>");
-                        itemsList.Append(m.mobileno);
-                        itemsList.Append("</td>");
-
+                       
                         itemsList.Append("</tr>");
                     }
+                    
                     string verifcodeMail = @"<table>
                                         <tr>
                                             <td>
-                                                <h3>Tender & sales order management demo</h3>
-                                                <h4>Supplier Pricing quote</h4>
-                                                <span>Please check the pricing quotes for below items</span>
+                                                <h3>Holy Store Book Store</h3>
+                                                <h4>Thanking you for ordering books online</h4>
+                                             
                                                 <table border=" + 1 + @">
                                                     <tr>
                                                         <td>
                                                             S.No
                                                         </td>
-                                                        <td>Item name</td>
-                                                        <td>Item description</td>
-                                                        <td>No.Of Units</td>
-                                                        <td>Perunit price</td>
+                                                        <td>Book Title</td>
+                                                        <td>Book Description</td>
+                                                        <td>Quantity</td>
+                                                        <td>Price</td>
                                                         <td>Sub Total</td>
-                                                        <td>Tax</td>
-                                                        <td>Discount</td>
-                                                        <td>Total</td>                                                        
                                                     </tr>" + itemsList.ToString() + @"</table>
                                                 </td>
                                             </tr>
                                         </table>";
 
-
-                   
-
-                  
 
                     mail.Body = verifcodeMail;
                     //SmtpServer.Port = 465;

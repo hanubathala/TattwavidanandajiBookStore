@@ -2225,6 +2225,7 @@
     <Content Include="eshopper\fonts\FontAwesome.otf" />
     <Content Include="eshopper\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="eshopper\sendemail.php" />
+    <None Include="Properties\PublishProfiles\Holybookstore.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -2234,7 +2235,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Properties\" />
     <Folder Include="UI\vendors\bootstrap-datetimepicker\bootstrap\" />
     <Folder Include="UI\vendors\css3-treeview\" />
     <Folder Include="UI\vendors\jquery-ui-1.10.4.custom\jquery-ui-1.10.4.custom\" />

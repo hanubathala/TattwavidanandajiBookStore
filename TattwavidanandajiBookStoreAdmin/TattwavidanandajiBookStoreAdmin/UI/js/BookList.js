@@ -235,6 +235,7 @@ var ctrl = app.controller('myCtrl', function ($scope, $http, $localStorage, $int
             BookStock: Book.BookStock,
             BookType: Book.BookType1.Id,
             BookDescription: Book.BookDescription,
+            Active:Book.Active,
             BookImage: ($scope.BookImage2 == null) ? null : $scope.BookImage2,
             flag: flag
         };
@@ -245,7 +246,7 @@ var ctrl = app.controller('myCtrl', function ($scope, $http, $localStorage, $int
         }
         $http(req).then(function (res) {
             Book = ''
-            $scope.bookedit = '';
+            $scope.bookedit = '';   
             alert('Updated Book Details Successfully');
             $scope.InitConfig();
             $('#Modal-header-new-Edit').modal('hide');

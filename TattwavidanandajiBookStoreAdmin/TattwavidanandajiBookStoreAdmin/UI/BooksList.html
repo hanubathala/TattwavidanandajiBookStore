@@ -144,8 +144,7 @@
                                         <td>{{c.BookType}}</td>
                                         <td>{{c.BookStock}}</td>
                                         <td>{{c.BookPrice}}</td>
-                                      
-                                        <td><input type="checkbox" class="icheckbox_minimal-grey activeCheckbox"  ng-model="c.Active" ng-true-value="1" ng-false-value="0" /></td>
+                                        <td><input type="checkbox" class="icheckbox_minimal-grey activeCheckbox" disabled ng-model="c.Active" ng-true-value="1" ng-false-value="0" /></td>
                                         <td>
                                             <button type="button" data-target="#Modal-header-new-Edit" data-toggle="modal" class="btn btn-default btn-xs" ng-click="setCourse(c)">
                                                 <i class="fa fa-edit"></i>&nbsp;
@@ -154,6 +153,7 @@
                                         </td>
                                     </tr>
                                 </tbody>
+                               
                             </table>
                             <!--END CONTENT-->
                         </div>
@@ -317,16 +317,29 @@
                                 <input type="file" name="fileInput" id="fileInput" ng-file-select="onFileSelect2($files)" class="btn btn-green" accept=".jpg,.png,.gif,.jpeg" ng-model="BookImage2" />
                             </div>
                         
-                        <div class="col-md-6">
-                            <label for="selection of course" class="col-md-5 control-label" style="color:red;">Description:<span class='require'>*</span></label>
-                            <div class="col-md-12">
-                                <textarea class="form-control" rows="3" ng-model="bookedit.BookDescription"></textarea>
-                            </div>
-                            <div class="col-md-12" style="text-align:center;margin-top:20px;">
-                                <button class="btn btn-orange" ng-disabled="isSuperUser == 0 && CanCreate == 0" ng-click="updatebookdetails(bookedit,'U');">Save</button>
-                                <button type="button" data-dismiss="modal" class="btn btn-default" ng-click="clearGroup()">Cancel</button>
-                            </div>
-                        </div>
+                            <div class="col-md-6">
+                                <label for="selection of course" class="col-md-5 control-label" style="color:red;">Description:<span class='require'>*</span></label>
+                                <div class="col-md-12">
+                                    <textarea class="form-control" rows="3" ng-model="bookedit.BookDescription"></textarea>
+                                </div>
+                                <div class="col-md-12" style="text-align:center;margin-top:20px;">
+                                   
+                                   
+
+                                </div>
+                                <div class="col-md-12" style="margin-top:20px;">
+                                    <div class="col-md-6">
+                                        <label for="selection of course" class="col-md-5 control-label" style="color:red;">Active:<span class='require'>*</span></label>
+
+                                        <input type="checkbox" class="icheckbox_minimal-grey activeCheckbox" ng-model="bookedit.Active" ng-true-value="1" ng-false-value="0" />
+                                    </div>
+                                    <div class="col-md-6">
+                                        <button class="btn btn-orange" ng-disabled="isSuperUser == 0 && CanCreate == 0" ng-click="updatebookdetails(bookedit,'U');">Save</button>
+                                        <button type="button" data-dismiss="modal" class="btn btn-default" ng-click="clearGroup()">Cancel</button>
+                                    </div>
+                                </div>
+                                </div>
+                            
                     </div>
                     </div>
                     
