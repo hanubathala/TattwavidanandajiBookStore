@@ -47,7 +47,8 @@ namespace TattwavidanandajiBookStoreAdmin.Controllers
                     SmtpClient SmtpServer = new SmtpClient(emailserver);
 
                     mail.From = new MailAddress(fromaddress);
-                    mail.To.Add(fromaddress);
+                    mail.To.Add(list[0].email);
+
                     mail.Subject = "Your Books Order";
                     mail.IsBodyHtml = true;
 
@@ -136,8 +137,131 @@ namespace TattwavidanandajiBookStoreAdmin.Controllers
                 #endregion send email with details
 
 
+                // sending the email for admin --- start
+                #region send email with details
+
+                try
+                {
+                    string emailaddress = "hnmisv";
+                    string customer = "1";
+
+                    MailMessage mail = new MailMessage();
+                    string emailserver = System.Configuration.ConfigurationManager.AppSettings["emailserver"].ToString();
+
+                    string username = System.Configuration.ConfigurationManager.AppSettings["username"].ToString();
+                    string pwd = System.Configuration.ConfigurationManager.AppSettings["password"].ToString();
+                    string fromaddress = System.Configuration.ConfigurationManager.AppSettings["fromaddress"].ToString();
+                    string port = System.Configuration.ConfigurationManager.AppSettings["port"].ToString();
+
+                    SmtpClient SmtpServer = new SmtpClient(emailserver);
+
+                    mail.From = new MailAddress(fromaddress);
+                    mail.To.Add(fromaddress);
+                    mail.Subject =list[0].name+" "+list[0].sname+" has placed the Order.";
+                    mail.IsBodyHtml = true;
+
+                    StringBuilder itemsList = new StringBuilder();
+                    DateTime dtime = DateTime.Now;
+                    dtime.AddDays(5);
+
+                    int cnt = 1;
+
+                    foreach (Orderlist m in list)
+                    {
+                        itemsList.Append("<tr>");
+
+                        itemsList.Append("<td align='center'>");
+                        itemsList.Append(cnt++);
+                        itemsList.Append("</td>");
+
+                        itemsList.Append("<td>");
+                        itemsList.Append(m.BookTitle);
+                        itemsList.Append("</td>");
+
+                        itemsList.Append("<td>");
+                        itemsList.Append(m.BookDescription);
+                        itemsList.Append("</td>");
+
+                        itemsList.Append("<td align='center'>");
+                        itemsList.Append(m.quantity);
+                        itemsList.Append("</td>");
+
+                        //int subtotal = m.qty * m.perunit;
+
+                        itemsList.Append("<td align='center'>");
+                        itemsList.Append(m.BookPrice);
+                        itemsList.Append("</td>");
+
+                        itemsList.Append("<td align='center'>");
+                        itemsList.Append((m.BookPrice * m.quantity).ToString());
+                        itemsList.Append("</td>");
 
 
+                        itemsList.Append("</tr>");
+                    }
+
+                    string verifcodeMail = @"<table>
+                                        <tr>
+                                            <td>
+                                                <h3>Holy Store Book Store</h3>
+                                                <h4>Thanking you for ordering books online</h4>
+                                             
+                                                <table border=" + 1 + @">
+                                                    <tr>
+                                                        <td>
+                                                            S.No
+                                                        </td>
+                                                        <td>Book Title</td>
+                                                        <td>Book Description</td>
+                                                        <td>Quantity</td>
+                                                        <td>Price</td>
+                                                        <td>Sub Total</td>
+                                                    </tr>" + itemsList.ToString() + @"</table>
+                                                </td>
+                                            </tr>
+                                            <tr>
+											<td colspan="+3+@">Name</td>
+											<td colspan=" + 4 + @">" + list[0].name + " " + list[0].sname + @"</td>
+											</tr>
+											<tr>
+											<td colspan=" + 3 + @">Mobile No</td>
+											<td colspan=" + 4 + @">" + list[0].mobileno + @"</td>
+											</tr>
+											<tr>
+											<td colspan=" + 3 + @">Email Id</td>
+											<td colspan=" + 4 + @">" + list[0].email + @"</td>
+											
+											</tr>
+											<tr>
+											<td colspan=" + 3 + @">Address</td>
+											<td colspan=" + 4 + @">" + list[0].address + @"</td>
+											</tr>
+                                        </table>";
+
+
+                    mail.Body = verifcodeMail;
+                    //SmtpServer.Port = 465;
+                    //SmtpServer.Port = 587;
+                    SmtpServer.Port = Convert.ToInt32(port);
+                    SmtpServer.UseDefaultCredentials = false;
+
+                    SmtpServer.Credentials = new System.Net.NetworkCredential(username, pwd);
+                    SmtpServer.EnableSsl = true;
+                    //SmtpServer.TargetName = "STARTTLS/smtp.gmail.com";
+                    SmtpServer.Send(mail);
+
+                }
+                catch (Exception ex)
+                {
+                    //throw ex;
+
+                }
+
+                //update if email is sent
+
+                #endregion send email with details
+
+                // sending the email for admin --- End
 
 
 
