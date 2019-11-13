@@ -23,26 +23,36 @@ namespace TattwavidanandajiBookStoreAdmin.Controllers
 
             //connect to database
             SqlConnection conn = new SqlConnection();
-            conn.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings["VIHE_DB_Connection"].ToString();
 
-            SqlCommand cmd = new SqlCommand();
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.CommandText = "ValidationUserLogins";
+            try
+            {
+                conn.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings["VIHE_DB_Connection"].ToString();
 
-            cmd.Connection = conn;
+                SqlCommand cmd = new SqlCommand();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "ValidationUserLogins";
 
-            SqlParameter lUserName = new SqlParameter("@logininfo", SqlDbType.VarChar, 50);
-            lUserName.Value = username;
-            lUserName.Direction = ParameterDirection.Input;
-            cmd.Parameters.Add(lUserName);
+                cmd.Connection = conn;
+
+                SqlParameter lUserName = new SqlParameter("@logininfo", SqlDbType.VarChar, 50);
+                lUserName.Value = username;
+                lUserName.Direction = ParameterDirection.Input;
+                cmd.Parameters.Add(lUserName);
 
 
-            SqlParameter lPassword = new SqlParameter("@passkey", SqlDbType.VarChar, 50);
-            lPassword.Value = pwd;
-            lPassword.Direction = ParameterDirection.Input;
-            cmd.Parameters.Add(lPassword);
-            SqlDataAdapter da = new SqlDataAdapter(cmd);
-            da.Fill(Tbl);
+                SqlParameter lPassword = new SqlParameter("@passkey", SqlDbType.VarChar, 50);
+                lPassword.Value = pwd;
+                lPassword.Direction = ParameterDirection.Input;
+                cmd.Parameters.Add(lPassword);
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                da.Fill(Tbl);
+            }
+            catch (Exception ex)
+            {
+                
+                throw ex;
+            }
+           
             return Tbl;
 
         }

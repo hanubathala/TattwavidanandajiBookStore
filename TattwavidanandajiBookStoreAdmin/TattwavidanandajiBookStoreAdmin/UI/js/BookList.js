@@ -119,17 +119,73 @@ var ctrl = app.controller('myCtrl', function ($scope, $http, $localStorage, $int
     $scope.uname = $localStorage.uname;
     $scope.userdetails = $localStorage.userdetails;
     $scope.Roleid = $localStorage.userdetails[0].RoleId;
+    $scope.CanCreate = 0;
+    $scope.selectedvalue ='5';      
+    $scope.selectgoto = 1;
+    $scope.ty = '-1';
 
     $scope.InitConfig = function () {
-        $http.get('/api/Books/GetBooksList').then(function (res, data) {
-            $scope.BookList = res.data;
-        });
-
+        
+        $scope.getbooklist();
         $http.get('/api/Books/Gettypesdata?booktype=1').then(function (res, data) {
             $scope.bok = res.data;
+
         }, function (error) {
             // alert(error.data.ExceptionMessage);
         });
+    }
+    $scope.getbooklist = function (flag) {
+
+        var selecting = ($scope.selectedvalue == null) ? 10 : $scope.selectedvalue;
+        if (flag == '' || flag == null) {
+            $scope.page = ($scope.selectgoto == null || $scope.selectgoto == '') ? 1 : $scope.selectgoto;
+        }
+        if (flag == 'N') {
+
+            $scope.page++;
+            curpage = $scope.page;
+            $scope.firstvalue = $scope.secondvalue;
+            $scope.secondvalue = curpage * selecting;
+            $scope.selectgoto = curpage;
+        } else if (flag == 'P') {
+            $scope.page--
+            curpage = $scope.page;
+            $scope.secondvalue = $scope.firstvalue;
+            $scope.firstvalue = ($scope.firstvalue - selecting);
+            if ($scope.firstvalue == 0) {
+                $scope.firstvalue = 1;
+            }
+            $scope.selectgoto = curpage;
+        }
+        else {
+            $scope.page;
+            curpage = $scope.page;
+            if ($scope.selectgoto > 1) {
+
+                $scope.secondvalue = curpage * selecting;
+                $scope.firstvalue = ($scope.secondvalue - selecting);
+            }
+            else {
+                $scope.selectgoto = 1;
+                $scope.firstvalue = 1
+                $scope.secondvalue = selecting;
+            }
+        }
+        $http.get('/api/Books/GetBooksListConfig?curpage=' + curpage + '&maxrows=' + selecting).then(function (res, data) {
+            $scope.BookList = res.data.Table;
+            $scope.paggin = res.data.Table1;
+            if ($scope.BookList.length < selecting) {
+                $scope.secondvalue = $scope.secondvalue - (selecting - $scope.BookList.length);
+
+            }
+            var result = [];
+            for (var i = 1; i <= $scope.paggin[0].totalpages; i++) {
+                result.push(i);
+            }
+            $scope.jumptotalpages = result;
+        });
+
+
     }
     $scope.addbook = function () {
         //$http.get('/api/Books/Gettypesdata?booktype=1').then(function (res, data) {

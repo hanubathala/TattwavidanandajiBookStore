@@ -45,6 +45,42 @@ namespace TattwavidanandajiBookStoreAdmin.Controllers
 
             }
         }
+
+        [HttpGet]
+        [Route("api/Books/GetBooksListConfig")]
+        public DataSet GetBooksList(int curpage, int maxrows)
+        {
+            DataSet dt = new DataSet();
+            SqlConnection con = new SqlConnection();
+            try
+            {
+                con.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings["VIHE_DB_Connection"].ToString();
+
+                SqlCommand cmd = new SqlCommand();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "GetBookListConfig";
+                cmd.Connection = con;
+
+                cmd.Parameters.Add(new SqlParameter("@curpage", SqlDbType.Int)).SqlValue = curpage;
+                cmd.Parameters.Add(new SqlParameter("@maxrows", SqlDbType.Int)).SqlValue = maxrows;
+
+                SqlDataAdapter db = new SqlDataAdapter(cmd);
+                db.Fill(dt);
+                return dt;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (con != null && con.State == ConnectionState.Open)
+                {
+                    con.Close();
+                }
+
+            }
+        }
         [HttpPost]
         [Route("api/Books/SaveBooks")]
         public DataTable SaveBooksList(Books bk)

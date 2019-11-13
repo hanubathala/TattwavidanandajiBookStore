@@ -187,6 +187,7 @@
     <Content Include="eshopper\images\swtattwavidananda.JPG" />
     <Content Include="eshopper\index.html" />
     <Content Include="eshopper\js\bootstrap.min.js" />
+    <Content Include="eshopper\js\Login.js" />
     <Content Include="eshopper\js\contact.js" />
     <Content Include="eshopper\js\gmaps.js" />
     <Content Include="eshopper\js\html5shiv.js" />
@@ -1885,6 +1886,7 @@
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\BooksController.cs" />
+    <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\LOGINController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Global.asax.cs">
