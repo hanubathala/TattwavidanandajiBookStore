@@ -13,7 +13,6 @@ namespace TattwavidanandajiBookStoreAdmin.Controllers
     public class LOGINController : ApiController
     {
         [HttpPost]
-
         public DataTable ValidateCredentials(UserLogin u)
         {
             DataTable Tbl = new DataTable();
@@ -53,6 +52,35 @@ namespace TattwavidanandajiBookStoreAdmin.Controllers
                 throw ex;
             }
            
+            return Tbl;
+
+        }
+
+        [HttpGet]
+        [Route("api/LOGIN/CustomerLogin")]
+        public DataTable CustomerLogin(String Email,String Pwd)
+        {
+            DataTable Tbl = new DataTable();
+            SqlConnection conn = new SqlConnection();
+            try
+            {
+                conn.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings["VIHE_DB_Connection"].ToString();
+
+                SqlCommand cmd = new SqlCommand();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "CustomerLoginsValidate";
+                cmd.Connection = conn;
+                cmd.Parameters.Add(new SqlParameter("@Email    ", SqlDbType.VarChar, 250)).SqlValue = Email;
+                cmd.Parameters.Add(new SqlParameter("@Pwd", SqlDbType.VarChar, 250)).SqlValue = Pwd;
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                da.Fill(Tbl);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
             return Tbl;
 
         }

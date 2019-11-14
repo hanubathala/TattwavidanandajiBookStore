@@ -205,6 +205,7 @@
     <Content Include="eshopper\shop.html" />
     <Content Include="Global.asax" />
     <Content Include="Login.html" />
+    <Content Include="UI\CustomerList.html" />
     <Content Include="UI\BooksList.html" />
     <Content Include="UI\Clockpicker\bootstrap-clockpicker.css" />
     <Content Include="UI\Clockpicker\bootstrap-clockpicker.js" />
@@ -263,6 +264,7 @@
     <Content Include="UI\images\Institute\title_logo.ico" />
     <Content Include="UI\js\angular-animate.js" />
     <Content Include="UI\js\angular.js" />
+    <Content Include="UI\js\CustomerList.js" />
     <Content Include="UI\js\BookList.js" />
     <Content Include="UI\js\bootstrap-datetimepicker.min.js" />
     <Content Include="UI\js\bootstrap-datetimepicker.pt-BR.js" />

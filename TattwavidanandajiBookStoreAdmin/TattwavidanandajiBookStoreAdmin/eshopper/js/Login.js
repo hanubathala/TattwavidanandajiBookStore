@@ -1,21 +1,27 @@
 ﻿var app = angular.module('myApp', ['ngStorage']);
 var ctrl = app.controller('myCtrl', function ($scope, $http, $localStorage) {
-    
+    if ($localStorage.addcart == null) {
+        $localStorage.addcart = [];
+    }
+    else {
+        $scope.addcartlength = $localStorage.addcart.length;
+    }
 
-   
+    if ($localStorage.Username!=null)
+    $scope.disusername = $localStorage.Username;
 
     $scope.savecustomerdetails = function () {
 
-        if ($scope.username != null || $scope.username != '')
+        if ($scope.username == null || $scope.username == '')
         {
             alert("Enter Username");
             return;
         }
-        if ($scope.userpassword != null) {
+        if ($scope.userpassword == null) {
             alert("Enter Password");
             return;
         }
-        if ($scope.userconfpasswod != null) {
+        if ($scope.userconfpasswod == null) {
             alert("Enter Confirm Password");
             return;
         }
@@ -39,6 +45,7 @@ var ctrl = app.controller('myCtrl', function ($scope, $http, $localStorage) {
         }
         $http(req).then(function (res) {
           
+            $localStorage.useremail = res.data[0].Email;
             alert('Sign Up Successfully...!');
         }, function (ee) {
             alert(ee.data.ExceptionMessage);
@@ -46,7 +53,38 @@ var ctrl = app.controller('myCtrl', function ($scope, $http, $localStorage) {
         });
     
     }
+    //String Email, String Emailotp
+    $scope.eotpverification = function (f) {
+        $http.get('/api/Customer/eotpverification?Email=' + $localStorage.useremail + '&Emailotp=' + $scope.UserEmailOTP).then(function (res, data) {
+            $localStorage.userdata = res.data;
+            $localStorage.Username = res.data[0].UserName;
+            $scope.disusername = $localStorage.Username;
+           
+        }, function (ee) {
+            alert(ee.data.ExceptionMessage);
+        });
+    }
 
+    $scope.loginverification = function () {
+
+        if ($scope.loginemail == null) {
+            alert('Please Enter Email Id..');
+            return;
+        }
+        if ($scope.loginpasword == null) {
+            alert('Please Enter Password..');
+            return;
+        }
+
+        $http.get('/api/LOGIN/CustomerLogin?Email=' + $scope.loginemail + '&Pwd=' + $scope.loginpasword).then(function (res, data) {
+            $localStorage.userdata = res.data;
+            $localStorage.Username = res.data[0].UserName;
+            $scope.disusername = $localStorage.Username;
+
+        }, function (ee) {
+            alert(ee.data.ExceptionMessage);
+        });
+    }
 });
 
 

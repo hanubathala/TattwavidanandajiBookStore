@@ -14,6 +14,43 @@ namespace TattwavidanandajiBookStoreAdmin.Controllers
     public class CustomerController : ApiController
     {
 
+        
+
+         [HttpGet]
+         [Route("api/Custome/GetCustomerList")]
+        public DataSet GetCustomerList(int curpage, int maxrows)
+        {
+            DataSet dt = new DataSet();
+            SqlConnection con = new SqlConnection();
+            try
+            {
+                con.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings["VIHE_DB_Connection"].ToString();
+
+                SqlCommand cmd = new SqlCommand();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "GetCustomerList";
+                cmd.Connection = con;
+
+                cmd.Parameters.Add(new SqlParameter("@curpage", SqlDbType.Int)).SqlValue = curpage;
+                cmd.Parameters.Add(new SqlParameter("@maxrows", SqlDbType.Int)).SqlValue = maxrows;
+
+                SqlDataAdapter db = new SqlDataAdapter(cmd);
+                db.Fill(dt);
+                return dt;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (con != null && con.State == ConnectionState.Open)
+                {
+                    con.Close();
+                }
+
+            }
+        }
         [HttpPost]
         [Route("api/Customer/SaveCustomerDetails")]
         public DataTable SaveCustomerDetails(CustomerInfo cust) { 
@@ -43,7 +80,7 @@ namespace TattwavidanandajiBookStoreAdmin.Controllers
               cmd.Parameters.Add(new SqlParameter("@Address", SqlDbType.VarChar, 250)).SqlValue = cust.address;
               cmd.Parameters.Add(new SqlParameter("@Email", SqlDbType.VarChar, 250)).SqlValue = cust.email;
               cmd.Parameters.Add(new SqlParameter("@LandMark", SqlDbType.VarChar, 250)).SqlValue = cust.landmark;
-              cmd.Parameters.Add(new SqlParameter("@mobileno", SqlDbType.VarChar, 25)).SqlValue = cust.mobileno;
+              //cmd.Parameters.Add(new SqlParameter("@mobileno", SqlDbType.VarChar, 25)).SqlValue = cust.mobileno;
               //cmd.Parameters.Add(new SqlParameter("@name", SqlDbType.VarChar, 100)).SqlValue = cust.name;
               //cmd.Parameters.Add(new SqlParameter("@sname", SqlDbType.VarChar, 100)).SqlValue = cust.sname;
               cmd.Parameters.Add(new SqlParameter("@ZipCode", SqlDbType.VarChar, 25)).SqlValue = cust.zipcode;
@@ -144,6 +181,43 @@ namespace TattwavidanandajiBookStoreAdmin.Controllers
 
 
           return dt;
+        }
+
+
+        [HttpGet]
+        [Route("api/Customer/eotpverification")]
+        public DataTable eotpverification(String Email, String Emailotp)
+        {
+
+            DataTable dt = new DataTable();
+            SqlConnection con = new SqlConnection();
+            SqlCommand cmd = new SqlCommand();
+            try
+            {
+
+                con.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings["VIHE_DB_Connection"].ToString();
+
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "EOTPverification";
+                cmd.Connection = con;
+
+                cmd.Parameters.Add(new SqlParameter("@Email    ", SqlDbType.VarChar, 250)).SqlValue = Email;
+                cmd.Parameters.Add(new SqlParameter("@Emailotp", SqlDbType.VarChar, 250)).SqlValue = Emailotp;
+               
+
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                da.Fill(dt);
+
+               
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+
+            return dt;
         }
     }
 }
