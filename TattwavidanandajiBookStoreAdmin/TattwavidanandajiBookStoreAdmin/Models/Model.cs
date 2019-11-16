@@ -6,6 +6,88 @@ using System.Web;
 namespace TattwavidanandajiBookStoreAdmin.Models
 {
 
+
+    public class TypeGroups
+    {
+        public int Id { get; set; }
+
+        public string Name { get; set; }
+
+        public string Description { get; set; }
+
+        public string Active { get; set; }
+        public string insupddelflag { get; set; }
+    }
+
+    public class Types
+    {
+        public int Id { get; set; }
+
+        public string Name { get; set; }
+
+        public string Description { get; set; }
+
+        public string Active { get; set; }
+
+
+
+        public string TypeGroupId { get; set; }
+
+        public string ListKey { get; set; }
+
+        public string Listvalue { get; set; }
+        public string insupddelflag { get; set; }
+    }
+    public class ConfigData
+    {
+        public int includeStatus { get; set; }
+        public int includeCategories { get; set; }
+        public int includeLicenseCategories { get; set; }
+        public int includeVehicleGroup { get; set; }
+        public int includeGender { get; set; }
+        public int includeFrequency { get; set; }
+        public int includePricingType { get; set; }
+        public int includeTransactionType { get; set; }
+        public int includeApplicability { get; set; }
+        public int includeFeeCategory { get; set; }
+        public int includeTransChargeType { get; set; }
+        public int includeVehicleType { get; set; }
+        public int includeVehicleModel { get; set; }
+        public int includeVehicleMake { get; set; }
+        public int includeDocumentType { get; set; }
+        public int includePaymentType { get; set; }
+        public int includeMiscellaneousTypes { get; set; }
+        public int includeCardCategories { get; set; }
+        public int includeCardTypes { get; set; }
+        public int includeVehicleLayoutType { get; set; }
+        public int includeLicenseFeatures { get; set; }
+        public int includeCardModels { get; set; }
+        public int includeCards { get; set; }
+        public int includeTransactions { get; set; }
+        public int includeCountry { get; set; }
+        public int includeActiveCountry { get; set; }
+        public int includeFleetOwner { get; set; }
+        public int includeUserType { get; set; }
+        public int includeAuthType { get; set; }
+        public int includeState { get; set; }
+
+        public int includePackageNames { get; set; }
+
+        public int includePackageTypeName { get; set; }
+    }
+    public class FleetOwner
+    {
+        public int Id { get; set; }
+
+        public string UserId { get; set; }
+
+        public string BTPOSgroupid { get; set; }
+
+        public string Active { get; set; }
+
+    }
+
+
     public class CustomerInfo {
         public string FirstName { get; set; }
         public string LastName { get; set; }

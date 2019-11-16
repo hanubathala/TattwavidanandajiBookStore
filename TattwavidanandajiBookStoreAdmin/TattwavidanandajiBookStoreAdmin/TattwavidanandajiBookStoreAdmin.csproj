@@ -205,6 +205,10 @@
     <Content Include="eshopper\shop.html" />
     <Content Include="Global.asax" />
     <Content Include="Login.html" />
+    <Content Include="UI\js\Types.js" />
+    <Content Include="UI\js\TypeGroups.js" />
+    <Content Include="UI\Types.html" />
+    <Content Include="UI\TypeGroups.html" />
     <Content Include="UI\CustomerList.html" />
     <Content Include="UI\BooksList.html" />
     <Content Include="UI\Clockpicker\bootstrap-clockpicker.css" />
@@ -1891,6 +1895,8 @@
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\LOGINController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
+    <Compile Include="Controllers\TypeGroupsController.cs" />
+    <Compile Include="Controllers\TypesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

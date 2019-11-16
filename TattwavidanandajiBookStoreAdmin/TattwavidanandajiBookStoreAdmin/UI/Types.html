@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <link rel="shortcut icon" href="images/Institute/favicon.ico" type="image/png" />
-    <title>Book List</title>
+    <title>Customer List</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <!--Loading bootstrap css-->
@@ -27,7 +27,7 @@
     <link href="css/themes/style2/yellow-dark.css" rel="stylesheet" />
     <link type="text/css" rel="stylesheet" href="css/style-responsive.css">
 </head>
-<body ng-app="myApp" ng-controller="myCtrl" ng-init="InitConfig();">
+<body ng-app="myApp" ng-controller="myCtrl" ng-init="getcustomerlist();">
     <!--BEGIN THEME SETTING-->
     <!--BEGIN BACK TO TOP-->
     <a id="totop" href="#"><i class="fa fa-angle-up"></i></a><!--END BACK TO TOP--><!--BEGIN TOPBAR-->
@@ -68,31 +68,21 @@
                                 <p>{{uname}}</p>
                                 <ul class="list-inline list-unstyled">
                                     <!--<li><a href="UserProfile.html" data-hover="tooltip" title="Profile"><i class="fa fa-user"></i></a></li>
-                            <li><a href="email-inbox.html" data-hover="tooltip" title="Mail"><i class="fa fa-envelope"></i></a></li>
-                            <li><a href="#" data-hover="tooltip" title="Setting" data-toggle="modal" data-target="#modal-config"><i class="fa fa-cog"></i></a></li>-->
+                                    <li><a href="email-inbox.html" data-hover="tooltip" title="Mail"><i class="fa fa-envelope"></i></a></li>
+                                    <li><a href="#" data-hover="tooltip" title="Setting" data-toggle="modal" data-target="#modal-config"><i class="fa fa-cog"></i></a></li>-->
                                     <li><a href="login.html" data-hover="tooltip" title="Logout"><i class="fa fa-sign-out"></i></a></li>
                                 </ul>
                             </div>
                             <div class="clearfix"></div>
                         </li>
-                        <li class="active"  style="border-top: 1px solid grey; border-bottom: 1px solid grey;">
+                        <li style="border-top: 1px solid grey; border-bottom: 1px solid grey;">
                             <a href="BooksList.html" data-toggle="tooltip" data-placement="right" title="To Load Data into Application">
                                 <span class="glyphicon glyphicon-download"></span><span class="menu-title">Books List</span>
                             </a>
                         </li>
-                        <li style="border-top: 1px solid grey; border-bottom: 1px solid grey;">
+                        <li class="active" style="border-top: 1px solid grey; border-bottom: 1px solid grey;">
                             <a href="CustomerList.html" data-toggle="tooltip" data-placement="right" title="To Load Data into Application">
                                 <span class="glyphicon glyphicon-download"></span><span class="menu-title">Customer List</span>
-                            </a>
-                        </li>
-                        <li  style="border-top: 1px solid grey; border-bottom: 1px solid grey;">
-                            <a href="TypeGroups.html" data-toggle="tooltip" data-placement="right" title="DB Backup in Local">
-                                <i class="fa fa-question-circle"></i><span class="menu-title">Type Groups</span>
-                            </a>
-                        </li>
-                        <li style="border-top: 1px solid grey; border-bottom: 1px solid grey;">
-                            <a href="Types.html" data-toggle="tooltip" data-placement="right" title="DB Backup in Local">
-                                <i class="fa fa-question-circle"></i><span class="menu-title">Types</span>
                             </a>
                         </li>
                         <li style="border-top: 1px solid grey; border-bottom: 1px solid grey;">
@@ -107,11 +97,11 @@
                 <!--BEGIN TITLE & BREADCRUMB PAGE-->
                 <div id="title-breadcrumb-option-demo" class="page-title-breadcrumb">
                     <div class="page-header pull-left">
-                        <div class="page-title">Books Titles</div>
+                        <div class="page-title">Customer List</div>
                     </div>
                     <ol class="breadcrumb page-breadcrumb pull-right">
                         <li><i class="fa fa-home"></i>&nbsp;<a href="index.html">Home</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
-                        <li><a href="#">Course List</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
+                        <li><a href="#">Customer List</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
                     </ol>
                     <div class="clearfix"></div>
                 </div>
@@ -124,11 +114,11 @@
                                     <div class="table-container">
                                         <div class="row" style="margin-bottom:10px;">
                                             <div class="col-md-5">
-                                                <input type="text" ng-model="cname" placeholder="Search Book Title..." class="form-control" />
+                                                <input type="text" ng-model="cname" placeholder="Search User Name" class="form-control" />
                                             </div>
-                                            <div class="col-md-7 actions">
+                                            <!--<div class="col-md-7 actions">
                                                 <button ng-disabled="isSuperUser == 0" type="button" data-target="#Modal-header-new" data-toggle="modal" class="btn btn-primary" ng-click="addbook();" style="float: right;">Add Book</button>
-                                            </div>
+                                            </div>-->
                                         </div>
                                     </div>
                                 </div>
@@ -136,45 +126,42 @@
                             <table class="table table-hover table-striped table-bordered table-advanced tablesorter">
                                 <thead>
                                     <tr>
-                                        <th width ="3%"> Book Image</th>
-                                        <th width="10%">Book Title</th>
-                                        <th width="10%">Book Description</th>
-                                        <th width="10%">Book Type</th>
-                                        <th width ="3%">Stock</th>
-                                        <th width="3%">Price</th>
-                                        <th width="6%">Active</th>
-                                        <th width="9%">Update</th>
+
+                                        <th>Name</th>
+                                        <th>Description</th>
+                                        <th>Type Group</th>
+                                        <th>Active</th>
+                                        <th>Update</th>
+
                                     </tr>
+                                </thead>
                                 <tbody>
-                                    <tr ng-repeat="c in BookList| filter:{BookTitle:cname}">
-                                        
-                                        <td><a href="#" ng-click="openimagetoshow(c)"><img src="{{c.BookImage}}" style="width:200px;height:150px;" /></a></td>
-                                        <td valign="middle"> {{c.BookTitle}}</td>
-                                        <td style="text-wrap:initial">{{c.BookDescription}}</td>
-                                        <td>{{c.BookType}}</td>
-                                        <td>{{c.BookStock}}</td>
-                                        <td>{{c.BookPrice}}</td>
-                                        <td><input type="checkbox" class="icheckbox_minimal-grey activeCheckbox" disabled ng-model="c.Active" ng-true-value="1" ng-false-value="0" /></td>
+
+                                    <tr ng-repeat="T in Types">
+                                        <td>{{T.Name}}</td>
+                                        <td>{{T.Description}}</td>
+                                        <td>{{T.TypeGroup}}</td>
+                                        <td><input type="checkBox" ng-checked="T.Active" disabled /></td>
+
                                         <td>
-                                            <button type="button" data-target="#Modal-header-new-Edit" data-toggle="modal" class="btn btn-default btn-xs" ng-click="setCourse(c)">
-                                                <i class="fa fa-edit"></i>&nbsp;
-                                                Edit
+                                            {{T.Update}}<button ng-disabled="Roleid != 1" type="button" data-target="#Modal-header-primary" data-toggle="modal" class="btn btn-default btn-xs" ng-click="setCompany(T);">
+                                                <i class="fa fa-edit"></i>&nbsp; Edit
                                             </button>
                                         </td>
                                     </tr>
                                 </tbody>
-                               
+
                             </table>
-                            <div class="form-actions row" ng-show="BookList.length>0">
+                            <div class="form-actions row" ng-show="Userlist.length>0">
 
                                 <div class="col-md-5 grid">
                                     <div class="row">
-                                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12" ng-repeat="P in paggin" ng-model="BookList">
+                                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12" ng-repeat="P in paggin" ng-model="Userlist">
                                             <div>	&nbsp;</div>
                                             <span style="border: 1px solid darkgrey; padding: 8px; border-radius: 5px;"> Page: {{page}}/{{P.totalpages}} </span>
                                         </div>
                                         <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12">
-                                            Page Entries:<select class="form-control" ng-model="selectedvalue" ng-change="getbooklist()">
+                                            Page Entries:<select class="form-control" ng-model="selectedvalue" ng-change="getcustomerlist()">
                                                 <option ng-value="5">5</option>
                                                 <option ng-value="10">10</option>
                                                 <option ng-value="15">15</option>
@@ -184,13 +171,13 @@
                                             </select>
                                         </div>
                                         <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12">
-                                            Go to Page:<select class="form-control" ng-options="s for s in jumptotalpages" ng-model="selectgoto" ng-change="getbooklist()"></select>
+                                            Go to Page:<select class="form-control" ng-options="s for s in jumptotalpages" ng-model="selectgoto" ng-change="getcustomerlist()"></select>
                                         </div>
                                     </div>
                                 </div>
                                 <div style="text-align: center;margin-top:20px;" ng-repeat="P in paggin" ng-model="assets" class="col-lg-4">
-                                    <button class="btn btn-info btn-md" ng-click="getbooklist('P')" ng-disabled="page == 1" style="background-color:#594857;">Prev page </button>
-                                    <button class="btn btn-info btn-md" ng-click=" getbooklist('N')" ng-disabled="page == P.totalpages" style="background-color:#594857;">Next page </button>
+                                    <button class="btn btn-info btn-md" ng-click="getcustomerlist('P')" ng-disabled="page == 1" style="background-color:#594857;">Prev page </button>
+                                    <button class="btn btn-info btn-md" ng-click="getcustomerlist('N')" ng-disabled="page == P.totalpages" style="background-color:#594857;">Next page </button>
 
                                 </div>
                                 <div style="float: right; margin-top: 20px;" ng-repeat="P in paggin" ng-model="assets" class="col-lg-3">
@@ -245,7 +232,7 @@
                             <div class="col-md-4">
                                 <label for="selection of course" class="col-md-3 control-label" style="color:red;">Stock:<span class='require'>*</span></label>
                                 <div class="col-md-9">
-                                    <input class="form-control" type="text" ng-model="Book.BookStock"  placeholder="Book Stock"/>
+                                    <input class="form-control" type="text" ng-model="Book.BookStock" placeholder="Book Stock" />
                                     <!--<span class="help-block">(Ex:10)</span>-->
                                 </div>
 
@@ -283,7 +270,7 @@
                     </div>
                     <div class="row mbm">
                         <div class="col-lg-12" style="padding-left:2px;padding-right:2px;">
-                          
+
                             <div class="col-md-4">
                                 <label for="selection of course" class="col-sm-3 control-label" style="color:red;">Label:<span class='require'>*</span></label>
                                 <div class="col-sm-9">
@@ -313,7 +300,7 @@
                     </div>
                     <div class="row mbm">
                         <div class="col-lg-12" style="padding-left:2px;padding-right:2px;">
-                            
+
                             <div class="col-md-4">
                                 <label for="selection of course" class="col-sm-3 control-label" style="color:red;">Language:<span class='require'>*</span></label>
                                 <div class="col-sm-9">
@@ -365,19 +352,19 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="form-actions mbm" style="margin-top:10px;">
-                            <div style="text-align:center;">
-                                <button class="btn btn-orange" ng-disabled="isSuperUser == 0 && CanCreate == 0" ng-click="AddNewBook(Book,'I');">Save</button>
-                                <button type="button" data-dismiss="modal" class="btn btn-default" ng-click="clearGroup()">Cancel</button>
-                            </div>
+                        <div style="text-align:center;">
+                            <button class="btn btn-orange" ng-disabled="isSuperUser == 0 && CanCreate == 0" ng-click="AddNewBook(Book,'I');">Save</button>
+                            <button type="button" data-dismiss="modal" class="btn btn-default" ng-click="clearGroup()">Cancel</button>
                         </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-        </div>
-        
-     
+
+
     <!--Edit Books list start-->
     <div id="Modal-header-new-Edit" tabindex="-1" role="dialog" aria-labelledby="modal-header-primary-label" aria-hidden="true" class="modal">
         <div class="modal-dialog modal-lg">
@@ -395,7 +382,7 @@
                                     <input class="form-control" type="text" ng-model="bookedit.BookTitle" />
                                     <span class="help-block">(Ex:Jnana Yoga)</span>
                                 </div>
-                            </div>  
+                            </div>
                             <div class="col-md-6">
                                 <label for="selection of course" class="col-md-5 control-label" style="color:red;">Price:<span class='require'>*</span></label>
                                 <div class="col-md-6">
@@ -436,15 +423,15 @@
                                 <img ng-src="{{BookImage2}}" style="height:200px;width:150px;margin-bottom:10px;" />
                                 <input type="file" name="fileInput" id="fileInput" ng-file-select="onFileSelect2($files)" class="btn btn-green" accept=".jpg,.png,.gif,.jpeg" ng-model="BookImage2" />
                             </div>
-                        
+
                             <div class="col-md-6">
                                 <label for="selection of course" class="col-md-5 control-label" style="color:red;">Description:<span class='require'>*</span></label>
                                 <div class="col-md-12">
                                     <textarea class="form-control" rows="3" ng-model="bookedit.BookDescription"></textarea>
                                 </div>
                                 <div class="col-md-12" style="text-align:center;margin-top:20px;">
-                                   
-                                   
+
+
 
                                 </div>
                                 <div class="col-md-12" style="margin-top:20px;">
@@ -458,11 +445,11 @@
                                         <button type="button" data-dismiss="modal" class="btn btn-default" ng-click="clearGroup()">Cancel</button>
                                     </div>
                                 </div>
-                                </div>
-                            
+                            </div>
+
+                        </div>
                     </div>
-                    </div>
-                    
+
                     <!--<div class="form-actions mbm">
                         <div style="text-align:center;">
                             <button class="btn btn-orange" ng-disabled="isSuperUser == 0 && CanCreate == 0" ng-click="AddNewBook(bookedit,'U');">Save</button>
@@ -494,38 +481,38 @@
         </div>
 
     </script>
-        <script src="js/jquery-1.10.2.min.js"></script>
-        <script src="js/jquery-migrate-1.2.1.min.js"></script>
-        <script src="js/jquery-ui.js"></script>
-        <!--loading bootstrap js-->
-        <script src="vendors/bootstrap/js/bootstrap.js"></script>
-        <script src="vendors/bootstrap-hover-dropdown/bootstrap-hover-dropdown.js"></script>
-        <script src="vendors/metisMenu/jquery.metisMenu.js"></script>
-        <script src="vendors/slimScroll/jquery.slimscroll.js"></script>
-        <script src="vendors/jquery-cookie/jquery.cookie.js"></script>
-        <script src="vendors/iCheck/icheck.min.js"></script>
-        <script src="vendors/iCheck/custom.min.js"></script>
-        <!--<script src="vendors/jquery-news-ticker/jquery.news-ticker.js"></script>-->
-        <script src="js/jquery.menu.js"></script>
-        <script src="vendors/jquery-pace/pace.min.js"></script>
-        <script src="vendors/holder/holder.js"></script>
-        <script src="vendors/responsive-tabs/responsive-tabs.js"></script>
-        <!--LOADING SCRIPTS FOR PAGE-->
-        <!--CORE JAVASCRIPT-->
-        <script src="js/main.js"></script>
-        <script src="js/angular.js"></script>
-        <script src="js/libs/angular-route.js"></script>
-        <script src="js/libs/angular-ui-router.js"></script>
-        <script src="js/libs/ocLazyLoad.js"></script>
-        <script src="js/libs/ui-bootstrap.js"></script>
-        <script src="js/ngStorage.js"></script>
-        <script src="js/ui-bootstrap-tpls-1.3.3.js"></script>
+    <script src="js/jquery-1.10.2.min.js"></script>
+    <script src="js/jquery-migrate-1.2.1.min.js"></script>
+    <script src="js/jquery-ui.js"></script>
+    <!--loading bootstrap js-->
+    <script src="vendors/bootstrap/js/bootstrap.js"></script>
+    <script src="vendors/bootstrap-hover-dropdown/bootstrap-hover-dropdown.js"></script>
+    <script src="vendors/metisMenu/jquery.metisMenu.js"></script>
+    <script src="vendors/slimScroll/jquery.slimscroll.js"></script>
+    <script src="vendors/jquery-cookie/jquery.cookie.js"></script>
+    <script src="vendors/iCheck/icheck.min.js"></script>
+    <script src="vendors/iCheck/custom.min.js"></script>
+    <!--<script src="vendors/jquery-news-ticker/jquery.news-ticker.js"></script>-->
+    <script src="js/jquery.menu.js"></script>
+    <script src="vendors/jquery-pace/pace.min.js"></script>
+    <script src="vendors/holder/holder.js"></script>
+    <script src="vendors/responsive-tabs/responsive-tabs.js"></script>
+    <!--LOADING SCRIPTS FOR PAGE-->
+    <!--CORE JAVASCRIPT-->
+    <script src="js/main.js"></script>
+    <script src="js/angular.js"></script>
+    <script src="js/libs/angular-route.js"></script>
+    <script src="js/libs/angular-ui-router.js"></script>
+    <script src="js/libs/ocLazyLoad.js"></script>
+    <script src="js/libs/ui-bootstrap.js"></script>
+    <script src="js/ngStorage.js"></script>
+    <script src="js/ui-bootstrap-tpls-1.3.3.js"></script>
     <script src="js/fileupload/angular-file-upload.js"></script>
     <script src="js/fileupload/angular-file-upload-shim.js"></script>
     <!--<script src="Js/Playlist.js"></script>-->
-    <script src="js/BookList.js"></script>
+    <script src="js/CustomerList.js"></script>
     <script src="js/fileupload/Upload.js"></script>
-        
+
     <!--CORE JAVASCRIPT-->
 </body>
 </html>
