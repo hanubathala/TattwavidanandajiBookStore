@@ -13,6 +13,32 @@ namespace TattwavidanandajiBookStoreAdmin.Controllers
 {
     public class TypeGroupsController : ApiController
     {
+        [HttpGet]
+        [Route("api/TypeGroups/GetTypeGroupsconfig")]
+        public DataTable gettypegroups()
+        {
+            DataTable Tbl = new DataTable();
+            SqlConnection conn = new SqlConnection();
+            conn.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings["VIHE_DB_Connection"].ToString();
+            try
+            {
+                
+                SqlCommand cmd = new SqlCommand();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "GetTypeGroupsconfig";
+                cmd.Connection = conn;
+                
+                SqlDataAdapter db = new SqlDataAdapter(cmd);
+                db.Fill(Tbl);
+            }
+            catch (Exception ex)
+            {
+                
+                throw ex;
+            }
+           
+            return Tbl;
+        }
          [HttpGet]
          [Route("api/TypeGroups/gettypegroups")]
         public DataSet gettypegroups(int curpage,int maxrows)

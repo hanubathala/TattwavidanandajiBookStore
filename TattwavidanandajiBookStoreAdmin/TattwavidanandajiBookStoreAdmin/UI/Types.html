@@ -27,7 +27,7 @@
     <link href="css/themes/style2/yellow-dark.css" rel="stylesheet" />
     <link type="text/css" rel="stylesheet" href="css/style-responsive.css">
 </head>
-<body ng-app="myApp" ng-controller="myCtrl" ng-init="getcustomerlist();">
+<body ng-app="myApp" ng-controller="myCtrl" ng-init="gettypegroups();">
     <!--BEGIN THEME SETTING-->
     <!--BEGIN BACK TO TOP-->
     <a id="totop" href="#"><i class="fa fa-angle-up"></i></a><!--END BACK TO TOP--><!--BEGIN TOPBAR-->
@@ -97,11 +97,11 @@
                 <!--BEGIN TITLE & BREADCRUMB PAGE-->
                 <div id="title-breadcrumb-option-demo" class="page-title-breadcrumb">
                     <div class="page-header pull-left">
-                        <div class="page-title">Customer List</div>
+                        <div class="page-title">Types List</div>
                     </div>
                     <ol class="breadcrumb page-breadcrumb pull-right">
                         <li><i class="fa fa-home"></i>&nbsp;<a href="index.html">Home</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
-                        <li><a href="#">Customer List</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
+                        <li><a href="#">Types List</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
                     </ol>
                     <div class="clearfix"></div>
                 </div>
@@ -114,11 +114,15 @@
                                     <div class="table-container">
                                         <div class="row" style="margin-bottom:10px;">
                                             <div class="col-md-5">
-                                                <input type="text" ng-model="cname" placeholder="Search User Name" class="form-control" />
+
+                                                Type Group: <select ng-options="s.Name for s in TypeGroups track by s.Id" ng-model="s" ng-change="getcustomerlist()">
+                                                    <option value="">All</option>
+                                                </select>
+
                                             </div>
-                                            <!--<div class="col-md-7 actions">
+                                            <div class="col-md-7 actions">
                                                 <button ng-disabled="isSuperUser == 0" type="button" data-target="#Modal-header-new" data-toggle="modal" class="btn btn-primary" ng-click="addbook();" style="float: right;">Add Book</button>
-                                            </div>-->
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -140,7 +144,7 @@
                                     <tr ng-repeat="T in Types">
                                         <td>{{T.Name}}</td>
                                         <td>{{T.Description}}</td>
-                                        <td>{{T.TypeGroup}}</td>
+                                        <td>{{T.TypeGroupName}}</td>
                                         <td><input type="checkBox" ng-checked="T.Active" disabled /></td>
 
                                         <td>
@@ -152,11 +156,11 @@
                                 </tbody>
 
                             </table>
-                            <div class="form-actions row" ng-show="Userlist.length>0">
+                            <div class="form-actions row" ng-show="Types.length>0">
 
                                 <div class="col-md-5 grid">
                                     <div class="row">
-                                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12" ng-repeat="P in paggin" ng-model="Userlist">
+                                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12" ng-repeat="P in paggin" ng-model="Types">
                                             <div>	&nbsp;</div>
                                             <span style="border: 1px solid darkgrey; padding: 8px; border-radius: 5px;"> Page: {{page}}/{{P.totalpages}} </span>
                                         </div>
@@ -175,7 +179,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div style="text-align: center;margin-top:20px;" ng-repeat="P in paggin" ng-model="assets" class="col-lg-4">
+                                <div style="text-align: center;margin-top:20px;" ng-repeat="P in paggin" ng-model="Types" class="col-lg-4">
                                     <button class="btn btn-info btn-md" ng-click="getcustomerlist('P')" ng-disabled="page == 1" style="background-color:#594857;">Prev page </button>
                                     <button class="btn btn-info btn-md" ng-click="getcustomerlist('N')" ng-disabled="page == P.totalpages" style="background-color:#594857;">Next page </button>
 
@@ -203,262 +207,132 @@
             </div>
         </div>
     </div>
-    <!--Add New Book-->
+    <!--Add New Types-->
     <div id="Modal-header-new" tabindex="-1" role="dialog" aria-labelledby="modal-header-primary-label" aria-hidden="true" class="modal">
-        <div class="modal-dialog modal-lg">
+        <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header modal-header-primary">
                     <button type="button" data-dismiss="modal" aria-hidden="true" class="close">&times;</button>
-                    <h4 id="modal-header-primary-label" class="modal-title">Add Book Info</h4>
+                    <h4 id="modal-header-primary-label" class="modal-title">Add New Type</h4>
                 </div>
-                <div class="modal-body" ng-model="Book">
+                <div class="modal-body" ng-model="Savetypes">
                     <div class="row mbm">
-                        <div class="col-md-12" style="padding-left:2px;padding-right:2px;">
-                            <div class="col-md-4">
-                                <label for="selection of course" class="col-md-3 control-label" style="color:red;">Title:<span class='require'>*</span></label>
-                                <div class="col-md-9">
-                                    <input class="form-control" type="text" ng-model="Book.BookTitle" placeholder="Book Name" />
-                                    <!--<span class="help-block">(Ex:Jnana Yoga)</span>-->
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <label for="selection of course" class="col-md-3 control-label" style="color:red;">Price:<span class='require'>*</span></label>
-                                <div class="col-md-9">
-                                    <input class="form-control" type="text" ng-model="Book.BookPrice" placeholder="Book Price" />
-                                    <!--<span class="help-block">(Ex:250)</span>-->
-                                </div>
+                        <div style="text-align:right">
 
-                            </div>
-                            <div class="col-md-4">
-                                <label for="selection of course" class="col-md-3 control-label" style="color:red;">Stock:<span class='require'>*</span></label>
-                                <div class="col-md-9">
-                                    <input class="form-control" type="text" ng-model="Book.BookStock" placeholder="Book Stock" />
-                                    <!--<span class="help-block">(Ex:10)</span>-->
-                                </div>
-
-                            </div>
+                            <label for="Name" class="col-md-4 control-label" style="color:red;">Name:<span class='require'>*</span></label>
                         </div>
-                    </div>
-                    <div class="row mbm">
-                        <div class="col-lg-12" style="padding-left:2px;padding-right:2px;">
-                            <div class="col-md-4">
-                                <label for="selection of course" class="col-sm-3 control-label" style="color:red;">SKU:<span class='require'>*</span></label>
-                                <div class="col-sm-9">
-                                    <input class="form-control" type="text" ng-model="Book.SKU" placeholder="AVE140" />
-                                    <!--<span class="help-block">(Ex:10)</span>-->
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <label for="selection of course" class="col-sm-3 control-label" style="color:red;">Book Type:<span class='require'>*</span></label>
-                                <div class="col-sm-9">
-                                    <select ng-options="b.Name for b in bok track by b.Id" ng-model="Book.BookType" class="form-control">
-                                        <option value="">Select</option>
-                                    </select>
-                                    <!--<span class="help-block">(Ex:Hardbond)</span>-->
-                                </div>
 
-                            </div>
-                            <div class="col-md-4">
-                                <label for="selection of course" class="col-sm-3 control-label" style="color:red;">Weight:<span class='require'>*</span></label>
-                                <div class="col-sm-9">
-                                    <input class="form-control" type="text" ng-model="Book.Weight" placeholder="Book Weight" />
-                                    <!--<span class="help-block">(Ex:1.5 Kg)</span>-->
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row mbm">
-                        <div class="col-lg-12" style="padding-left:2px;padding-right:2px;">
-
-                            <div class="col-md-4">
-                                <label for="selection of course" class="col-sm-3 control-label" style="color:red;">Label:<span class='require'>*</span></label>
-                                <div class="col-sm-9">
-                                    <select ng-options="b.Name for b in bok track by b.Id" ng-model="Book.Label" class="form-control">
-                                        <option value="">Select</option>
-                                    </select>
-                                    <!--<span class="help-block">(Ex:New or Sales)</span>-->
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <label for="selection of course" class="col-sm-3 control-label" style="color:red;">Book Author:<span class='require'>*</span></label>
-                                <div class="col-sm-9">
-                                    <input class="form-control" type="text" ng-model="Book.BookAuthor" placeholder="Author" />
-                                    <!--<span class="help-block">(Ex: Swami Premananada Maharaj)</span>-->
-                                </div>
-
-                            </div>
-                            <div class="col-md-4">
-                                <label for="selection of course" class="col-sm-3 control-label" style="color:red;">Tags:<span class='require'>*</span></label>
-                                <div class="col-sm-9">
-                                    <input class="form-control" type="text" ng-model="Book.Tags" placeholder="Ex: Swami Vivekanada" />
-                                    <!--<span class="help-block">(Ex:Swami Vivekananda)</span>-->
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row mbm">
-                        <div class="col-lg-12" style="padding-left:2px;padding-right:2px;">
-
-                            <div class="col-md-4">
-                                <label for="selection of course" class="col-sm-3 control-label" style="color:red;">Language:<span class='require'>*</span></label>
-                                <div class="col-sm-9">
-                                    <select ng-options="b.Name for b in bok track by b.Id" ng-model="Book.Language" class="form-control">
-                                        <option value="">Select</option>
-                                    </select>
-                                    <!--<span class="help-block">(Ex:English or Telugu)</span>-->
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <label for="selection of course" class="col-sm-3 control-label" style="color:red;">No.of Pages:<span class='require'>*</span></label>
-                                <div class="col-sm-9">
-                                    <input class="form-control" type="text" ng-model="Book.NoOfPages" placeholder="Total Book Pages" />
-                                    <!--span class="help-block">(Ex:140)</span>-->
-                                </div>
-
-                            </div>
-                            <div class="col-md-4">
-                                <label for="selection of course" class="col-sm-3 control-label" style="color:red;">Publisher:<span class='require'>*</span></label>
-                                <div class="col-sm-9">
-                                    <input class="form-control" type="text" ng-model="Book.Publisher" placeholder="Book Publisher" />
-                                    <!--<span class="help-block">(Ex:Sri Sarada Math,Hyderabad)</span>-->
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row mbm">
-                        <div class="col-lg-12" style="padding-left:2px;">
-
-                            <div class="col-md-4">
-                                <div class="col-lg-12">
-                                    <label for="selection of course" class="control-label" style="color:red;margin-left:1px;">Book Image:<span class='require'>*</span></label>
-                                </div>
-                                <div class="col-lg-12" style="padding-left:15px;">
-                                    <img id="cmpLogo" ng-src="{{BookImage}}" style="border: solid 1px; width: 240px; height: 120px;" ng-model="tt" />
-                                </div>
-                                <div class="col-lg-12" style="padding-left:15px;margin-top:5px;width:240px;">
-                                    <input type="file" style="width:240px;" name="fileInput" id="fileInput" ng-file-select="onFileSelect1($files)" class="btn btn-green" accept=".jpg,.png,.gif,.jpeg" ng-model="BookImage" />
-                                </div>
-                            </div>
-                            <div class="col-md-8">
-
-                                <label for="selection of course" class="col-md-5 control-label" style="color:red;margin-left:1px;">Description:<span class='require'>*</span></label>
-                                <div class="col-md-12" style="margin-right:2px;">
-                                    <textarea class="form-control" rows="7" ng-model="Book.BookDescription" placeholder="Enter Book Brief Description"></textarea>
-                                </div>
-
-                            </div>
+                        <div class="col-md-6">
+                            <input id="inputFirstName" type="text" ng-model="Savetypes.Name" class="form-control" /><span class="help-block"></span>
                         </div>
                     </div>
 
-                    <div class="form-actions mbm" style="margin-top:10px;">
-                        <div style="text-align:center;">
-                            <button class="btn btn-orange" ng-disabled="isSuperUser == 0 && CanCreate == 0" ng-click="AddNewBook(Book,'I');">Save</button>
-                            <button type="button" data-dismiss="modal" class="btn btn-default" ng-click="clearGroup()">Cancel</button>
+
+                    <div class="row mbm">
+                        <div style="text-align:right">
+                            <label for="Description" class="col-md-4 control-label"> Description: <span class='require'></span></label>
                         </div>
+                        <div class="col-md-6">
+                            <input id="Description" type="text" ng-model="Savetypes.Description" class="form-control" /><span class="help-block"></span>
+                        </div>
+                    </div>
+                    <div class="row mbm">
+                        <div style="text-align:right">
+                            <label for="selCountry" class="col-md-4 control-label" style="color:red;">Type Group:<span class='require'>*</span></label>
+                        </div>
+
+                        <div class="col-md-6">
+                            <select ng-options="s.Name for s in TypeGroups track by s.Id" class="form-control" ng-model="Savetypes.group">
+                                <option value="">Select</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row mbm">
+
+                        <div style="text-align:right">
+                            <label for="Active" class="col-md-4 control-label">Active:<span class='require'></span></label>
+                        </div>
+                        <input type="checkbox" class="col-md-4 control-label" id="cactive" ng-checked="Savetypes.Active" />
+                    </div>
+                </div>
+
+
+                <div class="form-actions">
+                    <div class="col-md-offset-3 col-md-9">
+                        <button class="btn btn-primary" data-dismiss="modal" type="button" ng-click="saveNewType(Savetypes);">Save</button>
+                        <button type="button" data-dismiss="modal" class="btn btn-default">Close</button>
                     </div>
                 </div>
             </div>
         </div>
+
+
+
     </div>
 
 
     <!--Edit Books list start-->
-    <div id="Modal-header-new-Edit" tabindex="-1" role="dialog" aria-labelledby="modal-header-primary-label" aria-hidden="true" class="modal">
-        <div class="modal-dialog modal-lg">
+    <div id="Modal-header-edit" tabindex="-1" role="dialog" aria-labelledby="modal-header-primary-label" aria-hidden="true" class="modal">
+        <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header modal-header-primary">
                     <button type="button" data-dismiss="modal" aria-hidden="true" class="close">&times;</button>
-                    <h4 id="modal-header-primary-label" class="modal-title">Edit Book Details</h4>
+                    <h4 id="modal-header-primary-label" class="modal-title">Edit Type Details</h4>
                 </div>
-                <div class="modal-body" ng-model="bookedit" ng-click="addbook()">
+                <div class="modal-body" ng-model="edittype">
                     <div class="row mbm">
-                        <div class="col-md-12">
-                            <div class="col-md-6">
-                                <label for="selection of course" class="col-md-5 control-label" style="color:red;">Title:<span class='require'>*</span></label>
-                                <div class="col-md-6">
-                                    <input class="form-control" type="text" ng-model="bookedit.BookTitle" />
-                                    <span class="help-block">(Ex:Jnana Yoga)</span>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <label for="selection of course" class="col-md-5 control-label" style="color:red;">Price:<span class='require'>*</span></label>
-                                <div class="col-md-6">
-                                    <input class="form-control" type="text" ng-model="bookedit.BookPrice" />
-                                    <span class="help-block">(Ex:250)</span>
-                                </div>
-
-                            </div>
-
+                        <div style="text-align:right">
+                            <label for="Name" class="col-md-4 control-label" style="color:red;">Name:<span class='require'>*</span></label>
                         </div>
-                    </div>
-                    <div class="row mbm">
-                        <div class="col-md-12">
-                            <div class="col-md-6">
-                                <label for="selection of course" class="col-md-5 control-label" style="color:red;">Stock:<span class='require'>*</span></label>
-                                <div class="col-md-6">
-                                    <input class="form-control" type="text" ng-model="bookedit.BookStock" />
-                                    <span class="help-block">(Ex:10)</span>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <label for="selection of course" class="col-md-5 control-label" style="color:red;">Book Type:<span class='require'>*</span></label>
-                                <div class="col-md-6">
-                                    <select ng-options="b.Name for b in bok track by b.Id" ng-model="bookedit.BookType1" class="form-control">
-                                        <option value="">Select</option>
-                                    </select>
-                                    <span class="help-block">(Ex:Hardbond)</span>
-                                </div>
 
-                            </div>
-
-                        </div>
-                    </div>
-                    <div class="row mbm">
-                        <div class="col-md-12">
-                            <div class="col-md-6">
-                                <!--<label for="Description" class="col-md-5 control-label" style="color:red;">Select files:<span class='require'></span></label>-->
-                                <img ng-src="{{BookImage2}}" style="height:200px;width:150px;margin-bottom:10px;" />
-                                <input type="file" name="fileInput" id="fileInput" ng-file-select="onFileSelect2($files)" class="btn btn-green" accept=".jpg,.png,.gif,.jpeg" ng-model="BookImage2" />
-                            </div>
-
-                            <div class="col-md-6">
-                                <label for="selection of course" class="col-md-5 control-label" style="color:red;">Description:<span class='require'>*</span></label>
-                                <div class="col-md-12">
-                                    <textarea class="form-control" rows="3" ng-model="bookedit.BookDescription"></textarea>
-                                </div>
-                                <div class="col-md-12" style="text-align:center;margin-top:20px;">
-
-
-
-                                </div>
-                                <div class="col-md-12" style="margin-top:20px;">
-                                    <div class="col-md-6">
-                                        <label for="selection of course" class="col-md-5 control-label" style="color:red;">Active:<span class='require'>*</span></label>
-
-                                        <input type="checkbox" class="icheckbox_minimal-grey activeCheckbox" ng-model="bookedit.Active" ng-true-value="1" ng-false-value="0" />
-                                    </div>
-                                    <div class="col-md-6">
-                                        <button class="btn btn-orange" ng-disabled="isSuperUser == 0 && CanCreate == 0" ng-click="updatebookdetails(bookedit,'U');">Save</button>
-                                        <button type="button" data-dismiss="modal" class="btn btn-default" ng-click="clearGroup()">Cancel</button>
-                                    </div>
-                                </div>
-                            </div>
-
+                        <div class="col-md-6">
+                            <input id="inputFirstName" type="text" ng-model="edittype.Name" class="form-control" /><span class="help-block"></span>
                         </div>
                     </div>
 
-                    <!--<div class="form-actions mbm">
-                        <div style="text-align:center;">
-                            <button class="btn btn-orange" ng-disabled="isSuperUser == 0 && CanCreate == 0" ng-click="AddNewBook(bookedit,'U');">Save</button>
-                            <button type="button" data-dismiss="modal" class="btn btn-default" ng-click="clearGroup()">Cancel</button>
+
+                    <div class="row mbm">
+                        <div style="text-align:right">
+                            <label for="Description" class="col-md-4 control-label"> Description: <span class='require'></span></label>
                         </div>
-                    </div>-->
+                        <div class="col-md-6">
+                            <input id="Description" type="text" ng-model="edittype.Description" class="form-control" /><span class="help-block"></span>
+                        </div>
+                    </div>
+                    <div class="row mbm">
+                        <div style="text-align:right">
+                            <label for="selCountry" class="col-md-4 control-label" style="color:red;">Type Group:<span class='require'>*</span></label>
+                        </div>
+
+                        <div class="col-md-6">
+                            <select ng-options="s.Name for s in TypeGroups track by s.Id" class="form-control" ng-model="edittype.group">
+                                <option value="">Select</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row mbm">
+
+                        <div style="text-align:right">
+                            <label for="Active" class="col-md-4 control-label">Active:<span class='require'></span></label>
+                        </div>
+                        <input type="checkbox" class="col-md-4 control-label" id="cactive" ng-checked="edittype.Active" />
+                    </div>
+                </div>
+
+
+                <div class="form-actions">
+                    <div class="col-md-offset-3 col-md-9">
+                        <button class="btn btn-primary" data-dismiss="modal" type="button" ng-click="saveNewType(edittype);">Save</button>
+                        <button type="button" data-dismiss="modal" class="btn btn-default">Close</button>
+                    </div>
                 </div>
             </div>
         </div>
+
+
+
     </div>
     <!--Edit Books list End-->
     <script type="text/ng-template" id="myModalContent.html" data-backdrop="static">
@@ -510,7 +384,7 @@
     <script src="js/fileupload/angular-file-upload.js"></script>
     <script src="js/fileupload/angular-file-upload-shim.js"></script>
     <!--<script src="Js/Playlist.js"></script>-->
-    <script src="js/CustomerList.js"></script>
+    <script src="js/Types.js"></script>
     <script src="js/fileupload/Upload.js"></script>
 
     <!--CORE JAVASCRIPT-->
