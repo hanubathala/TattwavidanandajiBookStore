@@ -16,44 +16,40 @@ namespace TattwavidanandajiBookStoreAdmin.Controllers
 {
     public class TypesController : ApiController
     {
-        [HttpGet]
-        public DataTable TypesByGroupId(int groupid)
+        [HttpPost]
+        [Route("api/Types/TypesByGroupId")]
+        public DataSet TypesByGroupId(ConfigData config)
         {
-            DataTable Tbl = new DataTable();
-
-           // Log//traceWriter //traceWriter = new Log//traceWriter();
-            //traceWriter.Trace(Request, "0", TraceLevel.Info, "{0}", "GetTypesByGroupId credentials....");
-
-            //connect to database
+            DataSet Tbl = new DataSet();
             SqlConnection conn = new SqlConnection();
-            //connetionString="Data Source=ServerName;Initial Catalog=DatabaseName;User ID=UserName;Password=Password"
-            conn.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings["VIHE_DB_Connection"].ToString();
+            try
+            {
+                conn.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings["VIHE_DB_Connection"].ToString();
 
-            SqlCommand cmd = new SqlCommand();
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.CommandText = "GetTypesByGroupId";
-            cmd.Connection = conn;
+                SqlCommand cmd = new SqlCommand();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "Gettypesdata";
+                cmd.Connection = conn;
+                conn.Open();
+                cmd.Parameters.Add(new SqlParameter("@booktype", SqlDbType.Int)).SqlValue = config.booktype;
+                cmd.Parameters.Add(new SqlParameter("@labeltype", SqlDbType.Int)).SqlValue = config.labeltype;
+                cmd.Parameters.Add(new SqlParameter("@languagetype", SqlDbType.Int)).SqlValue = config.languagetype;
+                SqlDataAdapter db = new SqlDataAdapter(cmd);
+                db.Fill(Tbl);
+            }
+            catch (Exception ex)
+            {
 
-            SqlParameter Gid = new SqlParameter();
-            Gid.ParameterName = "@typegrpid";
-            Gid.SqlDbType = SqlDbType.Int;
-            Gid.Value = groupid;
-            cmd.Parameters.Add(Gid);
+                throw ex;
+            }
+            finally {
 
-           // DataSet ds = new DataSet();
-            SqlDataAdapter db = new SqlDataAdapter(cmd);
-            db.Fill(Tbl);
-           // Tbl =ds.Tables[0];
-
-            //prepare a file
-           // StringBuilder str = new StringBuilder();
-
-           // str.Append(string.Format("test\n{0}", groupid.ToString()));
-
-
-
-            //traceWriter.Trace(Request, "0", TraceLevel.Info, "{0}", "GetTypesByGroupId Credentials completed.");
-            // int found = 0;
+                if (conn != null) {
+                    conn.Close();
+                
+                }
+            }
+           
             return Tbl;
         }
 
@@ -155,7 +151,7 @@ namespace TattwavidanandajiBookStoreAdmin.Controllers
                 SqlParameter llid = new SqlParameter();
                 llid.ParameterName = "@Active";
                 llid.SqlDbType = SqlDbType.Int;
-                llid.Value = 1;// b.Active;
+                llid.Value = b.Active;// b.Active;
                 //llid.Value = b.Active;
                 cmd.Parameters.Add(llid);
 
@@ -184,234 +180,234 @@ namespace TattwavidanandajiBookStoreAdmin.Controllers
             }
         }
 
-        [HttpPost]
-        [Route("api/Types/ConfigData")]
-        public DataSet ConfigData(ConfigData vc)
-        {
+        //[HttpPost]
+        //[Route("api/Types/ConfigData")]
+        //public DataSet ConfigData(ConfigData vc)
+        //{
 
-           // Log//traceWriter //traceWriter = new Log//traceWriter();
-            //traceWriter.Trace(Request, "0", TraceLevel.Info, "{0}", "ConfigData....");
-            //DataTable Tbl = new DataTable();
-            //connect to database
-            SqlConnection conn = new SqlConnection();
-            DataSet ds = new DataSet();
+        //   // Log//traceWriter //traceWriter = new Log//traceWriter();
+        //    //traceWriter.Trace(Request, "0", TraceLevel.Info, "{0}", "ConfigData....");
+        //    //DataTable Tbl = new DataTable();
+        //    //connect to database
+        //    SqlConnection conn = new SqlConnection();
+        //    DataSet ds = new DataSet();
 
-            try
-            {
-                //connetionString="Data Source=ServerName;Initial Catalog=DatabaseName;User ID=UserName;Password=Password"
-                conn.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings["btposdb"].ToString();
+        //    try
+        //    {
+        //        //connetionString="Data Source=ServerName;Initial Catalog=DatabaseName;User ID=UserName;Password=Password"
+        //        conn.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings["btposdb"].ToString();
 
-                SqlCommand cmd = new SqlCommand();
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.CommandText = "GetConfigurationData";
-                cmd.Connection = conn;
+        //        SqlCommand cmd = new SqlCommand();
+        //        cmd.CommandType = CommandType.StoredProcedure;
+        //        cmd.CommandText = "GetConfigurationData";
+        //        cmd.Connection = conn;
 
-                SqlParameter gsaa = new SqlParameter();
-                gsaa.ParameterName = "@includeStatus";
-                gsaa.SqlDbType = SqlDbType.Int;
-                gsaa.Value = vc.includeStatus;
-                cmd.Parameters.Add(gsaa);
+        //        SqlParameter gsaa = new SqlParameter();
+        //        gsaa.ParameterName = "@includeStatus";
+        //        gsaa.SqlDbType = SqlDbType.Int;
+        //        gsaa.Value = vc.includeStatus;
+        //        cmd.Parameters.Add(gsaa);
 
-                SqlParameter gsab = new SqlParameter();
-                gsab.ParameterName = "@includeCategories";
-                gsab.SqlDbType = SqlDbType.Int;
-                gsab.Value = vc.includeCategories;
-                cmd.Parameters.Add(gsab);
+        //        SqlParameter gsab = new SqlParameter();
+        //        gsab.ParameterName = "@includeCategories";
+        //        gsab.SqlDbType = SqlDbType.Int;
+        //        gsab.Value = vc.includeCategories;
+        //        cmd.Parameters.Add(gsab);
 
-                SqlParameter gsac = new SqlParameter();
-                gsac.ParameterName = "@includeLicenseCategories";
-                gsac.SqlDbType = SqlDbType.Int;
-                gsac.Value = vc.includeLicenseCategories;
-                cmd.Parameters.Add(gsac);
+        //        SqlParameter gsac = new SqlParameter();
+        //        gsac.ParameterName = "@includeLicenseCategories";
+        //        gsac.SqlDbType = SqlDbType.Int;
+        //        gsac.Value = vc.includeLicenseCategories;
+        //        cmd.Parameters.Add(gsac);
 
-                SqlParameter nvr = new SqlParameter();
-                nvr.ParameterName = "@includeVehicleGroup";
-                nvr.SqlDbType = SqlDbType.Int;
-                nvr.Value = vc.includeVehicleGroup;
-                cmd.Parameters.Add(nvr);
+        //        SqlParameter nvr = new SqlParameter();
+        //        nvr.ParameterName = "@includeVehicleGroup";
+        //        nvr.SqlDbType = SqlDbType.Int;
+        //        nvr.Value = vc.includeVehicleGroup;
+        //        cmd.Parameters.Add(nvr);
 
-                SqlParameter nvl = new SqlParameter();
-                nvl.ParameterName = "@includeGender";
-                nvl.SqlDbType = SqlDbType.Int;
-                nvl.Value = vc.includeGender;
-                cmd.Parameters.Add(nvl);
+        //        SqlParameter nvl = new SqlParameter();
+        //        nvl.ParameterName = "@includeGender";
+        //        nvl.SqlDbType = SqlDbType.Int;
+        //        nvl.Value = vc.includeGender;
+        //        cmd.Parameters.Add(nvl);
 
-                SqlParameter nst = new SqlParameter();
-                nst.ParameterName = "@includeFrequency";
-                nst.SqlDbType = SqlDbType.Int;
-                nst.Value = vc.includeFrequency;
-                cmd.Parameters.Add(nst);
+        //        SqlParameter nst = new SqlParameter();
+        //        nst.ParameterName = "@includeFrequency";
+        //        nst.SqlDbType = SqlDbType.Int;
+        //        nst.Value = vc.includeFrequency;
+        //        cmd.Parameters.Add(nst);
 
-                SqlParameter ncn = new SqlParameter();
-                ncn.ParameterName = "@includePricingType";
-                ncn.SqlDbType = SqlDbType.Int;
-                ncn.Value = vc.includePricingType;
-                cmd.Parameters.Add(ncn);
+        //        SqlParameter ncn = new SqlParameter();
+        //        ncn.ParameterName = "@includePricingType";
+        //        ncn.SqlDbType = SqlDbType.Int;
+        //        ncn.Value = vc.includePricingType;
+        //        cmd.Parameters.Add(ncn);
 
-                SqlParameter gsk = new SqlParameter();
-                gsk.ParameterName = "@includeTransactionType";
-                gsk.SqlDbType = SqlDbType.Int;
-                gsk.Value = vc.includeTransactionType;
-                cmd.Parameters.Add(gsk);
+        //        SqlParameter gsk = new SqlParameter();
+        //        gsk.ParameterName = "@includeTransactionType";
+        //        gsk.SqlDbType = SqlDbType.Int;
+        //        gsk.Value = vc.includeTransactionType;
+        //        cmd.Parameters.Add(gsk);
 
-                //@needHireVehicle
-                SqlParameter nhv = new SqlParameter();
-                nhv.ParameterName = "@includeApplicability";
-                nhv.SqlDbType = SqlDbType.Int;
-                nhv.Value = vc.includeApplicability;
-                cmd.Parameters.Add(nhv);
+        //        //@needHireVehicle
+        //        SqlParameter nhv = new SqlParameter();
+        //        nhv.ParameterName = "@includeApplicability";
+        //        nhv.SqlDbType = SqlDbType.Int;
+        //        nhv.Value = vc.includeApplicability;
+        //        cmd.Parameters.Add(nhv);
 
-                //@needbtpos
-                SqlParameter nbtpos = new SqlParameter();
-                nbtpos.ParameterName = "@includeFeeCategory";
-                nbtpos.SqlDbType = SqlDbType.Int;
-                nbtpos.Value = vc.includeFeeCategory;
-                cmd.Parameters.Add(nbtpos);
+        //        //@needbtpos
+        //        SqlParameter nbtpos = new SqlParameter();
+        //        nbtpos.ParameterName = "@includeFeeCategory";
+        //        nbtpos.SqlDbType = SqlDbType.Int;
+        //        nbtpos.Value = vc.includeFeeCategory;
+        //        cmd.Parameters.Add(nbtpos);
 
-                //@cmpId
-                SqlParameter cmpId = new SqlParameter();
-                cmpId.ParameterName = "@includeTransChargeType";
-                cmpId.SqlDbType = SqlDbType.Int;
-                cmpId.Value = vc.includeTransChargeType;
-                cmd.Parameters.Add(cmpId);
+        //        //@cmpId
+        //        SqlParameter cmpId = new SqlParameter();
+        //        cmpId.ParameterName = "@includeTransChargeType";
+        //        cmpId.SqlDbType = SqlDbType.Int;
+        //        cmpId.Value = vc.includeTransChargeType;
+        //        cmd.Parameters.Add(cmpId);
 
-                //@fleetownerId
-                SqlParameter foid = new SqlParameter();
-                foid.ParameterName = "@includeVehicleType";
-                foid.SqlDbType = SqlDbType.Int;
-                foid.Value = vc.includeVehicleType;
-                cmd.Parameters.Add(foid);
+        //        //@fleetownerId
+        //        SqlParameter foid = new SqlParameter();
+        //        foid.ParameterName = "@includeVehicleType";
+        //        foid.SqlDbType = SqlDbType.Int;
+        //        foid.Value = vc.includeVehicleType;
+        //        cmd.Parameters.Add(foid);
 
-                //needfleetownerroutes
-                SqlParameter forid = new SqlParameter();
-                forid.ParameterName = "@includeVehicleModel";
-                forid.SqlDbType = SqlDbType.Int;
-                forid.Value = vc.includeVehicleModel;
-                cmd.Parameters.Add(forid);
+        //        //needfleetownerroutes
+        //        SqlParameter forid = new SqlParameter();
+        //        forid.ParameterName = "@includeVehicleModel";
+        //        forid.SqlDbType = SqlDbType.Int;
+        //        forid.Value = vc.includeVehicleModel;
+        //        cmd.Parameters.Add(forid);
 
-                SqlParameter vmid = new SqlParameter();
-                vmid.ParameterName = "@includeVehicleMake";
-                vmid.SqlDbType = SqlDbType.Int;
-                vmid.Value = vc.includeVehicleMake;
-                cmd.Parameters.Add(vmid);
+        //        SqlParameter vmid = new SqlParameter();
+        //        vmid.ParameterName = "@includeVehicleMake";
+        //        vmid.SqlDbType = SqlDbType.Int;
+        //        vmid.Value = vc.includeVehicleMake;
+        //        cmd.Parameters.Add(vmid);
 
-                SqlParameter vgid = new SqlParameter();
-                vgid.ParameterName = "@includeDocumentType";
-                vgid.SqlDbType = SqlDbType.Int;
-                vgid.Value = vc.includeDocumentType;
-                cmd.Parameters.Add(vgid);
+        //        SqlParameter vgid = new SqlParameter();
+        //        vgid.ParameterName = "@includeDocumentType";
+        //        vgid.SqlDbType = SqlDbType.Int;
+        //        vgid.Value = vc.includeDocumentType;
+        //        cmd.Parameters.Add(vgid);
 
-                SqlParameter vdid = new SqlParameter();
-                vdid.ParameterName = "@includePaymentType";
-                vdid.SqlDbType = SqlDbType.Int;
-                vdid.Value = vc.includePaymentType;
-                cmd.Parameters.Add(vdid);
+        //        SqlParameter vdid = new SqlParameter();
+        //        vdid.ParameterName = "@includePaymentType";
+        //        vdid.SqlDbType = SqlDbType.Int;
+        //        vdid.Value = vc.includePaymentType;
+        //        cmd.Parameters.Add(vdid);
 
-                SqlParameter vmid1 = new SqlParameter();
-                vmid1.ParameterName = "@includeMiscellaneousTypes";
-                vmid1.SqlDbType = SqlDbType.Int;
-                vmid1.Value = vc.includeMiscellaneousTypes;
-                cmd.Parameters.Add(vmid1);
+        //        SqlParameter vmid1 = new SqlParameter();
+        //        vmid1.ParameterName = "@includeMiscellaneousTypes";
+        //        vmid1.SqlDbType = SqlDbType.Int;
+        //        vmid1.Value = vc.includeMiscellaneousTypes;
+        //        cmd.Parameters.Add(vmid1);
 
-                SqlParameter vgid1 = new SqlParameter();
-                vgid1.ParameterName = "@includeCardCategories";
-                vgid1.SqlDbType = SqlDbType.Int;
-                vgid1.Value = vc.includeCardCategories;
-                cmd.Parameters.Add(vgid1);
+        //        SqlParameter vgid1 = new SqlParameter();
+        //        vgid1.ParameterName = "@includeCardCategories";
+        //        vgid1.SqlDbType = SqlDbType.Int;
+        //        vgid1.Value = vc.includeCardCategories;
+        //        cmd.Parameters.Add(vgid1);
 
-                SqlParameter vdid1 = new SqlParameter();
-                vdid1.ParameterName = "@includeCardTypes";
-                vdid1.SqlDbType = SqlDbType.Int;
-                vdid1.Value = vc.includeCardTypes;
-                cmd.Parameters.Add(vdid1);
-
-
-                SqlParameter vmid11 = new SqlParameter();
-                vmid11.ParameterName = "@includeVehicleLayoutType";
-                vmid11.SqlDbType = SqlDbType.Int;
-                vmid11.Value = vc.includeVehicleLayoutType;
-                cmd.Parameters.Add(vmid11);
-
-                SqlParameter vgid11 = new SqlParameter();
-                vgid11.ParameterName = "@includeLicenseFeatures";
-                vgid11.SqlDbType = SqlDbType.Int;
-                vgid11.Value = vc.includeLicenseFeatures;
-                cmd.Parameters.Add(vgid11);
-
-                SqlParameter vdid11 = new SqlParameter();
-                vdid11.ParameterName = "@includeCardModels";
-                vdid11.SqlDbType = SqlDbType.Int;
-                vdid11.Value = vc.includeCardModels;
-                cmd.Parameters.Add(vdid11);
+        //        SqlParameter vdid1 = new SqlParameter();
+        //        vdid1.ParameterName = "@includeCardTypes";
+        //        vdid1.SqlDbType = SqlDbType.Int;
+        //        vdid1.Value = vc.includeCardTypes;
+        //        cmd.Parameters.Add(vdid1);
 
 
-                SqlParameter vmid2 = new SqlParameter();
-                vmid2.ParameterName = "@includeCards";
-                vmid2.SqlDbType = SqlDbType.Int;
-                vmid2.Value = vc.includeCards;
-                cmd.Parameters.Add(vmid2);
+        //        SqlParameter vmid11 = new SqlParameter();
+        //        vmid11.ParameterName = "@includeVehicleLayoutType";
+        //        vmid11.SqlDbType = SqlDbType.Int;
+        //        vmid11.Value = vc.includeVehicleLayoutType;
+        //        cmd.Parameters.Add(vmid11);
 
-                SqlParameter vgid2 = new SqlParameter();
-                vgid2.ParameterName = "@includeCountry";
-                vgid2.SqlDbType = SqlDbType.Int;
-                vgid2.Value = vc.includeCountry;
-                cmd.Parameters.Add(vgid2);
+        //        SqlParameter vgid11 = new SqlParameter();
+        //        vgid11.ParameterName = "@includeLicenseFeatures";
+        //        vgid11.SqlDbType = SqlDbType.Int;
+        //        vgid11.Value = vc.includeLicenseFeatures;
+        //        cmd.Parameters.Add(vgid11);
 
-                SqlParameter vdid2 = new SqlParameter();
-                vdid2.ParameterName = "@includeActiveCountry";
-                vdid2.SqlDbType = SqlDbType.Int;
-                vdid2.Value = vc.includeActiveCountry;
-                cmd.Parameters.Add(vdid2);
+        //        SqlParameter vdid11 = new SqlParameter();
+        //        vdid11.ParameterName = "@includeCardModels";
+        //        vdid11.SqlDbType = SqlDbType.Int;
+        //        vdid11.Value = vc.includeCardModels;
+        //        cmd.Parameters.Add(vdid11);
 
 
-                SqlParameter vdid3 = new SqlParameter();
-                vdid3.ParameterName = "@includeFleetOwner";
-                vdid3.SqlDbType = SqlDbType.Int;
-                vdid3.Value = vc.includeFleetOwner;
-                cmd.Parameters.Add(vdid3);
+        //        SqlParameter vmid2 = new SqlParameter();
+        //        vmid2.ParameterName = "@includeCards";
+        //        vmid2.SqlDbType = SqlDbType.Int;
+        //        vmid2.Value = vc.includeCards;
+        //        cmd.Parameters.Add(vmid2);
 
-                SqlParameter vdid4 = new SqlParameter("@includeUserType", SqlDbType.Int);
-                vdid4.Value = vc.includeUserType;
-                cmd.Parameters.Add(vdid4);
+        //        SqlParameter vgid2 = new SqlParameter();
+        //        vgid2.ParameterName = "@includeCountry";
+        //        vgid2.SqlDbType = SqlDbType.Int;
+        //        vgid2.Value = vc.includeCountry;
+        //        cmd.Parameters.Add(vgid2);
 
-                SqlParameter at = new SqlParameter("@includeAuthType", SqlDbType.Int);
-                at.Value = vc.includeAuthType;
-                cmd.Parameters.Add(at);
+        //        SqlParameter vdid2 = new SqlParameter();
+        //        vdid2.ParameterName = "@includeActiveCountry";
+        //        vdid2.SqlDbType = SqlDbType.Int;
+        //        vdid2.Value = vc.includeActiveCountry;
+        //        cmd.Parameters.Add(vdid2);
 
-                SqlParameter cs = new SqlParameter("@includeState", SqlDbType.Int);
-                cs.Value = vc.includeState;
-                cmd.Parameters.Add(cs);
 
-                SqlParameter iptn = new SqlParameter("@includePackageTypeName", SqlDbType.Int);
-                iptn.Value = vc.includePackageTypeName;
-                cmd.Parameters.Add(iptn);
+        //        SqlParameter vdid3 = new SqlParameter();
+        //        vdid3.ParameterName = "@includeFleetOwner";
+        //        vdid3.SqlDbType = SqlDbType.Int;
+        //        vdid3.Value = vc.includeFleetOwner;
+        //        cmd.Parameters.Add(vdid3);
 
-                SqlParameter ipn = new SqlParameter("@includePackageNames", SqlDbType.Int);
-                ipn.Value = vc.includePackageNames;
-                cmd.Parameters.Add(ipn);
+        //        SqlParameter vdid4 = new SqlParameter("@includeUserType", SqlDbType.Int);
+        //        vdid4.Value = vc.includeUserType;
+        //        cmd.Parameters.Add(vdid4);
 
-                SqlDataAdapter db = new SqlDataAdapter(cmd);
-                db.Fill(ds);
-                //traceWriter.Trace(Request, "0", TraceLevel.Info, "{0}", "ConfigData completed.");
+        //        SqlParameter at = new SqlParameter("@includeAuthType", SqlDbType.Int);
+        //        at.Value = vc.includeAuthType;
+        //        cmd.Parameters.Add(at);
 
-                // Tbl = ds.Tables[0];
+        //        SqlParameter cs = new SqlParameter("@includeState", SqlDbType.Int);
+        //        cs.Value = vc.includeState;
+        //        cmd.Parameters.Add(cs);
 
-                // int found = 0;
-                return ds;
-            }
-            catch (Exception ex)
-            {
-                if (conn != null && conn.State == ConnectionState.Open)
-                {
-                    conn.Close();
-                }
-                string str = ex.Message;
-                //traceWriter.Trace(Request, "1", TraceLevel.Info, "{0}", "Error in config data:" + ex.Message);
-                throw ex;
-            }
+        //        SqlParameter iptn = new SqlParameter("@includePackageTypeName", SqlDbType.Int);
+        //        iptn.Value = vc.includePackageTypeName;
+        //        cmd.Parameters.Add(iptn);
 
-            return ds;
-        }
+        //        SqlParameter ipn = new SqlParameter("@includePackageNames", SqlDbType.Int);
+        //        ipn.Value = vc.includePackageNames;
+        //        cmd.Parameters.Add(ipn);
+
+        //        SqlDataAdapter db = new SqlDataAdapter(cmd);
+        //        db.Fill(ds);
+        //        //traceWriter.Trace(Request, "0", TraceLevel.Info, "{0}", "ConfigData completed.");
+
+        //        // Tbl = ds.Tables[0];
+
+        //        // int found = 0;
+        //        return ds;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        if (conn != null && conn.State == ConnectionState.Open)
+        //        {
+        //            conn.Close();
+        //        }
+        //        string str = ex.Message;
+        //        //traceWriter.Trace(Request, "1", TraceLevel.Info, "{0}", "Error in config data:" + ex.Message);
+        //        throw ex;
+        //    }
+
+        //    return ds;
+        //}
 
 
         public void Options() { }

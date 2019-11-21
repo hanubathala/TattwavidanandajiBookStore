@@ -101,6 +101,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="DBScripts\dropandscripts.sql" />
     <Content Include="DBScripts\LatestDataBase.sql" />
     <Content Include="DBScripts\MasterData.sql" />
     <Content Include="eshopper\404.html" />

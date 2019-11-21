@@ -7,7 +7,6 @@ var ctrl = app.controller('myCtrl', function ($scope, $http, $localStorage) {
     }
     $scope.uname = $localStorage.uname;
     $scope.userdetails = $localStorage.userdetails;
-    $scope.Roleid = $localStorage.userdetails[0].RoleId;
     $scope.CanCreate = 0;
     $scope.selectedvalue ='5';      
     $scope.selectgoto = 1;
@@ -129,32 +128,32 @@ var ctrl = app.controller('myCtrl', function ($scope, $http, $localStorage) {
         });
        
     };
-    $scope.Updatetypedetails = function (Types) {
+    $scope.Updatetypedetails = function (edittype) {
 
-        if (Types == null) {
+        if (edittype == null) {
             alert('Please enter name.');
             return;
         }
 
-        if (Types.Name == null) {
+        if (edittype.Name == null) {
             alert('Please enter name.');
             return;
         }
-        if (Types.group == null) {
+        if (edittype.edittypegroup == null) {
             alert('Please select a type group');
             return;
         }
 
         var Types = {
 
-            Id: null,
-            Name: Types.Name,
-            Description: Types.Description,
-            Active: Types.Active,
-            TypeGroupId: Types.group.Id,
-            ListKey: Types.ListKey,
-            Listvalue: Types.Listvalue,
-            insupddelflag: 'I'
+            Id: edittype.Id,
+            Name: edittype.editname,
+            Description: edittype.editdesc,
+            Active: edittype.editActive,
+            TypeGroupId: edittype.edittypegroup.Id,
+            ListKey: edittype.ListKey,
+            Listvalue: edittype.Listvalue,
+            insupddelflag: 'U'
         };
 
         var req = {
@@ -180,7 +179,21 @@ var ctrl = app.controller('myCtrl', function ($scope, $http, $localStorage) {
         });
 
     };
+    $scope.setdata = function (data) {
 
+        $scope.edittype = data;
+        $scope.edittype.editname = data.Name;
+        $scope.edittype.editdesc = data.Description;
+        $scope.edittype.editActive = data.Active;
+
+        for (var i = 0; i <$scope.TypeGroups.length; i++) {
+            if (data.TypeGroupId == $scope.TypeGroups[i].Id) {
+
+                $scope.edittype.edittypegroup = $scope.TypeGroups[i];
+            }
+
+        }
+    }
    });
 
 

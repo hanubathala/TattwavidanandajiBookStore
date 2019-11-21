@@ -80,7 +80,7 @@ var ctrl = app.controller('myCtrl', function ($scope, $http, $localStorage) {
         var SelTypeGroup = {
             Name: TypeGroups1.Name,
             Description: TypeGroups1.Description,
-            Active: 1,
+            Active: TypeGroups1.Active,
             Id: -1,
             insupddelflag: 'I'
         };
@@ -104,7 +104,55 @@ var ctrl = app.controller('myCtrl', function ($scope, $http, $localStorage) {
         });
 
     };
-   });
+    
+    $scope.setdata = function (data) {
+        $scope.edittgroup = data;
+        $scope.edittgroup.editname = data.Name;
+        $scope.edittgroup.editdes = data.Description;
+        $scope.edittgroup.editActive = data.Active;
+
+    }
+
+    $scope.updatetypegroup = function (edittgroup) {
+
+        if (edittgroup == null) {
+            alert('Please enter name.');
+            return;
+        }
+
+        if (edittgroup.editname == null) {
+            alert('Please enter name.');
+            return;
+        }
+
+        var SelTypeGroup = {
+            Name: edittgroup.editname,
+            Description: edittgroup.editdes,
+            Active: edittgroup.editActive,
+            Id: edittgroup.Id,
+            insupddelflag: 'U'
+        };
+
+        var req = {
+            method: 'POST',
+            url: '/api/typegroups/savetypegroups',
+            data: SelTypeGroup
+        }
+        $http(req).then(function (response) {
+            $scope.getcustomerlist();
+            $scope.tGroup = null;
+
+        }, function (errres) {
+            var errdata = errres.data;
+            var errmssg = "";
+            errmssg = (errdata && errdata.ExceptionMessage) ? errdata.ExceptionMessage : errdata.Message;
+            alert(errmssg);
+            $scope.getcustomerlist();
+            $scope.tGroup = null;
+        });
+
+    };
+});
 
 
 

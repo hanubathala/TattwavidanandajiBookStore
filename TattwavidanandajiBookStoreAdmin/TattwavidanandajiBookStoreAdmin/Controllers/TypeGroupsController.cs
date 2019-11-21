@@ -112,7 +112,7 @@ namespace TattwavidanandajiBookStoreAdmin.Controllers
             SqlParameter llid = new SqlParameter();
             llid.ParameterName = "@Active";
             llid.SqlDbType = SqlDbType.Int;
-            llid.Value = 1;// b.Active;
+            llid.Value = b.Active;// b.Active;
             //llid.Value = b.Active;
             cmd.Parameters.Add(llid);
 

@@ -27,7 +27,7 @@
     <link href="css/themes/style2/yellow-dark.css" rel="stylesheet" />
     <link type="text/css" rel="stylesheet" href="css/style-responsive.css">
 </head>
-<body ng-app="myApp" ng-controller="myCtrl" ng-init="InitConfig();">
+<body ng-app="myApp" ng-controller="myCtrl" ng-init="getbooklist();">
     <!--BEGIN THEME SETTING-->
     <!--BEGIN BACK TO TOP-->
     <a id="totop" href="#"><i class="fa fa-angle-up"></i></a><!--END BACK TO TOP--><!--BEGIN TOPBAR-->
@@ -68,14 +68,14 @@
                                 <p>{{uname}}</p>
                                 <ul class="list-inline list-unstyled">
                                     <!--<li><a href="UserProfile.html" data-hover="tooltip" title="Profile"><i class="fa fa-user"></i></a></li>
-                            <li><a href="email-inbox.html" data-hover="tooltip" title="Mail"><i class="fa fa-envelope"></i></a></li>
-                            <li><a href="#" data-hover="tooltip" title="Setting" data-toggle="modal" data-target="#modal-config"><i class="fa fa-cog"></i></a></li>-->
+                                    <li><a href="email-inbox.html" data-hover="tooltip" title="Mail"><i class="fa fa-envelope"></i></a></li>
+                                    <li><a href="#" data-hover="tooltip" title="Setting" data-toggle="modal" data-target="#modal-config"><i class="fa fa-cog"></i></a></li>-->
                                     <li><a href="login.html" data-hover="tooltip" title="Logout"><i class="fa fa-sign-out"></i></a></li>
                                 </ul>
                             </div>
                             <div class="clearfix"></div>
                         </li>
-                        <li class="active"  style="border-top: 1px solid grey; border-bottom: 1px solid grey;">
+                        <li class="active" style="border-top: 1px solid grey; border-bottom: 1px solid grey;">
                             <a href="BooksList.html" data-toggle="tooltip" data-placement="right" title="To Load Data into Application">
                                 <span class="glyphicon glyphicon-download"></span><span class="menu-title">Books List</span>
                             </a>
@@ -85,7 +85,7 @@
                                 <span class="glyphicon glyphicon-download"></span><span class="menu-title">Customer List</span>
                             </a>
                         </li>
-                        <li  style="border-top: 1px solid grey; border-bottom: 1px solid grey;">
+                        <li style="border-top: 1px solid grey; border-bottom: 1px solid grey;">
                             <a href="TypeGroups.html" data-toggle="tooltip" data-placement="right" title="DB Backup in Local">
                                 <i class="fa fa-question-circle"></i><span class="menu-title">Type Groups</span>
                             </a>
@@ -127,7 +127,7 @@
                                                 <input type="text" ng-model="cname" placeholder="Search Book Title..." class="form-control" />
                                             </div>
                                             <div class="col-md-7 actions">
-                                                <button ng-disabled="isSuperUser == 0" type="button" data-target="#Modal-header-new" data-toggle="modal" class="btn btn-primary" ng-click="addbook();" style="float: right;">Add Book</button>
+                                                <button ng-disabled="isSuperUser == 0" type="button" data-target="#Modal-header-new" data-toggle="modal" class="btn btn-primary" ng-click="InitConfig();" style="float: right;">Add Book</button>
                                             </div>
                                         </div>
                                     </div>
@@ -136,18 +136,18 @@
                             <table class="table table-hover table-striped table-bordered table-advanced tablesorter">
                                 <thead>
                                     <tr>
-                                        <th width ="3%"> Book Image</th>
+                                        <th width="3%"> Book Image</th>
                                         <th width="10%">Book Title</th>
                                         <th width="10%">Book Description</th>
                                         <th width="10%">Book Type</th>
-                                        <th width ="3%">Stock</th>
+                                        <th width="3%">Stock</th>
                                         <th width="3%">Price</th>
                                         <th width="6%">Active</th>
                                         <th width="9%">Update</th>
                                     </tr>
                                 <tbody>
                                     <tr ng-repeat="c in BookList| filter:{BookTitle:cname}">
-                                        
+
                                         <td><a href="#" ng-click="openimagetoshow(c)"><img src="{{c.BookImage}}" style="width:200px;height:150px;" /></a></td>
                                         <td valign="middle"> {{c.BookTitle}}</td>
                                         <td style="text-wrap:initial">{{c.BookDescription}}</td>
@@ -163,7 +163,7 @@
                                         </td>
                                     </tr>
                                 </tbody>
-                               
+
                             </table>
                             <div class="form-actions row" ng-show="BookList.length>0">
 
@@ -245,7 +245,7 @@
                             <div class="col-md-4">
                                 <label for="selection of course" class="col-md-3 control-label" style="color:red;">Stock:<span class='require'>*</span></label>
                                 <div class="col-md-9">
-                                    <input class="form-control" type="text" ng-model="Book.BookStock"  placeholder="Book Stock"/>
+                                    <input class="form-control" type="text" ng-model="Book.BookStock" placeholder="Book Stock" />
                                     <!--<span class="help-block">(Ex:10)</span>-->
                                 </div>
 
@@ -262,7 +262,7 @@
                                 </div>
                             </div>
                             <div class="col-md-4">
-                                <label for="selection of course" class="col-sm-3 control-label" style="color:red;">Book Type:<span class='require'>*</span></label>
+                                <label for="selection of course" class="col-sm-3 control-label" style="color:red;">Type:<span class='require'>*</span></label>
                                 <div class="col-sm-9">
                                     <select ng-options="b.Name for b in bok track by b.Id" ng-model="Book.BookType" class="form-control">
                                         <option value="">Select</option>
@@ -283,18 +283,18 @@
                     </div>
                     <div class="row mbm">
                         <div class="col-lg-12" style="padding-left:2px;padding-right:2px;">
-                          
+
                             <div class="col-md-4">
-                                <label for="selection of course" class="col-sm-3 control-label" style="color:red;">Label:<span class='require'>*</span></label>
+                                <label for="selection of course" class="col-sm-3 control-label">Label:<span class='require'></span></label>
                                 <div class="col-sm-9">
-                                    <select ng-options="b.Name for b in bok track by b.Id" ng-model="Book.Label" class="form-control">
+                                    <select ng-options="b.Name for b in labellist track by b.Id" ng-model="Book.Label" class="form-control">
                                         <option value="">Select</option>
                                     </select>
                                     <!--<span class="help-block">(Ex:New or Sales)</span>-->
                                 </div>
                             </div>
                             <div class="col-md-4">
-                                <label for="selection of course" class="col-sm-3 control-label" style="color:red;">Book Author:<span class='require'>*</span></label>
+                                <label for="selection of course" class="col-sm-3 control-label" style="color:red;">Author:<span class='require'>*</span></label>
                                 <div class="col-sm-9">
                                     <input class="form-control" type="text" ng-model="Book.BookAuthor" placeholder="Author" />
                                     <!--<span class="help-block">(Ex: Swami Premananada Maharaj)</span>-->
@@ -302,7 +302,7 @@
 
                             </div>
                             <div class="col-md-4">
-                                <label for="selection of course" class="col-sm-3 control-label" style="color:red;">Tags:<span class='require'>*</span></label>
+                                <label for="selection of course" class="col-sm-3 control-label">Tags:<span class='require'></span></label>
                                 <div class="col-sm-9">
                                     <input class="form-control" type="text" ng-model="Book.Tags" placeholder="Ex: Swami Vivekanada" />
                                     <!--<span class="help-block">(Ex:Swami Vivekananda)</span>-->
@@ -313,11 +313,11 @@
                     </div>
                     <div class="row mbm">
                         <div class="col-lg-12" style="padding-left:2px;padding-right:2px;">
-                            
+
                             <div class="col-md-4">
                                 <label for="selection of course" class="col-sm-3 control-label" style="color:red;">Language:<span class='require'>*</span></label>
                                 <div class="col-sm-9">
-                                    <select ng-options="b.Name for b in bok track by b.Id" ng-model="Book.Language" class="form-control">
+                                    <select ng-options="b.Name for b in languagelist track by b.Id" ng-model="Book.Language" class="form-control">
                                         <option value="">Select</option>
                                     </select>
                                     <!--<span class="help-block">(Ex:English or Telugu)</span>-->
@@ -358,26 +358,44 @@
                             <div class="col-md-8">
 
                                 <label for="selection of course" class="col-md-5 control-label" style="color:red;margin-left:1px;">Description:<span class='require'>*</span></label>
-                                <div class="col-md-12" style="margin-right:2px;">
+                                <div class="col-md-12">
                                     <textarea class="form-control" rows="7" ng-model="Book.BookDescription" placeholder="Enter Book Brief Description"></textarea>
                                 </div>
 
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="form-actions mbm" style="margin-top:10px;">
-                            <div style="text-align:center;">
-                                <button class="btn btn-orange" ng-disabled="isSuperUser == 0 && CanCreate == 0" ng-click="AddNewBook(Book,'I');">Save</button>
-                                <button type="button" data-dismiss="modal" class="btn btn-default" ng-click="clearGroup()">Cancel</button>
+                      
+                        <div class="col-lg-12" style="padding-left:2px;padding-right:2px;">
+
+                            <div class="col-md-4">
+                                <label for="selection of course" class="col-sm-3 control-label" >Active:</label>
+                                <div class="col-sm-9">
+                                    <input type="checkbox" class="icheckbox_minimal-grey activeCheckboxs" ng-model="Book.Active" ng-true-value="1" ng-false-value="0" />
+                                    
+                                </div>
+                            </div>
+                            <div class="col-md-8" style="text-align:center;">
+                                <div class="col-sm-9">
+                                    <button class="btn btn-orange" ng-disabled="isSuperUser == 0 && CanCreate == 0" ng-click="AddNewBook(Book,'I');">Save</button>
+                                    <button type="button" data-dismiss="modal" class="btn btn-default" ng-click="clearGroup()">Cancel</button>
+                                </div>
+
                             </div>
                         </div>
+                        <!--<div style="text-align:center;">
+                            <button class="btn btn-orange" ng-disabled="isSuperUser == 0 && CanCreate == 0" ng-click="AddNewBook(Book,'I');">Save</button>
+                            <button type="button" data-dismiss="modal" class="btn btn-default" ng-click="clearGroup()">Cancel</button>
+                        </div>-->
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-        </div>
-        
-     
+
+
     <!--Edit Books list start-->
     <div id="Modal-header-new-Edit" tabindex="-1" role="dialog" aria-labelledby="modal-header-primary-label" aria-hidden="true" class="modal">
         <div class="modal-dialog modal-lg">
@@ -395,7 +413,7 @@
                                     <input class="form-control" type="text" ng-model="bookedit.BookTitle" />
                                     <span class="help-block">(Ex:Jnana Yoga)</span>
                                 </div>
-                            </div>  
+                            </div>
                             <div class="col-md-6">
                                 <label for="selection of course" class="col-md-5 control-label" style="color:red;">Price:<span class='require'>*</span></label>
                                 <div class="col-md-6">
@@ -436,15 +454,15 @@
                                 <img ng-src="{{BookImage2}}" style="height:200px;width:150px;margin-bottom:10px;" />
                                 <input type="file" name="fileInput" id="fileInput" ng-file-select="onFileSelect2($files)" class="btn btn-green" accept=".jpg,.png,.gif,.jpeg" ng-model="BookImage2" />
                             </div>
-                        
+
                             <div class="col-md-6">
                                 <label for="selection of course" class="col-md-5 control-label" style="color:red;">Description:<span class='require'>*</span></label>
                                 <div class="col-md-12">
                                     <textarea class="form-control" rows="3" ng-model="bookedit.BookDescription"></textarea>
                                 </div>
                                 <div class="col-md-12" style="text-align:center;margin-top:20px;">
-                                   
-                                   
+
+
 
                                 </div>
                                 <div class="col-md-12" style="margin-top:20px;">
@@ -458,11 +476,11 @@
                                         <button type="button" data-dismiss="modal" class="btn btn-default" ng-click="clearGroup()">Cancel</button>
                                     </div>
                                 </div>
-                                </div>
-                            
+                            </div>
+
+                        </div>
                     </div>
-                    </div>
-                    
+
                     <!--<div class="form-actions mbm">
                         <div style="text-align:center;">
                             <button class="btn btn-orange" ng-disabled="isSuperUser == 0 && CanCreate == 0" ng-click="AddNewBook(bookedit,'U');">Save</button>
@@ -494,38 +512,38 @@
         </div>
 
     </script>
-        <script src="js/jquery-1.10.2.min.js"></script>
-        <script src="js/jquery-migrate-1.2.1.min.js"></script>
-        <script src="js/jquery-ui.js"></script>
-        <!--loading bootstrap js-->
-        <script src="vendors/bootstrap/js/bootstrap.js"></script>
-        <script src="vendors/bootstrap-hover-dropdown/bootstrap-hover-dropdown.js"></script>
-        <script src="vendors/metisMenu/jquery.metisMenu.js"></script>
-        <script src="vendors/slimScroll/jquery.slimscroll.js"></script>
-        <script src="vendors/jquery-cookie/jquery.cookie.js"></script>
-        <script src="vendors/iCheck/icheck.min.js"></script>
-        <script src="vendors/iCheck/custom.min.js"></script>
-        <!--<script src="vendors/jquery-news-ticker/jquery.news-ticker.js"></script>-->
-        <script src="js/jquery.menu.js"></script>
-        <script src="vendors/jquery-pace/pace.min.js"></script>
-        <script src="vendors/holder/holder.js"></script>
-        <script src="vendors/responsive-tabs/responsive-tabs.js"></script>
-        <!--LOADING SCRIPTS FOR PAGE-->
-        <!--CORE JAVASCRIPT-->
-        <script src="js/main.js"></script>
-        <script src="js/angular.js"></script>
-        <script src="js/libs/angular-route.js"></script>
-        <script src="js/libs/angular-ui-router.js"></script>
-        <script src="js/libs/ocLazyLoad.js"></script>
-        <script src="js/libs/ui-bootstrap.js"></script>
-        <script src="js/ngStorage.js"></script>
-        <script src="js/ui-bootstrap-tpls-1.3.3.js"></script>
+    <script src="js/jquery-1.10.2.min.js"></script>
+    <script src="js/jquery-migrate-1.2.1.min.js"></script>
+    <script src="js/jquery-ui.js"></script>
+    <!--loading bootstrap js-->
+    <script src="vendors/bootstrap/js/bootstrap.js"></script>
+    <script src="vendors/bootstrap-hover-dropdown/bootstrap-hover-dropdown.js"></script>
+    <script src="vendors/metisMenu/jquery.metisMenu.js"></script>
+    <script src="vendors/slimScroll/jquery.slimscroll.js"></script>
+    <script src="vendors/jquery-cookie/jquery.cookie.js"></script>
+    <script src="vendors/iCheck/icheck.min.js"></script>
+    <script src="vendors/iCheck/custom.min.js"></script>
+    <!--<script src="vendors/jquery-news-ticker/jquery.news-ticker.js"></script>-->
+    <script src="js/jquery.menu.js"></script>
+    <script src="vendors/jquery-pace/pace.min.js"></script>
+    <script src="vendors/holder/holder.js"></script>
+    <script src="vendors/responsive-tabs/responsive-tabs.js"></script>
+    <!--LOADING SCRIPTS FOR PAGE-->
+    <!--CORE JAVASCRIPT-->
+    <script src="js/main.js"></script>
+    <script src="js/angular.js"></script>
+    <script src="js/libs/angular-route.js"></script>
+    <script src="js/libs/angular-ui-router.js"></script>
+    <script src="js/libs/ocLazyLoad.js"></script>
+    <script src="js/libs/ui-bootstrap.js"></script>
+    <script src="js/ngStorage.js"></script>
+    <script src="js/ui-bootstrap-tpls-1.3.3.js"></script>
     <script src="js/fileupload/angular-file-upload.js"></script>
     <script src="js/fileupload/angular-file-upload-shim.js"></script>
     <!--<script src="Js/Playlist.js"></script>-->
     <script src="js/BookList.js"></script>
     <script src="js/fileupload/Upload.js"></script>
-        
+
     <!--CORE JAVASCRIPT-->
 </body>
 </html>

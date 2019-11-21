@@ -126,13 +126,25 @@ var ctrl = app.controller('myCtrl', function ($scope, $http, $localStorage, $int
 
     $scope.InitConfig = function () {
         
-        $scope.getbooklist();
-        $http.get('/api/Books/Gettypesdata?booktype=1').then(function (res, data) {
-            $scope.bok = res.data;
+            var grpid = {
+                booktype: 1,
+                labeltype: 1,
+                languagetype: 1,
+            };
 
-        }, function (error) {
-            // alert(error.data.ExceptionMessage);
-        });
+            var req = {
+                method: 'POST',
+                url: '/api/Types/TypesByGroupId',
+                data: grpid
+            }
+            $http(req).then(function (res, data) {
+                $scope.bok = res.data.Table;
+                $scope.labellist = res.data.Table1;
+                $scope.languagelist = res.data.Table2;
+            },function (ee) {
+                alert(ee.data.ExceptionMessage);
+                $scope.errmsg = ee;
+            });
     }
     $scope.getbooklist = function (flag) {
 
@@ -213,10 +225,7 @@ var ctrl = app.controller('myCtrl', function ($scope, $http, $localStorage, $int
         //fileReader.onLoad($scope.file, $scope).then(function (result) { $scope.imageSrc = result; });
     };
     $scope.AddNewBook = function (Book, flag) {
-        if (Book.BookTitle == null) {
-            alert('Please Enter Details.');
-            return
-        }
+       
         if (Book.BookTitle == null)  {
             alert('Please Enter Book Title.');
             return
@@ -233,6 +242,43 @@ var ctrl = app.controller('myCtrl', function ($scope, $http, $localStorage, $int
             alert('Please Enter Book Type.');
             return
         }
+        if (Book.Weight == null) {
+            alert('Please Enter Book Weight.');
+            return
+        }
+        //if (Book.Label == null) {
+        //    alert('Please Select Book Label.');
+        //    return
+        //}
+        if (Book.BookAuthor == null) {
+            alert('Please Enter Book Author Name.');
+            return
+        }
+        if (Book.BookType.Id == null | Book.BookType.Id == "") {
+            alert('Please Enter Book Type.');
+            return
+        }
+        if (Book.Language == null) {
+            alert('Please Enter in which laguage book is written.');
+            return
+        }
+        if (Book.Tags == null) {
+            alert('Please Enter Tags of Book.');
+            return
+        }
+        if (Book.NoOfPages == null) {
+            alert('Please Ente No of Page in the book.');
+            return
+        }
+        if (Book.Publisher== null) {
+            alert('Please Enter Publise Name.');
+            return
+        }
+        if ($scope.BookImage == null) {
+            alert('Please select Book Image.');
+            return
+        }
+        
         var booklist = {
             Id: (Book.Id != null || Book.Id != '') ? Book.Id : '',
             BookTitle: Book.BookTitle,
@@ -240,6 +286,15 @@ var ctrl = app.controller('myCtrl', function ($scope, $http, $localStorage, $int
             BookStock: Book.BookStock,
             BookType: Book.BookType.Id,
             BookDescription: Book.BookDescription,
+            BookSKU: Book.SKU,
+            BookWeight: Book.Weight,
+            BookLabelId: Book.Label.Id,
+            BookBookAuthor: Book.BookAuthor,
+            BookTags: Book.Tags,
+            BookLanguageId: Book.Language.Id,
+            BookNoOfPages: Book.NoOfPages,
+            BookPublisher: Book.Publisher,
+            BookActive: Book.Active,
             BookImage: ($scope.BookImage == null) ? null : $scope.BookImage,
             flag: flag
         };

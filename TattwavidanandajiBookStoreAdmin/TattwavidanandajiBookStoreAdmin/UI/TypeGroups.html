@@ -148,10 +148,10 @@
                                         <td>{{T.Name}}</td>
 
                                         <td>{{T.Description}}</td>
-                                        <td><input type="checkbox" checked /></td>
+                                        <td><input type="checkbox" class="icheckbox_minimal-grey activeCheckboxs" ng-model="T.Active" ng-true-value="1" ng-false-value="0" /></td>
                                         <td>
                                             {{T.Update}}
-                                            <button ng-disabled="Roleid != 1" type="button" data-target="#Modal-header-primary" data-toggle="modal" class="btn btn-default btn-xs" ng-click="setTypeGroup(T);">
+                                            <button type="button" data-target="#Modal-header-Edit" data-toggle="modal" class="btn btn-default btn-xs" ng-click="setdata(T);">
                                                 <i class="fa fa-edit"></i>&nbsp;
                                                 Edit
                                             </button>
@@ -247,7 +247,7 @@
                     <label for="Active" class="col-md-3 control-label">Active<span class='require'></span></label>
 
                     <div class="col-md-4">
-                        <input type="checkbox" checked />
+                        <input type="checkbox" class="icheckbox_minimal-grey activeCheckboxs" ng-model="TypeGroups1.Active" ng-true-value="1" ng-false-value="0" />
 
                     </div>
                 </div>
@@ -268,99 +268,60 @@
 
     </div>
     <!--Edit Books list start-->
-    <div id="Modal-header-new-Edit" tabindex="-1" role="dialog" aria-labelledby="modal-header-primary-label" aria-hidden="true" class="modal">
-        <div class="modal-dialog modal-lg">
+    <div id="Modal-header-Edit" tabindex="-1" role="dialog" aria-labelledby="modal-header-primary-label" aria-hidden="true" class="modal">
+        <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header modal-header-primary">
                     <button type="button" data-dismiss="modal" aria-hidden="true" class="close">&times;</button>
-                    <h4 id="modal-header-primary-label" class="modal-title">Edit Book Details</h4>
+                    <h4 id="modal-header-primary-label" class="modal-title">Edit Type Group Details</h4>
                 </div>
-                <div class="modal-body" ng-model="bookedit" ng-click="addbook()">
-                    <div class="row mbm">
-                        <div class="col-md-12">
-                            <div class="col-md-6">
-                                <label for="selection of course" class="col-md-5 control-label" style="color:red;">Title:<span class='require'>*</span></label>
-                                <div class="col-md-6">
-                                    <input class="form-control" type="text" ng-model="bookedit.BookTitle" />
-                                    <span class="help-block">(Ex:Jnana Yoga)</span>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <label for="selection of course" class="col-md-5 control-label" style="color:red;">Price:<span class='require'>*</span></label>
-                                <div class="col-md-6">
-                                    <input class="form-control" type="text" ng-model="bookedit.BookPrice" />
-                                    <span class="help-block">(Ex:250)</span>
-                                </div>
+                <div class="modal-body" ng-model="edittgroup">
+                    <div class="row">
 
-                            </div>
+                        <label for="Name" class="col-md-3 control-label" style="color:red;"> Name <span class='require'>*</span></label>
 
-                        </div>
-                    </div>
-                    <div class="row mbm">
-                        <div class="col-md-12">
-                            <div class="col-md-6">
-                                <label for="selection of course" class="col-md-5 control-label" style="color:red;">Stock:<span class='require'>*</span></label>
-                                <div class="col-md-6">
-                                    <input class="form-control" type="text" ng-model="bookedit.BookStock" />
-                                    <span class="help-block">(Ex:10)</span>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <label for="selection of course" class="col-md-5 control-label" style="color:red;">Book Type:<span class='require'>*</span></label>
-                                <div class="col-md-6">
-                                    <select ng-options="b.Name for b in bok track by b.Id" ng-model="bookedit.BookType1" class="form-control">
-                                        <option value="">Select</option>
-                                    </select>
-                                    <span class="help-block">(Ex:Hardbond)</span>
-                                </div>
-
-                            </div>
-
-                        </div>
-                    </div>
-                    <div class="row mbm">
-                        <div class="col-md-12">
-                            <div class="col-md-6">
-                                <!--<label for="Description" class="col-md-5 control-label" style="color:red;">Select files:<span class='require'></span></label>-->
-                                <img ng-src="{{BookImage2}}" style="height:200px;width:150px;margin-bottom:10px;" />
-                                <input type="file" name="fileInput" id="fileInput" ng-file-select="onFileSelect2($files)" class="btn btn-green" accept=".jpg,.png,.gif,.jpeg" ng-model="BookImage2" />
-                            </div>
-
-                            <div class="col-md-6">
-                                <label for="selection of course" class="col-md-5 control-label" style="color:red;">Description:<span class='require'>*</span></label>
-                                <div class="col-md-12">
-                                    <textarea class="form-control" rows="3" ng-model="bookedit.BookDescription"></textarea>
-                                </div>
-                                <div class="col-md-12" style="text-align:center;margin-top:20px;">
-
-
-
-                                </div>
-                                <div class="col-md-12" style="margin-top:20px;">
-                                    <div class="col-md-6">
-                                        <label for="selection of course" class="col-md-5 control-label" style="color:red;">Active:<span class='require'>*</span></label>
-
-                                        <input type="checkbox" class="icheckbox_minimal-grey activeCheckbox" ng-model="bookedit.Active" ng-true-value="1" ng-false-value="0" />
-                                    </div>
-                                    <div class="col-md-6">
-                                        <button class="btn btn-orange" ng-disabled="isSuperUser == 0 && CanCreate == 0" ng-click="updatebookdetails(bookedit,'U');">Save</button>
-                                        <button type="button" data-dismiss="modal" class="btn btn-default" ng-click="clearGroup()">Cancel</button>
-                                    </div>
-                                </div>
-                            </div>
-
+                        <div class="col-md-4">
+                            <input id="inputFirstName" type="text" ng-model="edittgroup.editname" class="form-control" />
+                            <span class="help-block"></span>
                         </div>
                     </div>
 
-                    <!--<div class="form-actions mbm">
-                        <div style="text-align:center;">
-                            <button class="btn btn-orange" ng-disabled="isSuperUser == 0 && CanCreate == 0" ng-click="AddNewBook(bookedit,'U');">Save</button>
-                            <button type="button" data-dismiss="modal" class="btn btn-default" ng-click="clearGroup()">Cancel</button>
+
+                    <div class="row">
+                        <label for="Description" class="col-md-3 control-label"> Description <span class='require'></span></label>
+
+
+                        <div class="col-md-4">
+                            <input id="Description" type="text" ng-model="edittgroup.editdes" class="form-control" />
+                            <span class="help-block"></span>
                         </div>
-                    </div>-->
+                    </div>
+
+
+
+                    <div class="row">
+                        <label for="Active" class="col-md-3 control-label">Active<span class='require'></span></label>
+
+                        <div class="col-md-4">
+                            <input type="checkbox" class="icheckbox_minimal-grey activeCheckboxs" ng-model="edittgroup.editActive" ng-true-value="1" ng-false-value="0" />
+
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <div class="col-md-offset-3 col-md-9">
+                            <button type="button" data-dismiss="modal" class="btn btn-primary" ng-click="updatetypegroup(edittgroup);" style="background-color:#594857;">Save</button>
+
+
+                            <a href="TypeGroups.html" class="btn btn-default">Cancel</a>
+                        </div>
+                    </div>
                 </div>
             </div>
+
+
+
         </div>
+
     </div>
     <!--Edit Books list End-->
     

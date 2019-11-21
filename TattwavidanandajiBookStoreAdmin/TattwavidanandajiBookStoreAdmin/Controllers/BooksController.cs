@@ -104,6 +104,22 @@ namespace TattwavidanandajiBookStoreAdmin.Controllers
                 cmd.Parameters.Add(new SqlParameter("@flag", SqlDbType.VarChar, 250)).SqlValue = bk.flag;
                 cmd.Parameters.Add(new SqlParameter("@Id", SqlDbType.Int)).SqlValue = bk.Id;
                 cmd.Parameters.Add(new SqlParameter("@Active", SqlDbType.Int)).SqlValue = bk.Active;
+
+            //    BookTitle: Book.BookTitle,
+            //BookPrice: Book.BookPrice,
+            //BookStock: Book.BookStock,
+            //BookType: Book.BookType.Id,
+            //BookDescription: Book.BookDescription,
+            //BookSKU: Book.SKU,
+            //BookWeight: Book.Weight,
+            //BookLabelId: Book.Label.Id,
+            //BookBookAuthor: Book.BookAuthor,
+            //BookTags: Book.Tags,
+            //BookLanguageId: Book.Language.Id,
+            //BookNoOfPages: Book.NoOfPages,
+            //BookPublisher: Book.Publisher,
+            //BookActive: Book.Active,
+            //BookImage: ($scope.BookImage == null) ? null : $scope.BookImage,
                 SqlDataAdapter db = new SqlDataAdapter(cmd);
                 db.Fill(dt);
             }

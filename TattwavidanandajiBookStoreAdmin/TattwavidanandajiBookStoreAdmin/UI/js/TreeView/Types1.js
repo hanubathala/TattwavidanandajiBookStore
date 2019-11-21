@@ -15,11 +15,23 @@ var mycrtl1 = myapp1.controller('myCtrl', function ($scope, $http, $localStorage
     });
 
     $scope.getselectval = function (seltype) {
-        var grpid = (seltype) ? seltype.Id : -1;
+        //var grpid = (seltype) ? seltype.Id : -1;
+        var grpid = {
 
+            booktype: (seltype) ? seltype.Id : -1,
+           
+        };
 
-        $http.get('/api/Types/TypesByGroupId?groupid=' + grpid).then(function (res, data) {
-            $scope.Types = res.data;
+        var req = {
+            method: 'POST',
+            url: '/api/Types/TypesByGroupId',
+            //headers: {
+            //    'Content-Type': undefined
+            data: grpid
+        }
+
+        $http(req).then(function (res,data) {
+            $scope.Types = res.data.Table;
 
         });
 
