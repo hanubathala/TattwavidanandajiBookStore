@@ -5,11 +5,18 @@ var ctrl = app.controller('myCtrl', function ($scope, $http, $localStorage) {
     var r = $localStorage.addcart.length;
     $scope.addcartlength = r;
     $scope.cartlist = new Array();
-    $scope.cartlist= $localStorage.addcart;
+    $scope.cartlist = $localStorage.addcart;
+    if ($scope.cartlist.length != 0) {
+        $scope.totalamt = 0;
+        for (var i = 0; i < $scope.cartlist.length; i++) {
+            $scope.totalamt = $scope.totalamt + ($scope.cartlist[i].quantity * $scope.cartlist[i].BookPrice);
+        }
+    }
+   
     $scope.quantity=1;
   
     $scope.setquantity = function (cartitems,status) {
-        
+        var cnt = 0;
         //alert(cartitems);
         if (status == 'plus') {
            
@@ -18,11 +25,16 @@ var ctrl = app.controller('myCtrl', function ($scope, $http, $localStorage) {
                 if ($scope.cartlist[i].Id == cartitems.Id)
                 {
                     $scope.cartlist[i].quantity = $scope.cartlist[i].quantity + 1;
+                    
                    
                 }
             }
-
-
+            $scope.totalamt = 0;
+            for (var i = 0; i < $scope.cartlist.length; i++){
+                cnt = cnt + $scope.cartlist[i].quantity;
+                $scope.totalamt = $scope.totalamt + ($scope.cartlist[i].quantity * $scope.cartlist[i].BookPrice);
+}
+            $scope.addcartlength = cnt;
             //$scope.quantity=$scope.quantity+1
         }
         if (status == 'minus') {
@@ -42,7 +54,13 @@ var ctrl = app.controller('myCtrl', function ($scope, $http, $localStorage) {
                         
                     
                 }
+                }
+            $scope.totalamt = 0;
+            for (var i = 0; i < $scope.cartlist.length; i++) {
+                cnt = cnt + $scope.cartlist[i].quantity;
+                $scope.totalamt = $scope.totalamt + ($scope.cartlist[i].quantity * $scope.cartlist[i].BookPrice);
             }
+            $scope.addcartlength = cnt;
 
         }
        
@@ -51,7 +69,21 @@ var ctrl = app.controller('myCtrl', function ($scope, $http, $localStorage) {
          var index =  $localStorage.addcart.indexOf(itemposition);
         $localStorage.addcart.splice(index, 1);
         $scope.cartlist = new Array();
-        $scope.cartlist= $localStorage.addcart;
+        $scope.cartlist = $localStorage.addcart;
+
+        var cnt = 0;
+        if ($localStorage.addcart.length != 0) {
+            $scope.totalamt = 0;
+            for (var i = 0; i < $scope.cartlist.length; i++) {
+                cnt = cnt + $scope.cartlist[i].quantity;
+                $scope.totalamt = $scope.totalamt + ($scope.cartlist[i].quantity * $scope.cartlist[i].BookPrice);
+            }
+            $scope.addcartlength = cnt;
+        }
+        else {
+            $scope.addcartlength = 0;
+            $scope.totalamt = 0;
+            }
     }
 
     $scope.saveorder = function (custinfo) {

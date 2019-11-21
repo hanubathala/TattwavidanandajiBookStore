@@ -76,7 +76,19 @@ var ctrl = app.controller('myCtrl', function ($scope, $http, $localStorage) {
             return;
         }
 
-        $http.get('/api/LOGIN/CustomerLogin?Email=' + $scope.loginemail + '&Pwd=' + $scope.loginpasword).then(function (res, data) {
+        var e = {
+            LoginInfo: $scope.loginemail,
+            Passkey : $scope.loginpasword,
+
+        }
+
+        var req = {
+            method: 'POST',
+            url: '/api/LOGIN/CustomerLogin',
+            data: e
+        }
+
+        $http(req).then(function (res) {
             $localStorage.userdata = res.data;
             $localStorage.Username = res.data[0].UserName;
             $scope.disusername = $localStorage.Username;
@@ -84,6 +96,13 @@ var ctrl = app.controller('myCtrl', function ($scope, $http, $localStorage) {
         }, function (ee) {
             alert(ee.data.ExceptionMessage);
         });
+    }
+
+
+    $scope.LogoutUser = function () {
+        $localStorage.disusername = null;
+        $scope.disusername = null;
+        $localStorage.Username = null;        
     }
 });
 

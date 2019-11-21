@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Home | E-Shopper</title>
+    <title>Home | Holy Book Store</title>
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/font-awesome.min.css" rel="stylesheet">
     <link href="css/prettyPhoto.css" rel="stylesheet">
@@ -22,10 +22,44 @@
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
+
+    <style>
+         #header .header-logo #locadd {
+            white-space: nowrap;
+            width: 150px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            border: 0px solid #000000;
+        }
+
+       #header .header-logo   #loc {
+            background-color: white;
+            color: #09203f;
+        }
+
+            #header .header-logo   #loc:active {
+                background-color: white;
+                color: #0088cc;
+                text-decoration-line: none;
+            }
+
+            #header .header-logo #loc:hover {
+                color: #0088cc;
+                text-decoration-line: none;
+            }
+
+        .dot {
+            height: 5px;
+            width: 5px;
+            background-color: lightgrey;
+            border-radius: 50%;
+            display: inline-block;
+        }
+    </style>
 </head><!--/head-->
 
 <body ng-app="myApp" ng-controller="myCtrl" ng-init="InitConfig();">
-    <header id="header">
+    <header id="header" data-plugin-options="{'stickyEnabled': true, 'stickyEnableOnBoxed': true, 'stickyEnableOnMobile': true, 'stickyStartAt': 58, 'stickySetTop': '-58px', 'stickyChangeLogo': false}">
         <!--header-->
         <div class="header_top">
             <!--header_top-->
@@ -94,7 +128,7 @@
                                 <li><a href="AboutUs.html">About Us</a></li>
                                 <li><a href="contact-us.html">Contact</a></li>
                                 <li><a href="login.html"><i class="fa fa-user"></i> Login/Sign Up</a></li>
-                                <li><a href=""><i class="fa fa-user"></i> Account</a></li>
+                                <!--<li><a href=""><i class="fa fa-user"></i> Account</a></li>-->
                                 <!--<li><a href=""><i class="fa fa-star"></i> Wishlist</a></li>
                                 <li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Checkout</a></li>-->
                                 <li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Cart &nbsp;<span style="padding: 7px; border-radius: 50px; background-color: #FE980F; color: white;" ng-show="addcartlength!=null"><strong>{{addcartlength}}</strong></span></a></li>
@@ -107,9 +141,8 @@
                 </div>
             </div>
         </div><!--/header-middle-->
-
-        <div class="header-bottom">
-            <!--header-bottom-->
+        <!--header-bottom-->
+        <div class="header-bottom">           
             <div class="container">
                 <div class="row">
                     <div class="col-sm-9">
@@ -121,22 +154,18 @@
                                 <span class="icon-bar"></span>
                             </button>
                         </div>
-                        <div class="mainmenu pull-left">
+                        <!--<div class="mainmenu pull-left">
                             <ul class="nav navbar-nav collapse navbar-collapse">
                                 <li><a href="index.html" class="active">Home</a></li>
                                 <li><a href="AboutUs.html" >About Us</a></li>
                                 <li><a href="contact-us.html">Contact</a></li>
                             </ul>
-                        </div>
+                        </div>-->
                     </div>
-                    <!--<div class="col-sm-3">
-                        <div class="search_box pull-right">
-                            <input type="text" placeholder="Search" />
-                        </div>
-                    </div>-->
                 </div>
             </div>
-        </div><!--/header-bottom-->
+        </div>
+    <!--/header-bottom-->
     </header><!--/header-->
    
 
@@ -303,7 +332,7 @@
                                         <h2>${{d.BookPrice}}</h2>
                                         <p>{{d.BookTitle}}</p>
                                         <a href="cart.html" class="btn btn-default add-to-cart"  ng-show="d.flag!=0"><i class="fa fa-shopping-cart"></i>View Cart</a>
-                                        <a href="#" class="btn btn-default add-to-cart" ng-click="addtocard(d);" ng-show="d.flag==0"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+                                        <a class="btn btn-default add-to-cart" ng-click="addtocard(d);" ng-show="d.flag==0"><i class="fa fa-shopping-cart"></i>Add to cart</a>
                                     </div>
                                     <!--<div class="product-overlay">
                                         <div class="overlay-content">

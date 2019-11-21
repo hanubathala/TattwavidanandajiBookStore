@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Login | E-Shopper</title>
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <title>Login | Holy Book Store</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">    
     <link href="css/font-awesome.min.css" rel="stylesheet">
     <link href="css/prettyPhoto.css" rel="stylesheet">
     <link href="css/price-range.css" rel="stylesheet">
@@ -22,6 +22,12 @@
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
+
+    <style>
+        .mainmenu ul li a {
+            font-size: 14px;
+        }
+    </style>
 </head><!--/head-->
 <body>
     <header id="header">
@@ -87,20 +93,20 @@
                         </div>-->
                     </div>
                     <div class="col-md-8 clearfix">
-                        <div class="shop-menu clearfix pull-right">
-                            <ul class="nav navbar-nav">
+                        <div class="mainmenu clearfix pull-right">
+                            <ul class="nav navbar-nav collapse navbar-collapse">
                                 <li><a href="index.html" class="active">Home</a></li>
                                 <li><a href="AboutUs.html">About Us</a></li>
                                 <li><a href="contact-us.html">Contact</a></li>
-                                <li><a href="login.html"><i class="fa fa-user"></i> Login/Sign Up</a></li>
-                                <li class="dropdown active" ng-show="disusername!=null"><a href=""><i class="fa fa-user"></i>{{disusername}}<i class="fa fa-angle-down"></i></a>
-                                    <ul role="menu" class="sub-menu">
+                                <li><a href="login.html" ng-show="disusername==null"><i class="fa fa-user"></i> Login/Sign Up</a>
+                                <li class="dropdown active" ng-show="disusername!=null"><a><i class="fa fa-user"></i>&nbsp;{{disusername}}<i class="fa fa-angle-down"></i></a>
+                                    <ul  role="menu" class="sub-menu">
                                         <li><a href="shop.html">Profile</a></li>
                                         <li><a href="product-details.html">Your Orders</a></li>
-                                        <li><a href="checkout.html">Logout</a></li>
+                                        <li><a ng-click="LogoutUser()">Logout</a></li>
                                     </ul>
-                                </li>
-                                <li ng-show="disusername==null"><a href=""><i class="fa fa-user"></i> Account</a></li>
+                                </li>                                
+                                <!--<li><a href=""><i class="fa fa-user"></i> Account</a></li>-->
                                 <!--<li><a href=""><i class="fa fa-star"></i> Wishlist</a></li>
                                 <li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Checkout</a></li>-->
                                 <li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Cart &nbsp;<span style="padding: 7px; border-radius: 50px; background-color: #FE980F; color: white;" ng-show="addcartlength!=null"><strong>{{addcartlength}}</strong></span></a></li>
@@ -127,13 +133,13 @@
                                 <span class="icon-bar"></span>
                             </button>
                         </div>
-                        <div class="mainmenu pull-left">
+                        <!--<div class="mainmenu pull-left">
                             <ul class="nav navbar-nav collapse navbar-collapse">
                                 <li><a href="index.html" class="active">Home</a></li>
                                 <li><a href="AboutUs.html">About Us</a></li>
                                 <li><a href="contact-us.html">Contact</a></li>
                             </ul>
-                        </div>
+                        </div>-->
                     </div>
                     <!--<div class="col-sm-3">
                         <div class="search_box pull-right">
@@ -153,15 +159,10 @@
                     <div class="login-form">
                         <!--login form-->
                         <h2>Login to your account</h2>
-                        <form action="#">
+                       <form>
                             <input type="email" placeholder="Email Address" ng-model="loginemail" />
                             <input type="text" placeholder="Enter Password" ng-model="loginpasword" />
-                            <button type="submit" class="btn btn-default" ng-click="loginverification();">Login</button>
-                            <!--<div>
-                                <span>- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</span>
-                                <input type="email" placeholder="Enter EOTP" style="margin-top:10px;" ng-hide="" />
-                                <button type="submit" class="btn btn-default">Submit</button>
-                            </div>-->
+                            <button type="submit" class="btn btn-orange" ng-click="loginverification();">Login</button>                           
                         </form>
                     </div>
                 </div>
@@ -350,6 +351,7 @@
         </div>
 
     </footer><!--/Footer-->
+
     <script src="js/jquery.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/jquery.scrollUp.min.js"></script>
@@ -357,10 +359,7 @@
     <script src="js/main.js"></script>
     <script src="../UI/js/angular.js"></script>
     <script src="../UI/js/angular-animate.js"></script>
-    <script src="../UI/js/ngStorage.js"></script>
-    <script src="js/price-range.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/jquery.prettyPhoto.js"></script>
+    <script src="../UI/js/ngStorage.js"></script>  
     <script src="js/Login.js"></script>
 </body>
 </html>

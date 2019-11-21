@@ -56,9 +56,9 @@ namespace TattwavidanandajiBookStoreAdmin.Controllers
 
         }
 
-        [HttpGet]
+        [HttpPost]
         [Route("api/LOGIN/CustomerLogin")]
-        public DataTable CustomerLogin(String Email,String Pwd)
+        public DataTable CustomerLogin(UserLogin u)
         {
             DataTable Tbl = new DataTable();
             SqlConnection conn = new SqlConnection();
@@ -70,8 +70,8 @@ namespace TattwavidanandajiBookStoreAdmin.Controllers
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "CustomerLoginsValidate";
                 cmd.Connection = conn;
-                cmd.Parameters.Add(new SqlParameter("@Email    ", SqlDbType.VarChar, 250)).SqlValue = Email;
-                cmd.Parameters.Add(new SqlParameter("@Pwd", SqlDbType.VarChar, 250)).SqlValue = Pwd;
+                cmd.Parameters.Add(new SqlParameter("@Email", SqlDbType.VarChar, 250)).SqlValue = u.LoginInfo;
+                cmd.Parameters.Add(new SqlParameter("@Pwd", SqlDbType.VarChar, 250)).SqlValue = u.Passkey;
                 SqlDataAdapter da = new SqlDataAdapter(cmd);
                 da.Fill(Tbl);
             }

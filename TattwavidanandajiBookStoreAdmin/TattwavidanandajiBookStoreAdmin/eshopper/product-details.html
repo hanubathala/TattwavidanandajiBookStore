@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Product Details | E-Shopper</title>
+    <title>Product Details | Holy Book Store</title>
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/font-awesome.min.css" rel="stylesheet">
     <link href="css/prettyPhoto.css" rel="stylesheet">
@@ -54,14 +54,15 @@
             </div>
         </div><!--/header_top-->
 
-        <div class="header-middle">
-            <!--header-middle-->
+        <!--header-middle-->
+        <div class="header-middle">            
             <div class="container">
                 <div class="row">
                     <div class="col-md-4 clearfix">
                         <div class="logo pull-left">
-                            <a href="index.html"><img src="images/home/logo.png" alt="" /></a>
+                            <a href="index.html"><img src="images/home/Holy.jpg" alt="" /></a>
                         </div>
+
                         <!--<div class="btn-group pull-right clearfix">
                             <div class="btn-group">
                                 <button type="button" class="btn btn-default dropdown-toggle usa" data-toggle="dropdown">
@@ -89,17 +90,31 @@
                     <div class="col-md-8 clearfix">
                         <div class="shop-menu clearfix pull-right">
                             <ul class="nav navbar-nav">
-                                <li><a href=""><i class="fa fa-user"></i> Account</a></li>
-                                <li><a href=""><i class="fa fa-star"></i> Wishlist</a></li>
-                                <li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Checkout</a></li>
-                                <li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Cart</a></li>
-                                <li><a href="login.html"><i class="fa fa-lock"></i> Login</a></li>
+                                <li><a href="index.html" class="active">Home</a></li>
+                                <li><a href="AboutUs.html">About Us</a></li>
+                                <li><a href="contact-us.html">Contact</a></li>
+                                <li><a href="login.html"><i class="fa fa-user"></i> Login/Sign Up</a></li>
+                                <li class="dropdown active" ng-show="disusername!=null"><a href=""><i class="fa fa-user"></i>{{disusername}}<i class="fa fa-angle-down"></i></a>
+                                    <ul role="menu" class="sub-menu">
+                                        <li><a href="shop.html">Profile</a></li>
+                                        <li><a href="product-details.html">Your Orders</a></li>
+                                        <li><a href="checkout.html">Logout</a></li>
+                                    </ul>
+                                </li>
+                                <!--<li ng-show="disusername==null"><a href=""><i class="fa fa-user"></i> Account</a></li>-->
+                                <!--<li><a href=""><i class="fa fa-star"></i> Wishlist</a></li>
+                                <li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Checkout</a></li>-->
+                                <li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Cart &nbsp;<span style="padding: 7px; border-radius: 50px; background-color: #FE980F; color: white;" ng-show="addcartlength!=null"><strong>{{addcartlength}}</strong></span></a></li>
+                                <!--<li><a href="../Login.html"><i class="fa fa-lock"></i> Login</a></li>-->
+
                             </ul>
+
                         </div>
                     </div>
                 </div>
             </div>
-        </div><!--/header-middle-->
+        </div>
+    <!--/header-middle-->
 
         <div class="header-bottom">
             <!--header-bottom-->
@@ -114,7 +129,7 @@
                                 <span class="icon-bar"></span>
                             </button>
                         </div>
-                        <div class="mainmenu pull-left">
+                        <!--<div class="mainmenu pull-left">
                             <ul class="nav navbar-nav collapse navbar-collapse">
                                 <li><a href="index.html">Home</a></li>
                                 <li class="dropdown">
@@ -137,13 +152,13 @@
                                 <li><a href="404.html">404</a></li>
                                 <li><a href="contact-us.html">Contact</a></li>
                             </ul>
-                        </div>
+                        </div>-->
                     </div>
-                    <div class="col-sm-3">
+                    <!--<div class="col-sm-3">
                         <div class="search_box pull-right">
                             <input type="text" placeholder="Search" />
                         </div>
-                    </div>
+                    </div>-->
                 </div>
             </div>
         </div><!--/header-bottom-->
@@ -206,8 +221,9 @@
                                     <label>Quantity:</label>
                                     <input type="text" value="" ng-model="quantity" />
                                     <button type="button" class="btn btn-fefault cart">
-                                        <i class="fa fa-shopping-cart"></i>
-                                        <a href="#" style="color:white;" ng-click="addtocard(bookdetails);">Add to cart</a>
+                                        <i class="fa fa-shopping-cart"></i>                                       
+                                        <a href="#" style="color:white;" ng-click="addtocard(bookdetails);" ng-show="addcartlength!=0">View Cart</a>
+                                        <a href="#" style="color:white;" ng-click="addtocard(bookdetails);" ng-show="addcartlength==0">Add to cart</a>                                        
                                     </button>
                                 </span>
                                 <p id="mtop"><b>Availability:</b> <span style="color:green;">In Stock</span> <span><strong style="border-radius:50%;background-color:green;padding:5px;color:white;">{{bookdetails.BookStock}}</strong></span></p>
