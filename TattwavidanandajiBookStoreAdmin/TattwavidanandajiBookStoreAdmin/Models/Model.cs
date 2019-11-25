@@ -103,6 +103,9 @@ namespace TattwavidanandajiBookStoreAdmin.Models
         public string zipcode { get; set; }
         public int BookStock { get; set; }
         public int customerId { get; set; }
+        public Int16 orderid { get; set; }
+        public string addresstype { get; set; }
+        public string flag { get; set; }
         }
 
 

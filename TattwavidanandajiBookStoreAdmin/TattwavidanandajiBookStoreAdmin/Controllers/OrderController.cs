@@ -18,16 +18,16 @@ namespace TattwavidanandajiBookStoreAdmin.Controllers
         public DataTable SaveOrder(List<Orderlist> list)
         {
             DataTable dt = new DataTable();
+            DataTable dt1 = new DataTable();
             SqlConnection conn = new SqlConnection();
             conn.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings["VIHE_DB_Connection"].ToString();
+            Int16 Id=0,Id1=0;
             try
             {
 
                 SqlCommand cmd = new SqlCommand();
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.CommandText = "ValidationUserLogins";
-                cmd.Connection = conn;
-                cmd.Connection.Open();
+               
 
                 #region send email with details
 
@@ -139,9 +139,7 @@ namespace TattwavidanandajiBookStoreAdmin.Controllers
 
                 // sending the email for admin --- start
                 #region send email with details
-                SqlTransaction tras =null;
-                tras = conn.BeginTransaction();
-                cmd.Transaction = tras;
+                
                 
                 try
                 {
@@ -264,26 +262,68 @@ namespace TattwavidanandajiBookStoreAdmin.Controllers
                 //update if email is sent
 
                 #endregion send email with details
+                SqlTransaction tras = null;
+               
+                if (list.Count != 0) {
+                    int quantitycount=0,totalamount=0;
+                    for (int i = 0; i < list.Count; i++) {
+                        quantitycount = quantitycount + list[i].quantity;
+                       totalamount=totalamount+(list[i].quantity *list[i].BookPrice );
+                    }
+                    cmd.CommandText = "InsUpdDelAddressBook";
+                    cmd.Connection = conn;
+                    conn.Open();
+                    tras = conn.BeginTransaction();
+                    cmd.Transaction = tras;
+                    // @CustomerId int,@Address varchar(max)=null,@zipcode varchar(100)=null,@landmark varchar(250)=null,@addressfor varchar(100)=null
+                    cmd.Parameters.Add(new SqlParameter("@Address", SqlDbType.VarChar, 250)).SqlValue = list[0].address;
+                    cmd.Parameters.Add(new SqlParameter("@CustomerId", SqlDbType.Int)).SqlValue = list[0].customerId;
+                    cmd.Parameters.Add(new SqlParameter("@landmark", SqlDbType.VarChar, 250)).SqlValue = list[0].landmark;
+                    cmd.Parameters.Add(new SqlParameter("@addressfor", SqlDbType.VarChar, 100)).SqlValue = "Home";
+                    cmd.Parameters.Add(new SqlParameter("@zipcode", SqlDbType.VarChar, 25)).SqlValue = list[0].zipcode;
+
+                    SqlDataAdapter da1 = new SqlDataAdapter(cmd);
+                    da1.Fill(dt1);
+                    Id1 = Convert.ToInt16(dt1.Rows[0]["Id1"]);
+                   
+                    cmd.Parameters.Clear();
+                    cmd.CommandText = "InsOrder";
+                    cmd.Connection = conn;
+                   
+                  
+                    cmd.Parameters.Add(new SqlParameter("@Quantity", SqlDbType.VarChar, 250)).SqlValue = quantitycount;
+                    cmd.Parameters.Add(new SqlParameter("@StatusId", SqlDbType.VarChar, 250)).SqlValue = 4;
+                    cmd.Parameters.Add(new SqlParameter("@Total", SqlDbType.VarChar, 250)).SqlValue = totalamount;
+                    cmd.Parameters.Add(new SqlParameter("@CustomerId", SqlDbType.Int)).SqlValue = list[0].customerId;
+                    cmd.Parameters.Add(new SqlParameter("@flag", SqlDbType.VarChar)).SqlValue = "I";
+                    cmd.Parameters.Add(new SqlParameter("@ShippingAddressId", SqlDbType.Int)).SqlValue = Id1;
+                    
+
+                    SqlDataAdapter da=new SqlDataAdapter(cmd);
+                    da.Fill(dt);
+
+
+                   Id=Convert.ToInt16(dt.Rows[0]["Id"]);
+                    cmd.Parameters.Clear();
+
+                    
+
+                }
+                cmd.Parameters.Clear();
+                cmd.CommandText = "InsOrderDeails";
+                cmd.Connection = conn;
+              
 
                 foreach (Orderlist ol in list)
                 {
 
-                    cmd.Parameters.Add(new SqlParameter("@BookDescription", SqlDbType.VarChar, 250)).SqlValue = ol.BookDescription;
-                    cmd.Parameters.Add(new SqlParameter("@BookImage", SqlDbType.VarChar, -1)).SqlValue = ol.BookImage;
-                    cmd.Parameters.Add(new SqlParameter("@BookPrice", SqlDbType.Int)).SqlValue = ol.BookPrice;
-                    cmd.Parameters.Add(new SqlParameter("@BookTitle", SqlDbType.VarChar, 250)).SqlValue = ol.BookTitle;
-                    cmd.Parameters.Add(new SqlParameter("@BookType", SqlDbType.VarChar, 250)).SqlValue = ol.BookType;
-                    cmd.Parameters.Add(new SqlParameter("@quantity", SqlDbType.Int)).SqlValue = ol.quantity;
-                    cmd.Parameters.Add(new SqlParameter("@Id", SqlDbType.Int)).SqlValue = ol.Id;
-                    cmd.Parameters.Add(new SqlParameter("@address", SqlDbType.VarChar, 250)).SqlValue = ol.address;
-                    cmd.Parameters.Add(new SqlParameter("@email", SqlDbType.VarChar, 250)).SqlValue = ol.email;
-                    cmd.Parameters.Add(new SqlParameter("@landmark", SqlDbType.VarChar, 250)).SqlValue = ol.landmark;
-                    cmd.Parameters.Add(new SqlParameter("@mobileno", SqlDbType.VarChar, 25)).SqlValue = ol.mobileno;
-                    cmd.Parameters.Add(new SqlParameter("@name", SqlDbType.VarChar, 100)).SqlValue = ol.name;
-                    cmd.Parameters.Add(new SqlParameter("@sname", SqlDbType.VarChar, 100)).SqlValue = ol.sname;
-                    cmd.Parameters.Add(new SqlParameter("@zipcode", SqlDbType.VarChar, 25)).SqlValue = ol.zipcode;
-                    cmd.Parameters.Add(new SqlParameter("@customerId", SqlDbType.Int)).SqlValue = ol.customerId;
-
+                   
+                     cmd.Parameters.Add(new SqlParameter("@qunatity", SqlDbType.Int)).SqlValue = ol.quantity;
+                     cmd.Parameters.Add(new SqlParameter("@BookId", SqlDbType.Int)).SqlValue = ol.Id;
+                     cmd.Parameters.Add(new SqlParameter("@orderId", SqlDbType.BigInt)).SqlValue = Id;
+                     cmd.Parameters.Add(new SqlParameter("@price", SqlDbType.Decimal)).SqlValue = ol.BookPrice;
+                     cmd.Parameters.Add(new SqlParameter("@subtotal", SqlDbType.Decimal)).SqlValue = (ol.BookPrice * ol.quantity);
+                     cmd.Parameters.Add(new SqlParameter("@flag", SqlDbType.VarChar)).SqlValue = "I";
                     cmd.ExecuteScalar();
                     cmd.Parameters.Clear();
                 }

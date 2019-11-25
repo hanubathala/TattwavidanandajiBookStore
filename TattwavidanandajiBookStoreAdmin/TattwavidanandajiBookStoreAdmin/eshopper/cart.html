@@ -94,22 +94,22 @@
                     <div class="col-md-8 clearfix">
                         <div class="mainmenu clearfix pull-right">
                             <ul class="nav navbar-nav">
-                                <li><a href="index.html" class="active">Home</a></li>
+                                <li><a href="index.html" >Home</a></li>
                                 <li><a href="AboutUs.html">About Us</a></li>
                                 <li><a href="contact-us.html">Contact</a></li>
-                                <li><a href="login.html"><i class="fa fa-user"></i> Login/Sign Up</a></li>
-                                <li class="dropdown active" ng-show="disusername!=null">
+                                <li ng-show="disusername==null"><a href="login.html"><i class="fa fa-user"></i> Login/Sign Up</a></li>
+                                <li class="dropdown active" >
                                     <a href=""><i class="fa fa-user"></i>{{disusername}}<i class="fa fa-angle-down"></i></a>
                                     <ul role="menu" class="sub-menu">
                                         <li><a href="shop.html">Profile</a></li>
                                         <li><a href="product-details.html">Your Orders</a></li>
-                                        <li><a href="checkout.html">Logout</a></li>
+                                        <li><a href="index.html" ng-click="logout();">Logout</a></li>
                                     </ul>
                                 </li>
                                 <!--<li ng-show="disusername==null"><a href=""><i class="fa fa-user"></i> Account</a></li>-->
                                 <!--<li><a href=""><i class="fa fa-star"></i> Wishlist</a></li>
             <li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Checkout</a></li>-->
-                                <li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Cart &nbsp;<span style="padding: 7px; border-radius: 50px; background-color: #FE980F; color: white;" ng-show="addcartlength!=null"><strong>{{addcartlength}}</strong></span></a></li>
+                                <li><a href="cart.html" class="active"><i class="fa fa-shopping-cart"></i> Cart &nbsp;<span style="padding: 7px; border-radius: 50px; background-color: #FE980F; color: white;" ng-show="addcartlength!=null"><strong>{{addcartlength}}</strong></span></a></li>
                                 <!--<li><a href="../Login.html"><i class="fa fa-lock"></i> Login</a></li>-->
 
                             </ul>

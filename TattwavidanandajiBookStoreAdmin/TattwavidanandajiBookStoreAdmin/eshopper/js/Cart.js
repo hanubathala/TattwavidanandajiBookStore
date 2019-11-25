@@ -126,7 +126,8 @@ var ctrl = app.controller('myCtrl', function ($scope, $http, $localStorage) {
         $http(req).then(function (res) {
           
             alert('order placed Successfully...!');
-           
+            $localStorage.addcart = null;
+            window.location.href="Index.html"
 
         }, function (ee) {
             alert(ee.data.ExceptionMessage);
@@ -134,6 +135,15 @@ var ctrl = app.controller('myCtrl', function ($scope, $http, $localStorage) {
         });
     
     }
+
+    //start  common in all screen 
+
+    $scope.logout = function () {
+        $localStorage.userdata = null;
+        $localStorage.Username = null;
+        $localStorage.disusername = null;
+    }
+    // end common in all screen
 
 });
 
