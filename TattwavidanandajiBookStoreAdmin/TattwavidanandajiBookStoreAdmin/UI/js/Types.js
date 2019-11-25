@@ -60,7 +60,8 @@ var ctrl = app.controller('myCtrl', function ($scope, $http, $localStorage) {
             }
         }
         var tid = ($scope.s == null) ? -1 : $scope.s.Id;
-        $http.get('/api/Types/TypesPaging?groupid='+tid+'&curpage=' + curpage + '&maxrows=' + selecting).then(function (res, data) {
+
+        $http.get('/api/Types/TypesPaging?groupid=' + tid + '&curpage=' + curpage + '&maxrows=' + selecting).then(function (res, data) {
             $scope.Types = res.data.Table;
             $scope.paggin = res.data.Table1;
             if ($scope.Types.length < selecting) {

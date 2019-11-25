@@ -128,6 +128,8 @@
     <Content Include="eshopper\images\blog\man-three.jpg" />
     <Content Include="eshopper\images\blog\man-two.jpg" />
     <Content Include="eshopper\images\blog\socials.png" />
+    <Content Include="eshopper\images\book2.jpg" />
+    <Content Include="eshopper\images\book25.jpg" />
     <Content Include="eshopper\images\cart\one.png" />
     <Content Include="eshopper\images\cart\three.png" />
     <Content Include="eshopper\images\cart\two.png" />
@@ -2265,7 +2267,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>50314</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:8685/</IISUrl>
+          <IISUrl>http://localhost:9003/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

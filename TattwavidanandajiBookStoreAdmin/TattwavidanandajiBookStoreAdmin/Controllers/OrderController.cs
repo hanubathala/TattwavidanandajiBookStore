@@ -139,7 +139,10 @@ namespace TattwavidanandajiBookStoreAdmin.Controllers
 
                 // sending the email for admin --- start
                 #region send email with details
-
+                SqlTransaction tras =null;
+                tras = conn.BeginTransaction();
+                cmd.Transaction = tras;
+                
                 try
                 {
                     string emailaddress = "hnmisv";
@@ -253,6 +256,7 @@ namespace TattwavidanandajiBookStoreAdmin.Controllers
                 }
                 catch (Exception ex)
                 {
+                    
                     //throw ex;
 
                 }
@@ -261,30 +265,32 @@ namespace TattwavidanandajiBookStoreAdmin.Controllers
 
                 #endregion send email with details
 
-                //foreach (Orderlist ol in list)
-                //{
+                foreach (Orderlist ol in list)
+                {
 
-                //    cmd.Parameters.Add(new SqlParameter("@BookDescription", SqlDbType.VarChar, 250)).SqlValue = ol.BookDescription;
-                //    cmd.Parameters.Add(new SqlParameter("@BookImage", SqlDbType.VarChar, -1)).SqlValue = ol.BookImage;
-                //    cmd.Parameters.Add(new SqlParameter("@BookPrice", SqlDbType.Int)).SqlValue = ol.BookPrice;
-                //    cmd.Parameters.Add(new SqlParameter("@BookTitle", SqlDbType.VarChar, 250)).SqlValue = ol.BookTitle;
-                //    cmd.Parameters.Add(new SqlParameter("@BookType", SqlDbType.VarChar, 250)).SqlValue = ol.BookType;
-                //    cmd.Parameters.Add(new SqlParameter("@quantity", SqlDbType.Int)).SqlValue = ol.quantity;
-                //    cmd.Parameters.Add(new SqlParameter("@Id", SqlDbType.Int)).SqlValue = ol.Id;
-                //    cmd.Parameters.Add(new SqlParameter("@address", SqlDbType.VarChar, 250)).SqlValue = ol.address;
-                //    cmd.Parameters.Add(new SqlParameter("@email", SqlDbType.VarChar, 250)).SqlValue = ol.email;
-                //    cmd.Parameters.Add(new SqlParameter("@landmark", SqlDbType.VarChar, 250)).SqlValue = ol.landmark;
-                //    cmd.Parameters.Add(new SqlParameter("@mobileno", SqlDbType.VarChar, 25)).SqlValue = ol.mobileno;
-                //    cmd.Parameters.Add(new SqlParameter("@name", SqlDbType.VarChar, 100)).SqlValue = ol.name;
-                //    cmd.Parameters.Add(new SqlParameter("@sname", SqlDbType.VarChar, 100)).SqlValue = ol.sname;
-                //    cmd.Parameters.Add(new SqlParameter("@zipcode", SqlDbType.VarChar, 25)).SqlValue = ol.zipcode;
+                    cmd.Parameters.Add(new SqlParameter("@BookDescription", SqlDbType.VarChar, 250)).SqlValue = ol.BookDescription;
+                    cmd.Parameters.Add(new SqlParameter("@BookImage", SqlDbType.VarChar, -1)).SqlValue = ol.BookImage;
+                    cmd.Parameters.Add(new SqlParameter("@BookPrice", SqlDbType.Int)).SqlValue = ol.BookPrice;
+                    cmd.Parameters.Add(new SqlParameter("@BookTitle", SqlDbType.VarChar, 250)).SqlValue = ol.BookTitle;
+                    cmd.Parameters.Add(new SqlParameter("@BookType", SqlDbType.VarChar, 250)).SqlValue = ol.BookType;
+                    cmd.Parameters.Add(new SqlParameter("@quantity", SqlDbType.Int)).SqlValue = ol.quantity;
+                    cmd.Parameters.Add(new SqlParameter("@Id", SqlDbType.Int)).SqlValue = ol.Id;
+                    cmd.Parameters.Add(new SqlParameter("@address", SqlDbType.VarChar, 250)).SqlValue = ol.address;
+                    cmd.Parameters.Add(new SqlParameter("@email", SqlDbType.VarChar, 250)).SqlValue = ol.email;
+                    cmd.Parameters.Add(new SqlParameter("@landmark", SqlDbType.VarChar, 250)).SqlValue = ol.landmark;
+                    cmd.Parameters.Add(new SqlParameter("@mobileno", SqlDbType.VarChar, 25)).SqlValue = ol.mobileno;
+                    cmd.Parameters.Add(new SqlParameter("@name", SqlDbType.VarChar, 100)).SqlValue = ol.name;
+                    cmd.Parameters.Add(new SqlParameter("@sname", SqlDbType.VarChar, 100)).SqlValue = ol.sname;
+                    cmd.Parameters.Add(new SqlParameter("@zipcode", SqlDbType.VarChar, 25)).SqlValue = ol.zipcode;
+                    cmd.Parameters.Add(new SqlParameter("@customerId", SqlDbType.Int)).SqlValue = ol.customerId;
 
-                //    cmd.ExecuteScalar();
-                //    cmd.Parameters.Clear();
-                //}
+                    cmd.ExecuteScalar();
+                    cmd.Parameters.Clear();
+                }
+                tras.Commit();
             }
             catch (Exception ex) {
-
+               // tras.Rollback();
                 throw ex;
             }
             return dt;

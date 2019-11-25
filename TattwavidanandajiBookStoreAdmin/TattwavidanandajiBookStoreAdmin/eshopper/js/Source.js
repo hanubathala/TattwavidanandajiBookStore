@@ -8,6 +8,10 @@ var ctrl = app.controller('myCtrl', function ($scope, $http, $localStorage) {
     else {
         $scope.addcartlength = $localStorage.addcart.length;
     }
+    if($localStorage.userdata!=null){
+        $scope.disusername = $localStorage.Username;
+     }
+    $scope.disusername = $localStorage.Username;
     $scope.InitConfig = function () {
         $http.get('/api/Books/GetBooksList').then(function (res, data) {
             $scope.BookList = res.data;

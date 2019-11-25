@@ -22,6 +22,11 @@
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
+    <style>
+        .mainmenu ul li a {
+            font-size: 14px;
+        }
+    </style>
 </head><!--/head-->
 
 <body ng-app="myApp" ng-controller="myCtrl" ng-init="InitConfig();">
@@ -64,7 +69,7 @@
                         </div>
                     </div>
                     <div class="col-md-8 clearfix">
-                        <div class="shop-menu clearfix pull-right">
+                        <div class="mainmenu clearfix pull-right">
                             <ul class="nav navbar-nav">
                                 <li><a href="index.html" class="active">Home</a></li>
                                 <li><a href="AboutUs.html">About Us</a></li>
@@ -80,7 +85,7 @@
                                 </li>
                                 <!--<li ng-show="disusername==null"><a href=""><i class="fa fa-user"></i> Account</a></li>-->
                                 <!--<li><a href=""><i class="fa fa-star"></i> Wishlist</a></li>
-                            <li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Checkout</a></li>-->
+            <li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Checkout</a></li>-->
                                 <li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Cart &nbsp;<span style="padding: 7px; border-radius: 50px; background-color: #FE980F; color: white;" ng-show="addcartlength!=null"><strong>{{addcartlength}}</strong></span></a></li>
                                 <!--<li><a href="../Login.html"><i class="fa fa-lock"></i> Login</a></li>-->
 

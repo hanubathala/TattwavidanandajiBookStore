@@ -6,12 +6,14 @@ var ctrl = app.controller('myCtrl', function ($scope, $http, $localStorage) {
     else {
         $scope.addcartlength = $localStorage.addcart.length;
     }
+    if ($localStorage.localshowotp != null) {
+        $scope.showotp = $localStorage.localshowotp;
+    }
 
     if ($localStorage.Username!=null)
     $scope.disusername = $localStorage.Username;
 
     $scope.savecustomerdetails = function () {
-
         if ($scope.username == null || $scope.username == '')
         {
             alert("Enter Username");
@@ -35,17 +37,15 @@ var ctrl = app.controller('myCtrl', function ($scope, $http, $localStorage) {
             Email: $scope.UserEmail,
             flag:'I'
         }
-
-
-       
         var req = {
             method: 'POST',
             url: '/api/Customer/SaveCustomerDetails',
             data: custdetails
         }
         $http(req).then(function (res) {
-          
             $localStorage.useremail = res.data[0].Email;
+            $localStorage.localshowotp = res.data;
+            $scope.showotp = $localStorage.localshowotp;
             alert('Sign Up Successfully...!');
         }, function (ee) {
             alert(ee.data.ExceptionMessage);
@@ -59,7 +59,8 @@ var ctrl = app.controller('myCtrl', function ($scope, $http, $localStorage) {
             $localStorage.userdata = res.data;
             $localStorage.Username = res.data[0].UserName;
             $scope.disusername = $localStorage.Username;
-           
+            $localStorage.localshowotp =null;
+            $scope.showotp =null;
         }, function (ee) {
             alert(ee.data.ExceptionMessage);
         });
@@ -81,18 +82,18 @@ var ctrl = app.controller('myCtrl', function ($scope, $http, $localStorage) {
             Passkey : $scope.loginpasword,
 
         }
-
         var req = {
             method: 'POST',
             url: '/api/LOGIN/CustomerLogin',
             data: e
         }
-
         $http(req).then(function (res) {
             $localStorage.userdata = res.data;
             $localStorage.Username = res.data[0].UserName;
             $scope.disusername = $localStorage.Username;
-
+            $scope.loginemail = null;
+            $scope.loginpasword = null;
+            alert('Login Successful...');
         }, function (ee) {
             alert(ee.data.ExceptionMessage);
         });

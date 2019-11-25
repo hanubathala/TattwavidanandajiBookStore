@@ -141,6 +141,7 @@ var ctrl = app.controller('myCtrl', function ($scope, $http, $localStorage, $int
                 $scope.bok = res.data.Table;
                 $scope.labellist = res.data.Table1;
                 $scope.languagelist = res.data.Table2;
+                $scope.getbooklist();
             },function (ee) {
                 alert(ee.data.ExceptionMessage);
                 $scope.errmsg = ee;
@@ -294,7 +295,7 @@ var ctrl = app.controller('myCtrl', function ($scope, $http, $localStorage, $int
             BookLanguageId: Book.Language.Id,
             BookNoOfPages: Book.NoOfPages,
             BookPublisher: Book.Publisher,
-            BookActive: Book.Active,
+            Active: Book.Active,
             BookImage: ($scope.BookImage == null) ? null : $scope.BookImage,
             flag: flag
         };
@@ -319,35 +320,75 @@ var ctrl = app.controller('myCtrl', function ($scope, $http, $localStorage, $int
     }
    
     $scope.updatebookdetails = function (Book, flag) {
-        if (Book.BookTitle == null) {
+
+        if (Book == null) {
             alert('Please Enter Details.');
             return
         }
-        if (Book.BookTitle == null) {
+        if (Book.BookTitle1 == null) {
             alert('Please Enter Book Title.');
             return
         }
-        if (Book.BookPrice == null) {
+        if (Book.BookPrice1 == null) {
             alert('Please Enter Price.');
             return
         }
-        if (Book.BookStock == null) {
+        if (Book.BookStock1 == null) {
             alert('Please Enter Book Stock.');
             return
         }
-        if (Book.BookType1.Id == null | Book.BookType1.Id == "") {
+        if ($scope.BookType1.Id == null || $scope.BookType1.Id == "") {
             alert('Please Enter Book Type.');
+            return
+        }
+       
+        if (Book.Weight1 == null) {
+            alert('Please Enter Book Weight.');
+            return
+        }
+        
+        if (Book.BookAuthor1 == null) {
+            alert('Please Enter Book Author Name.');
+            return
+        }
+       
+        if ($scope.Language1 == null) {
+            alert('Please Enter in which laguage book is written.');
+            return
+        }
+        if (Book.Tags1 == null) {
+            alert('Please Enter Tags of Book.');
+            return
+        }
+        if (Book.NoOfPages1 == null) {
+            alert('Please Ente No of Page in the book.');
+            return
+        }
+        if (Book.Publisher1 == null) {
+            alert('Please Enter Publise Name.');
+            return
+        }
+        if ($scope.bookedit.BookImage1 == null) {
+            alert('Please select Book Image.');
             return
         }
         var booklist = {
             Id: (Book.Id != null || Book.Id != '') ? Book.Id : '',
-            BookTitle: Book.BookTitle,
-            BookPrice: Book.BookPrice,
-            BookStock: Book.BookStock,
-            BookType: Book.BookType1.Id,
-            BookDescription: Book.BookDescription,
-            Active:Book.Active,
-            BookImage: ($scope.BookImage2 == null) ? null : $scope.BookImage2,
+            BookTitle: Book.BookTitle1,
+            BookPrice: Book.BookPrice1,
+            BookStock: Book.BookStock1,
+            BookType: $scope.BookType1.Id,
+            BookDescription: Book.BookDescription1,
+            BookSKU: Book.SKU1,
+            BookWeight: Book.Weight1,
+            BookLabelId: $scope.Label1.Id,
+            BookBookAuthor: Book.BookAuthor1,
+            BookTags: Book.Tags1,
+            BookLanguageId: $scope.Language1.Id,
+            BookNoOfPages: Book.NoOfPages1,
+            BookPublisher: Book.Publisher1,
+            Active: Book.Active1,
+            BookImage: ($scope.bookedit.BookImage1 == null) ? null : $scope.bookedit.BookImage1,
             flag: flag
         };
         var req = {
@@ -368,14 +409,42 @@ var ctrl = app.controller('myCtrl', function ($scope, $http, $localStorage, $int
         });
     }
     $scope.setCourse = function (grp) {
-        $scope.bookedit = grp
-        $scope.BookImage2 = grp.BookImage;
+        $scope.bookedit = grp;
+        $scope.bookedit.BookTitle1 = grp.BookTitle;
+        $scope.bookedit.BookPrice1 = grp.BookPrice;
+        $scope.bookedit.BookStock1 = grp.BookStock;
+        $scope.bookedit.BookDescription1 = grp.BookDescription;
+        $scope.bookedit.SKU1 = grp.BookSKU;
+        $scope.bookedit.Weight1 = grp.BookWeight;
+        
+        $scope.bookedit.BookAuthor1 = grp.BookAuthor;
+        $scope.bookedit.Tags1 = grp.BookTags;
+        $scope.bookedit.Language1 = grp.BookTitle;
+        $scope.bookedit.NoOfPages1 = grp.BookNoOfPages;
+        $scope.bookedit.Publisher1 = grp.BookPublisher;
+        $scope.bookedit.Active1 = grp.Active;
+        $scope.bookedit.BookImage1 = grp.BookImage;
+
         for (i = 0; i < $scope.bok.length; i++) {
             if ($scope.bok[i].Name == grp.BookType) {
-                $scope.bookedit.BookType1 = $scope.bok[i];
+                $scope.BookType1 = $scope.bok[i];
                 break;
             }
         }
+        for (i = 0; i < $scope.labellist.length; i++) {
+            if ($scope.labellist[i].Id == grp.BookLabelId) {
+                $scope.Label1 = $scope.labellist[i];
+                break;
+            }
+
+        }
+        for (i = 0; i < $scope.languagelist.length; i++) {
+            if ($scope.languagelist[i].Id == grp.BookLanguageId) {
+                $scope.Language1 = $scope.languagelist[i];
+                break;
+            }
+        }
+
     }
     $scope.openimagetoshow = function (t) {
 

@@ -53,8 +53,11 @@ namespace TattwavidanandajiBookStoreAdmin.Controllers
             return Tbl;
         }
 
-        [HttpGet]
-        [Route("api/Types/TypesPaging")]
+        [System.Web.Http.AcceptVerbs("GET", "POST")]
+
+        [System.Web.Http.HttpGet]
+        
+        //[Route("api/Types/TypesPaging")]
         public DataSet TypesPaging(int groupid, int curpage, int maxrows)
         {
             //DataTable Tbl = new DataTable();

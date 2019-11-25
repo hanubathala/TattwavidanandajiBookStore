@@ -5,7 +5,15 @@ using System.Web;
 
 namespace TattwavidanandajiBookStoreAdmin.Models
 {
-
+    public class CustomerQuery
+    {
+        public string Name { get; set; }
+        public string Email { get; set; }
+        public string Subject { get; set; }
+        public string MessageDes { get; set; }
+        public string flag { get; set; }
+        
+    }
 
     public class TypeGroups
     {
@@ -94,6 +102,7 @@ namespace TattwavidanandajiBookStoreAdmin.Models
         public string sname { get; set; }
         public string zipcode { get; set; }
         public int BookStock { get; set; }
+        public int customerId { get; set; }
         }
 
 
@@ -121,7 +130,7 @@ namespace TattwavidanandajiBookStoreAdmin.Models
         public string BookTags { get; set; }
         public int BookLanguageId { get; set; }
         public int BookNoOfPages { get; set; }
-        public int BookPublisher { get; set; }
+        public string BookPublisher { get; set; }
         public int BookActive { get; set; }
     }
     public class UserLogin

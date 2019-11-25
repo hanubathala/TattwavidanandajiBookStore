@@ -12,7 +12,9 @@ var ctrl = app.controller('myCtrl', function ($scope, $http, $localStorage) {
             $scope.totalamt = $scope.totalamt + ($scope.cartlist[i].quantity * $scope.cartlist[i].BookPrice);
         }
     }
-   
+    if ($localStorage.userdata != null) {
+        $scope.disusername = $localStorage.Username;
+    }
     $scope.quantity=1;
   
     $scope.setquantity = function (cartitems,status) {
@@ -106,7 +108,8 @@ var ctrl = app.controller('myCtrl', function ($scope, $http, $localStorage) {
                 mobileno: custinfo.mobileno,
                 name: custinfo.name,
                 sname: custinfo.sname,
-                zipcode: custinfo.zipcode
+                zipcode: custinfo.zipcode,
+                customerId: $localStorage.userdata[0].Id
 
         };
 

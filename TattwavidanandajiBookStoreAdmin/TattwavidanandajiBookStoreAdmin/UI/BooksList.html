@@ -27,7 +27,7 @@
     <link href="css/themes/style2/yellow-dark.css" rel="stylesheet" />
     <link type="text/css" rel="stylesheet" href="css/style-responsive.css">
 </head>
-<body ng-app="myApp" ng-controller="myCtrl" ng-init="getbooklist();">
+<body ng-app="myApp" ng-controller="myCtrl" ng-init="InitConfig();">
     <!--BEGIN THEME SETTING-->
     <!--BEGIN BACK TO TOP-->
     <a id="totop" href="#"><i class="fa fa-angle-up"></i></a><!--END BACK TO TOP--><!--BEGIN TOPBAR-->
@@ -35,11 +35,11 @@
         <nav id="topbar" role="navigation" style="margin-bottom: 0;" data-step="3" class="navbar navbar-default navbar-static-top">
             <div class="navbar-header">
                 <button type="button" data-toggle="collapse" data-target=".sidebar-collapse" class="navbar-toggle"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
-                <a id="logo" href="index.html" class="navbar-brand" style="margin-top:-15px;"><img src="images/Institute/logo.jpg" title="Ramakrishna Math & Mission Logo" style="height:50px;width:50px;border-radius:50%;" /></a>
+                <a id="logo" href="index.html" class="navbar-brand" style="margin-top:-15px;"><img src="../eshopper/images/Holy.png"   style="height:50px;width:50px;border-radius:50%;" /></a>
             </div>
             <div class="topbar-main">
                 <a id="menu-toggle" href="#" class="hidden-xs"><i class="fa fa-bars"></i></a>
-                <label style="margin-left:100px;font-size:20px;margin-top:10px;color:lightyellow;"><i>Vivekananda Institute of Human Excellence,Hyderabad.</i></label>
+                <label style="margin-left:100px;font-size:20px;margin-top:10px;color:lightyellow;"><i>Holy Book Store,Hyderabad.</i></label>
                 <ul class="nav navbar navbar-top-links navbar-right mbn">
 
                     <li class="dropdown topbar-user">
@@ -77,29 +77,29 @@
                         </li>
                         <li class="active" style="border-top: 1px solid grey; border-bottom: 1px solid grey;">
                             <a href="BooksList.html" data-toggle="tooltip" data-placement="right" title="To Load Data into Application">
-                                <span class="glyphicon glyphicon-download"></span><span class="menu-title">Books List</span>
+                                <span class="glyphicon glyphicon-book"></span><span class="menu-title">Books List</span>
                             </a>
                         </li>
                         <li style="border-top: 1px solid grey; border-bottom: 1px solid grey;">
                             <a href="CustomerList.html" data-toggle="tooltip" data-placement="right" title="To Load Data into Application">
-                                <span class="glyphicon glyphicon-download"></span><span class="menu-title">Customer List</span>
+                                <span class="glyphicon glyphicon-user"></span><span class="menu-title">Customer List</span>
                             </a>
                         </li>
                         <li style="border-top: 1px solid grey; border-bottom: 1px solid grey;">
                             <a href="TypeGroups.html" data-toggle="tooltip" data-placement="right" title="DB Backup in Local">
-                                <i class="fa fa-question-circle"></i><span class="menu-title">Type Groups</span>
+                                <i class="fa fa-gears"></i><span class="menu-title">Type Groups</span>
                             </a>
                         </li>
                         <li style="border-top: 1px solid grey; border-bottom: 1px solid grey;">
                             <a href="Types.html" data-toggle="tooltip" data-placement="right" title="DB Backup in Local">
-                                <i class="fa fa-question-circle"></i><span class="menu-title">Types</span>
+                                <i class="fa fa-gear"></i><span class="menu-title">Types</span>
                             </a>
                         </li>
-                        <li style="border-top: 1px solid grey; border-bottom: 1px solid grey;">
+                        <!--<li style="border-top: 1px solid grey; border-bottom: 1px solid grey;">
                             <a href="Gallery.html" data-toggle="tooltip" data-placement="right" title="DB Backup in Local">
                                 <i class="fa fa-question-circle"></i><span class="menu-title">Gallery</span>
                             </a>
-                        </li>
+                        </li>-->
                     </ul>
                 </div>
             </nav>                <!--END CHAT FORM--><!--BEGIN PAGE WRAPPER-->
@@ -156,7 +156,7 @@
                                         <td>{{c.BookPrice}}</td>
                                         <td><input type="checkbox" class="icheckbox_minimal-grey activeCheckbox" disabled ng-model="c.Active" ng-true-value="1" ng-false-value="0" /></td>
                                         <td>
-                                            <button type="button" data-target="#Modal-header-new-Edit" data-toggle="modal" class="btn btn-default btn-xs" ng-click="setCourse(c)">
+                                            <button type="button" data-target="#Modal-header-new-Edit" data-toggle="modal" class="btn btn-default btn-xs" ng-click="setCourse(c);">
                                                 <i class="fa fa-edit"></i>&nbsp;
                                                 Edit
                                             </button>
@@ -205,8 +205,8 @@
                         <!--BEGIN FOOTER-->
                         <div id="footer">
                             <div class="row">
-                                <div class="col-md-6 pull-left copyright">© Copyright 2018 by Ramakrishna Math,Hyderabad</div>
-                                <div class="col-md-6 pull-right">Developed by Ramakrishna Math,Hyderabad</div>
+                                <div class="col-md-6 pull-left copyright">© Copyright 2018 by Holy Book Store,Hyderabad</div>
+                                <div class="col-md-6 pull-right">Developed by Holy Book Store,Hyderabad</div>
                             </div>
                         </div>
                         <!--END FOOTER-->
@@ -237,7 +237,7 @@
                             <div class="col-md-4">
                                 <label for="selection of course" class="col-md-3 control-label" style="color:red;">Price:<span class='require'>*</span></label>
                                 <div class="col-md-9">
-                                    <input class="form-control" type="text" ng-model="Book.BookPrice" placeholder="Book Price" />
+                                    <input class="form-control" type="number" ng-model="Book.BookPrice" placeholder="Book Price" />
                                     <!--<span class="help-block">(Ex:250)</span>-->
                                 </div>
 
@@ -245,7 +245,7 @@
                             <div class="col-md-4">
                                 <label for="selection of course" class="col-md-3 control-label" style="color:red;">Stock:<span class='require'>*</span></label>
                                 <div class="col-md-9">
-                                    <input class="form-control" type="text" ng-model="Book.BookStock" placeholder="Book Stock" />
+                                    <input class="form-control" type="number" ng-model="Book.BookStock" placeholder="Book Stock" />
                                     <!--<span class="help-block">(Ex:10)</span>-->
                                 </div>
 
@@ -274,7 +274,7 @@
                             <div class="col-md-4">
                                 <label for="selection of course" class="col-sm-3 control-label" style="color:red;">Weight:<span class='require'>*</span></label>
                                 <div class="col-sm-9">
-                                    <input class="form-control" type="text" ng-model="Book.Weight" placeholder="Book Weight" />
+                                    <input class="form-control" type="number" ng-model="Book.Weight" placeholder="Book Weight" />
                                     <!--<span class="help-block">(Ex:1.5 Kg)</span>-->
                                 </div>
 
@@ -326,7 +326,7 @@
                             <div class="col-md-4">
                                 <label for="selection of course" class="col-sm-3 control-label" style="color:red;">No.of Pages:<span class='require'>*</span></label>
                                 <div class="col-sm-9">
-                                    <input class="form-control" type="text" ng-model="Book.NoOfPages" placeholder="Total Book Pages" />
+                                    <input class="form-control" type="number" ng-model="Book.NoOfPages" placeholder="Total Book Pages" />
                                     <!--span class="help-block">(Ex:140)</span>-->
                                 </div>
 
@@ -367,14 +367,14 @@
                     </div>
 
                     <div class="form-actions mbm" style="margin-top:10px;">
-                      
+
                         <div class="col-lg-12" style="padding-left:2px;padding-right:2px;">
 
                             <div class="col-md-4">
-                                <label for="selection of course" class="col-sm-3 control-label" >Active:</label>
+                                <label for="selection of course" class="col-sm-3 control-label">Active:</label>
                                 <div class="col-sm-9">
                                     <input type="checkbox" class="icheckbox_minimal-grey activeCheckboxs" ng-model="Book.Active" ng-true-value="1" ng-false-value="0" />
-                                    
+
                                 </div>
                             </div>
                             <div class="col-md-8" style="text-align:center;">
@@ -404,89 +404,172 @@
                     <button type="button" data-dismiss="modal" aria-hidden="true" class="close">&times;</button>
                     <h4 id="modal-header-primary-label" class="modal-title">Edit Book Details</h4>
                 </div>
-                <div class="modal-body" ng-model="bookedit" ng-click="addbook()">
+                <div class="modal-body" ng-model="bookedit">
                     <div class="row mbm">
-                        <div class="col-md-12">
-                            <div class="col-md-6">
-                                <label for="selection of course" class="col-md-5 control-label" style="color:red;">Title:<span class='require'>*</span></label>
-                                <div class="col-md-6">
-                                    <input class="form-control" type="text" ng-model="bookedit.BookTitle" />
-                                    <span class="help-block">(Ex:Jnana Yoga)</span>
+                        <div class="col-md-12" style="padding-left:2px;padding-right:2px;">
+                            <div class="col-md-4">
+                                <label for="selection of course" class="col-md-3 control-label" style="color:red;">Title:<span class='require'>*</span></label>
+                                <div class="col-md-9">
+                                    <input class="form-control" type="text" ng-model="bookedit.BookTitle1" placeholder="Book Name" />
+                                    <!--<span class="help-block">(Ex:Jnana Yoga)</span>-->
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <label for="selection of course" class="col-md-5 control-label" style="color:red;">Price:<span class='require'>*</span></label>
-                                <div class="col-md-6">
-                                    <input class="form-control" type="text" ng-model="bookedit.BookPrice" />
-                                    <span class="help-block">(Ex:250)</span>
+                            <div class="col-md-4">
+                                <label for="selection of course" class="col-md-3 control-label" style="color:red;">Price:<span class='require'>*</span></label>
+                                <div class="col-md-9">
+                                    <input class="form-control" type="number" ng-model="bookedit.BookPrice1" placeholder="Book Price" />
+                                    <!--<span class="help-block">(Ex:250)</span>-->
                                 </div>
 
                             </div>
+                            <div class="col-md-4">
+                                <label for="selection of course" class="col-md-3 control-label" style="color:red;">Stock:<span class='require'>*</span></label>
+                                <div class="col-md-9">
+                                    <input class="form-control" type="number" ng-model="bookedit.BookStock1" placeholder="Book Stock" />
+                                    <!--<span class="help-block">(Ex:10)</span>-->
+                                </div>
 
+                            </div>
                         </div>
                     </div>
                     <div class="row mbm">
-                        <div class="col-md-12">
-                            <div class="col-md-6">
-                                <label for="selection of course" class="col-md-5 control-label" style="color:red;">Stock:<span class='require'>*</span></label>
-                                <div class="col-md-6">
-                                    <input class="form-control" type="text" ng-model="bookedit.BookStock" />
-                                    <span class="help-block">(Ex:10)</span>
+                        <div class="col-lg-12" style="padding-left:2px;padding-right:2px;">
+                            <div class="col-md-4">
+                                <label for="selection of course" class="col-sm-3 control-label" style="color:red;">SKU:<span class='require'>*</span></label>
+                                <div class="col-sm-9">
+                                    <input class="form-control" type="text" ng-model="bookedit.SKU1" placeholder="AVE140" />
+                                    <!--<span class="help-block">(Ex:10)</span>-->
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <label for="selection of course" class="col-md-5 control-label" style="color:red;">Book Type:<span class='require'>*</span></label>
-                                <div class="col-md-6">
-                                    <select ng-options="b.Name for b in bok track by b.Id" ng-model="bookedit.BookType1" class="form-control">
+                            <div class="col-md-4">
+                                <label for="selection of course" class="col-sm-3 control-label" style="color:red;">Type:<span class='require'>*</span></label>
+                                <div class="col-sm-9">
+                                    <select ng-options="b.Name for b in bok track by b.Id" ng-model="BookType1" class="form-control">
                                         <option value="">Select</option>
                                     </select>
-                                    <span class="help-block">(Ex:Hardbond)</span>
+                                    <!--<span class="help-block">(Ex:Hardbond)</span>-->
                                 </div>
 
                             </div>
+                            <div class="col-md-4">
+                                <label for="selection of course" class="col-sm-3 control-label" style="color:red;">Weight:<span class='require'>*</span></label>
+                                <div class="col-sm-9">
+                                    <input class="form-control" type="number" ng-model="bookedit.Weight1" placeholder="Book Weight" />
+                                    <!--<span class="help-block">(Ex:1.5 Kg)</span>-->
+                                </div>
 
+                            </div>
                         </div>
                     </div>
                     <div class="row mbm">
-                        <div class="col-md-12">
-                            <div class="col-md-6">
-                                <!--<label for="Description" class="col-md-5 control-label" style="color:red;">Select files:<span class='require'></span></label>-->
-                                <img ng-src="{{BookImage2}}" style="height:200px;width:150px;margin-bottom:10px;" />
-                                <input type="file" name="fileInput" id="fileInput" ng-file-select="onFileSelect2($files)" class="btn btn-green" accept=".jpg,.png,.gif,.jpeg" ng-model="BookImage2" />
-                            </div>
+                        <div class="col-lg-12" style="padding-left:2px;padding-right:2px;">
 
-                            <div class="col-md-6">
-                                <label for="selection of course" class="col-md-5 control-label" style="color:red;">Description:<span class='require'>*</span></label>
+                            <div class="col-md-4">
+                                <label for="selection of course" class="col-sm-3 control-label">Label:<span class='require'></span></label>
+                                <div class="col-sm-9">
+                                    <select ng-options="b.Name for b in labellist track by b.Id" ng-model="Label1" class="form-control">
+                                        <option value="">Select</option>
+                                    </select>
+                                    <!--<span class="help-block">(Ex:New or Sales)</span>-->
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="selection of course" class="col-sm-3 control-label" style="color:red;">Author:<span class='require'>*</span></label>
+                                <div class="col-sm-9">
+                                    <input class="form-control" type="text" ng-model="bookedit.BookAuthor1" placeholder="Author" />
+                                    <!--<span class="help-block">(Ex: Swami Premananada Maharaj)</span>-->
+                                </div>
+
+                            </div>
+                            <div class="col-md-4">
+                                <label for="selection of course" class="col-sm-3 control-label">Tags:<span class='require'></span></label>
+                                <div class="col-sm-9">
+                                    <input class="form-control" type="text" ng-model="bookedit.Tags1" placeholder="Ex: Swami Vivekanada" />
+                                    <!--<span class="help-block">(Ex:Swami Vivekananda)</span>-->
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mbm">
+                        <div class="col-lg-12" style="padding-left:2px;padding-right:2px;">
+
+                            <div class="col-md-4">
+                                <label for="selection of course" class="col-sm-3 control-label" style="color:red;">Language:<span class='require'>*</span></label>
+                                <div class="col-sm-9">
+                                    <select ng-options="b.Name for b in languagelist track by b.Id" ng-model="Language1" class="form-control">
+                                        <option value="">Select</option>
+                                    </select>
+                                    <!--<span class="help-block">(Ex:English or Telugu)</span>-->
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="selection of course" class="col-sm-3 control-label" style="color:red;">No.of Pages:<span class='require'>*</span></label>
+                                <div class="col-sm-9">
+                                    <input class="form-control" type="number" ng-model="bookedit.NoOfPages1" placeholder="Total Book Pages" />
+                                    <!--span class="help-block">(Ex:140)</span>-->
+                                </div>
+
+                            </div>
+                            <div class="col-md-4">
+                                <label for="selection of course" class="col-sm-3 control-label" style="color:red;">Publisher:<span class='require'>*</span></label>
+                                <div class="col-sm-9">
+                                    <input class="form-control" type="text" ng-model="bookedit.Publisher1" placeholder="Book Publisher" />
+                                    <!--<span class="help-block">(Ex:Sri Sarada Math,Hyderabad)</span>-->
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mbm">
+                        <div class="col-lg-12" style="padding-left:2px;">
+
+                            <div class="col-md-4">
+                                <div class="col-lg-12">
+                                    <label for="selection of course" class="control-label" style="color:red;margin-left:1px;">Book Image:<span class='require'>*</span></label>
+                                </div>
+                                <div class="col-lg-12" style="padding-left:15px;">
+                                    <img id="cmpLogo" ng-src="{{bookedit.BookImage1}}" style="border: solid 1px; width: 240px; height: 120px;" ng-model="tt" />
+                                </div>
+                                <div class="col-lg-12" style="padding-left:15px;margin-top:5px;width:240px;">
+                                    <input type="file" style="width:240px;" name="fileInput" id="fileInput" ng-file-select="onFileSelect1($files)" class="btn btn-green" accept=".jpg,.png,.gif,.jpeg" ng-model="bookedit.BookImage1" />
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+
+                                <label for="selection of course" class="col-md-5 control-label" style="color:red;margin-left:1px;">Description:<span class='require'>*</span></label>
                                 <div class="col-md-12">
-                                    <textarea class="form-control" rows="3" ng-model="bookedit.BookDescription"></textarea>
+                                    <textarea class="form-control" rows="7" ng-model="bookedit.BookDescription1" placeholder="Enter Book Brief Description"></textarea>
                                 </div>
-                                <div class="col-md-12" style="text-align:center;margin-top:20px;">
 
-
-
-                                </div>
-                                <div class="col-md-12" style="margin-top:20px;">
-                                    <div class="col-md-6">
-                                        <label for="selection of course" class="col-md-5 control-label" style="color:red;">Active:<span class='require'>*</span></label>
-
-                                        <input type="checkbox" class="icheckbox_minimal-grey activeCheckbox" ng-model="bookedit.Active" ng-true-value="1" ng-false-value="0" />
-                                    </div>
-                                    <div class="col-md-6">
-                                        <button class="btn btn-orange" ng-disabled="isSuperUser == 0 && CanCreate == 0" ng-click="updatebookdetails(bookedit,'U');">Save</button>
-                                        <button type="button" data-dismiss="modal" class="btn btn-default" ng-click="clearGroup()">Cancel</button>
-                                    </div>
-                                </div>
                             </div>
-
                         </div>
                     </div>
 
-                    <!--<div class="form-actions mbm">
-                        <div style="text-align:center;">
-                            <button class="btn btn-orange" ng-disabled="isSuperUser == 0 && CanCreate == 0" ng-click="AddNewBook(bookedit,'U');">Save</button>
-                            <button type="button" data-dismiss="modal" class="btn btn-default" ng-click="clearGroup()">Cancel</button>
+                    <div class="form-actions mbm" style="margin-top:10px;">
+
+                        <div class="col-lg-12" style="padding-left:2px;padding-right:2px;">
+
+                            <div class="col-md-4">
+                                <label for="selection of course" class="col-sm-3 control-label">Active:</label>
+                                <div class="col-sm-9">
+                                    <input type="checkbox" class="icheckbox_minimal-grey activeCheckboxs" ng-model="bookedit.Active1" ng-true-value="1" ng-false-value="0" />
+
+                                </div>
+                            </div>
+                            <div class="col-md-8" style="text-align:center;">
+                                <div class="col-sm-9">
+                                    <button class="btn btn-orange" ng-disabled="isSuperUser == 0 && CanCreate == 0" ng-click="updatebookdetails(bookedit,'U');">Save</button>
+                                    <button type="button" data-dismiss="modal" class="btn btn-default" ng-click="clearGroup()">Cancel</button>
+                                </div>
+
+                            </div>
                         </div>
-                    </div>-->
+                        <!--<div style="text-align:center;">
+                            <button class="btn btn-orange" ng-disabled="isSuperUser == 0 && CanCreate == 0" ng-click="AddNewBook(Book,'I');">Save</button>
+                            <button type="button" data-dismiss="modal" class="btn btn-default" ng-click="clearGroup()">Cancel</button>
+                        </div>-->
+                    </div>
                 </div>
             </div>
         </div>

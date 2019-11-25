@@ -22,6 +22,11 @@
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
+    <style>
+        .mainmenu ul li a {
+            font-size: 14px;
+        }
+    </style>
 </head><!--/head-->
 
 <body ng-app="myApp" ng-controller="myCtrl" ng-init="InitConfig();">
@@ -88,22 +93,23 @@
                         </div>-->
                     </div>
                     <div class="col-md-8 clearfix">
-                        <div class="shop-menu clearfix pull-right">
+                        <div class="mainmenu clearfix pull-right">
                             <ul class="nav navbar-nav">
                                 <li><a href="index.html" class="active">Home</a></li>
                                 <li><a href="AboutUs.html">About Us</a></li>
                                 <li><a href="contact-us.html">Contact</a></li>
-                                <li><a href="login.html"><i class="fa fa-user"></i> Login/Sign Up</a></li>
-                                <li class="dropdown active" ng-show="disusername!=null"><a href=""><i class="fa fa-user"></i>{{disusername}}<i class="fa fa-angle-down"></i></a>
+                                <li><a href="login.html" ng-show="disusername==null"><i class="fa fa-user"></i> Login/Sign Up</a>
+                                <li class="dropdown active" ng-show="disusername!=null">
+                                    <a><i class="fa fa-user"></i>&nbsp;{{disusername}}<i class="fa fa-angle-down"></i></a>
                                     <ul role="menu" class="sub-menu">
                                         <li><a href="shop.html">Profile</a></li>
                                         <li><a href="product-details.html">Your Orders</a></li>
-                                        <li><a href="checkout.html">Logout</a></li>
+                                        <li><a ng-click="LogoutUser()">Logout</a></li>
                                     </ul>
                                 </li>
                                 <!--<li ng-show="disusername==null"><a href=""><i class="fa fa-user"></i> Account</a></li>-->
                                 <!--<li><a href=""><i class="fa fa-star"></i> Wishlist</a></li>
-                                <li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Checkout</a></li>-->
+            <li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Checkout</a></li>-->
                                 <li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Cart &nbsp;<span style="padding: 7px; border-radius: 50px; background-color: #FE980F; color: white;" ng-show="addcartlength!=null"><strong>{{addcartlength}}</strong></span></a></li>
                                 <!--<li><a href="../Login.html"><i class="fa fa-lock"></i> Login</a></li>-->
 
@@ -222,7 +228,7 @@
                                     <input type="text" value="" ng-model="quantity" />
                                     <button type="button" class="btn btn-fefault cart">
                                         <i class="fa fa-shopping-cart"></i>                                       
-                                        <a href="#" style="color:white;" ng-click="addtocard(bookdetails);" ng-show="addcartlength!=0">View Cart</a>
+                                        <a href="cart.html" style="color:white;"  ng-show="addcartlength!=0">View Cart</a>
                                         <a href="#" style="color:white;" ng-click="addtocard(bookdetails);" ng-show="addcartlength==0">Add to cart</a>                                        
                                     </button>
                                 </span>
@@ -241,10 +247,10 @@
                             <h4>Description</h4>
                         </div>
                         <div class="col-md-8">
-                            
-                          <p>Swami  Nityasthananda, a senior monk of the Ramakrishna Order, who served as an Acharya at the Training Centre for Brahmacharins at Belur Math, has made a deep study of the subject based on the Shastras including Patanjali Yoga Sutras, Bhagavad Gita, Yoga Vasishtha, Vivekachudamani , Srimad Bhagavatam etc. and the works of Swami Yatishwarananda, Sri Aurobindo etc. as well as the Western Psychology.</p> 
+                            <p>{{bookdetails.BookDescription}}</p>
+                          <!--<p>Swami  Nityasthananda, a senior monk of the Ramakrishna Order, who served as an Acharya at the Training Centre for Brahmacharins at Belur Math, has made a deep study of the subject based on the Shastras including Patanjali Yoga Sutras, Bhagavad Gita, Yoga Vasishtha, Vivekachudamani , Srimad Bhagavatam etc. and the works of Swami Yatishwarananda, Sri Aurobindo etc. as well as the Western Psychology.</p> 
                             <br />  
-                            This was brought out serially in the Prabuddha Bharata and has been thoroughly revised by the Author for this publication.
+                            This was brought out serially in the Prabuddha Bharata and has been thoroughly revised by the Author for this publication.-->
                         </div>
                     </div>
                     <div class="row">
@@ -259,19 +265,19 @@
                                 <tbody>
                                     <tr style="height: 40px; border-bottom: 1px solid #F7F7F0;">
                                         <td width="20%">Weight</td>
-                                        <td width="80%">1025g</td>
+                                        <td width="80%">{{bookdetails.BookWeight}} grams</td>
                                     </tr>
                                     <tr style="height: 40px; border-bottom: 1px solid #F7F7F0; ">
                                         <td width="20%">LANGUAGE</td>
-                                        <td width="80%">English</td>
+                                        <td width="80%">{{bookdetails.BookLanguage}}</td>
                                     </tr>
                                     <tr style="height: 40px; border-bottom: 1px solid #F7F7F0; ">
                                         <td width="20%">ISBN</td>
-                                        <td width="80%">102513556456</td>
+                                        <td width="80%">{{bookdetails.BookSKU}}</td>
                                     </tr>
                                     <tr style="height: 40px;">
                                         <td width="20%">PUBLISHER</td>
-                                        <td width="80%">Janatha Printers</td>
+                                        <td width="80%">{{bookdetails.BookPublisher}}</td>
                                     </tr>
                                     
                                 </tbody>

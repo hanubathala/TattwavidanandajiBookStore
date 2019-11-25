@@ -1,3 +1,4 @@
+/// <reference path="contact.js" />
 var app = angular.module('myApp', ['ngStorage']);
 var ctrl = app.controller('myCtrl', function ($scope, $http, $localStorage) {
     if ($localStorage.addcart == null) {
@@ -6,112 +7,49 @@ var ctrl = app.controller('myCtrl', function ($scope, $http, $localStorage) {
     else {
         $scope.addcartlength = $localStorage.addcart.length;
     }
-    jQuery(function ($) {
-        'use strict';
+    if ($localStorage.localshowotp != null) {
+        $scope.showotp = $localStorage.localshowotp;
+    }
 
-        var form = $('.contact-form');
-        form.submit(function () {
-            var $this = $(this);
-            $.post("sendemail.php", $(".contact-form").serialize(), function (result) {
-                if (result.type == 'success') {
-                    $this.prev().text(result.message).fadeIn().delay(3000).fadeOut();
-                }
-            });
-            return false;
+    if ($localStorage.Username != null)
+        $scope.disusername = $localStorage.Username;
+   
+    $scope.sendquery = function () {
+
+        if ($scope.emailid == null) {
+
+            alert("Please Enter Email Id");
+            return;
+        }
+        if ($scope.messagedes == null) {
+
+            alert("Please Enter Message Description");
+            return;
+        }
+
+        var query = {
+               Name:$scope.name,
+               Email: $scope.emailid,
+               Subject:$scope.subject, 
+               MessageDes: $scope.messagedes,
+               flag:'I'
+
+        }
+
+        var req = {
+            method: 'POST',
+            url: '/api/Customer/sendcustomerquery',
+            data: query
+        }
+        $http(req).then(function (res) {
+            alert('Your query sent and get the response very soon   ...');
+            $scope.name = null;
+            $scope.emailid = null;
+            $scope.subject = null;
+            $scope.messagedes = null;
+        }, function (ee) {
+            alert(ee.data.ExceptionMessage);
         });
+    }
 
-    });
-
-    // Google Map Customization
-    (function () {
-
-        var map;
-
-        map = new GMaps({
-            el: '#gmap',
-            lat: 43.1580159,
-            lng: -77.6030777,
-            scrollwheel: false,
-            zoom: 14,
-            zoomControl: false,
-            panControl: false,
-            streetViewControl: false,
-            mapTypeControl: false,
-            overviewMapControl: false,
-            clickable: false
-        });
-
-        var image = 'images/map-icon.png';
-        map.addMarker({
-            lat: 43.1580159,
-            lng: -77.6030777,
-            //icon: image,
-            animation: google.maps.Animation.DROP,
-            verticalAlign: 'bottom',
-            horizontalAlign: 'center',
-            backgroundColor: '#ffffff',
-        });
-
-        var styles = [
-
-            {
-                "featureType": "road",
-                "stylers": [
-                    {
-                        "color": ""
-                    }
-                ]
-            }, {
-                "featureType": "water",
-                "stylers": [
-                    {
-                        "color": "#A2DAF2"
-                    }
-                ]
-            }, {
-                "featureType": "landscape",
-                "stylers": [
-                    {
-                        "color": "#ABCE83"
-                    }
-                ]
-            }, {
-                "elementType": "labels.text.fill",
-                "stylers": [
-                    {
-                        "color": "#000000"
-                    }
-                ]
-            }, {
-                "featureType": "poi",
-                "stylers": [
-                    {
-                        "color": "#2ECC71"
-                    }
-                ]
-            }, {
-                "elementType": "labels.text",
-                "stylers": [
-                    {
-                        "saturation": 1
-                    },
-                    {
-                        "weight": 0.1
-                    },
-                    {
-                        "color": "#111111"
-                    }
-                ]
-            }
-
-        ];
-
-        map.addStyle({
-            styledMapName: "Styled Map",
-            styles: styles,
-            mapTypeId: "map_style"
-        });
-
-        map.setStyle("map_style");
-    }());
 });

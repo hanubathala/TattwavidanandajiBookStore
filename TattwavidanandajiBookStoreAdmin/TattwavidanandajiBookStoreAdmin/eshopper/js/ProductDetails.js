@@ -6,6 +6,9 @@ var ctrl = app.controller('myCtrl', function ($scope, $http, $localStorage) {
     else {
         $scope.addcartlength = $localStorage.addcart.length;
     }
+    if ($localStorage.userdata != null) {
+        $scope.disusername = $localStorage.Username;
+    }
     var parseLocation = function (location) {
         var pairs = location.substring(1).split("&");
         var obj = {};
