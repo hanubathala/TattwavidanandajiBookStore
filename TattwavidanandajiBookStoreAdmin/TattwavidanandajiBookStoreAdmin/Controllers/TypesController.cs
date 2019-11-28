@@ -34,6 +34,7 @@ namespace TattwavidanandajiBookStoreAdmin.Controllers
                 cmd.Parameters.Add(new SqlParameter("@booktype", SqlDbType.Int)).SqlValue = config.booktype;
                 cmd.Parameters.Add(new SqlParameter("@labeltype", SqlDbType.Int)).SqlValue = config.labeltype;
                 cmd.Parameters.Add(new SqlParameter("@languagetype", SqlDbType.Int)).SqlValue = config.languagetype;
+                cmd.Parameters.Add(new SqlParameter("@status", SqlDbType.Int)).SqlValue = config.status;
                 SqlDataAdapter db = new SqlDataAdapter(cmd);
                 db.Fill(Tbl);
             }

@@ -14,6 +14,92 @@ namespace TattwavidanandajiBookStoreAdmin.Controllers
 {
     public class OrderController : ApiController
     {
+
+            [HttpGet]
+        [Route("api/Order/GetOrderDetails")]
+        public DataTable GetOrderDetails(int Id)
+        {
+            DataTable dt = new DataTable();
+            SqlConnection con = new SqlConnection();
+            try
+            {
+                con.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings["VIHE_DB_Connection"].ToString();
+
+                SqlCommand cmd = new SqlCommand();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "GetOrderDetails";
+                cmd.Connection = con;
+
+                SqlParameter cpage = new SqlParameter();
+                cpage.ParameterName = "@orderId";
+                cpage.SqlDbType = SqlDbType.Int;
+                cpage.Value = Id;
+                cmd.Parameters.Add(cpage);
+
+                SqlDataAdapter db = new SqlDataAdapter(cmd);
+                db.Fill(dt);
+                
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (con != null && con.State == ConnectionState.Open)
+                {
+                    con.Close();
+                }
+
+            }
+            return dt;
+        }
+
+        [HttpGet]
+        [Route("api/Order/GetOrders")]
+        public DataSet GetOrders(int curpage, int maxrows)
+        {
+            DataSet dt = new DataSet();
+            SqlConnection con = new SqlConnection();
+            try
+            {
+                con.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings["VIHE_DB_Connection"].ToString();
+
+                SqlCommand cmd = new SqlCommand();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "GetOrders";
+                cmd.Connection = con;
+
+                SqlParameter cpage = new SqlParameter();
+                cpage.ParameterName = "@curpage";
+                cpage.SqlDbType = SqlDbType.Int;
+                cpage.Value = curpage;
+                cmd.Parameters.Add(cpage);
+
+                SqlParameter mrows = new SqlParameter();
+                mrows.ParameterName = "@maxrows";
+                mrows.SqlDbType = SqlDbType.Int;
+                mrows.Value = maxrows;
+                cmd.Parameters.Add(mrows);
+
+                SqlDataAdapter db = new SqlDataAdapter(cmd);
+                db.Fill(dt);
+                
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (con != null && con.State == ConnectionState.Open)
+                {
+                    con.Close();
+                }
+
+            }
+            return dt;
+        }
         [HttpPost]
         public DataTable SaveOrder(List<Orderlist> list)
         {

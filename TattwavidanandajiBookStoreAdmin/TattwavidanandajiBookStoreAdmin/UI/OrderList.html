@@ -1,0 +1,398 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="shortcut icon" href="images/Institute/favicon.ico" type="image/png" />
+    <title>Holy Book Store | Order List</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <!--Loading bootstrap css-->
+    <link type="text/css" rel="stylesheet" href="vendors/font-awesome/css/font-awesome.min.css">
+    <link type="text/css" rel="stylesheet" href="vendors/bootstrap/css/bootstrap.css">
+    <!--LOADING STYLESHEET FOR PAGE--><!--Loading style vendors-->
+
+    <link type="text/css" rel="stylesheet" href="vendors/jquery-pace/pace.css">
+    <link type="text/css" rel="stylesheet" href="vendors/iCheck/skins/all.css">
+    <!--Loading style-->
+    <link type="text/css" rel="stylesheet" href="css/style-responsive.css">
+
+    <link type="text/css" rel="stylesheet" href="vendors/jquery-ui-1.10.4.custom/css/ui-lightness/jquery-ui-1.10.4.custom.min.css">
+    <link type="text/css" rel="stylesheet" href="vendors/font-awesome/css/font-awesome.min.css">
+    <link type="text/css" rel="stylesheet" href="vendors/bootstrap/css/bootstrap.min.css">
+    <!--LOADING STYLESHEET FOR PAGE--><!--Loading style vendors-->
+    <link type="text/css" rel="stylesheet" href="vendors/animate.css/animate.css">
+    <link type="text/css" rel="stylesheet" href="vendors/jquery-pace/pace.css">
+    <link type="text/css" rel="stylesheet" href="vendors/iCheck/skins/all.css">
+    <link type="text/css" rel="stylesheet" href="vendors/jquery-news-ticker/jquery.news-ticker.css">
+    <!--Loading style-->
+    <link href="css/themes/style2/yellow-dark.css" rel="stylesheet" />
+    <link type="text/css" rel="stylesheet" href="css/style-responsive.css">
+</head>
+<body ng-app="myApp" ng-controller="myCtrl" ng-init="InitConfig();">
+    <!--BEGIN THEME SETTING-->
+    <!--BEGIN BACK TO TOP-->
+    <a id="totop" href="#"><i class="fa fa-angle-up"></i></a><!--END BACK TO TOP--><!--BEGIN TOPBAR-->
+    <div id="header-topbar-option-demo" class="page-header-topbar">
+        <nav id="topbar" role="navigation" style="margin-bottom: 0;" data-step="3" class="navbar navbar-default navbar-static-top">
+            <div class="navbar-header">
+                <button type="button" data-toggle="collapse" data-target=".sidebar-collapse" class="navbar-toggle"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
+                <a id="logo" href="index.html" class="navbar-brand" style="margin-top:-15px;"><img src="../eshopper/images/Holy.png" style="height:50px;width:50px;border-radius:50%;" /></a>
+            </div>
+            <div class="topbar-main">
+                <a id="menu-toggle" href="#" class="hidden-xs"><i class="fa fa-bars"></i></a>
+                <label style="margin-left:100px;font-size:20px;margin-top:10px;color:lightyellow;"><i>Holy Book Store,Hyderabad.</i></label>
+                <ul class="nav navbar navbar-top-links navbar-right mbn">
+
+                    <li class="dropdown topbar-user">
+                        <a data-hover="dropdown" href="#" class="dropdown-toggle"><img src="images/user.jpg" alt="" height="20" width="20" class="img-responsive img-circle" />&nbsp;<span class="hidden-xs">{{uname}}</span>&nbsp;<span class="caret"></span></a>
+                        <ul class="dropdown-menu dropdown-user pull-right">
+                            <!--<li><a href="UserProfile.html"><i class="fa fa-user"></i>User Profile</a></li>
+                            <li><a href="EmailInbox.html"><i class="fa fa-envelope"></i>My Inbox<span class="badge badge-danger">3</span></a></li>
+                            <li><a href="ResetPassword.html"><i class="fa fa-tasks"></i>Reset Password<span class="badge badge-success"></span></a></li>
+                            <li class="divider"></li>
+                            <li><a href="extra-lock-screen.html"><i class="fa fa-lock"></i>Lock Screen</a></li>-->
+                            <li><a href="../login.html"><i class="fa fa-key"></i>Log Out</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <!--END TOPBAR-->
+        <div id="wrapper">
+            <!--BEGIN SIDEBAR MENU-->
+            <nav id="sidebar" role="navigation" data-step="2" data-position="right" class="navbar-default navbar-static-side">
+                <div class="sidebar-collapse menu-scroll">
+                    <ul id="side-menu" class="nav">
+                        <li class="user-panel">
+                            <div class="thumb"><img src="images/user.jpg" height="20" width="20" alt="" class="img-circle" /></div>
+                            <div class="info">
+                                <p>{{uname}}</p>
+                                <ul class="list-inline list-unstyled">
+                                    <!--<li><a href="UserProfile.html" data-hover="tooltip" title="Profile"><i class="fa fa-user"></i></a></li>
+                                    <li><a href="email-inbox.html" data-hover="tooltip" title="Mail"><i class="fa fa-envelope"></i></a></li>
+                                    <li><a href="#" data-hover="tooltip" title="Setting" data-toggle="modal" data-target="#modal-config"><i class="fa fa-cog"></i></a></li>-->
+                                    <li><a href="login.html" data-hover="tooltip" title="Logout"><i class="fa fa-sign-out"></i></a></li>
+                                </ul>
+                            </div>
+                            <div class="clearfix"></div>
+                        </li>
+                        <li style="border-top: 1px solid grey; border-bottom: 1px solid grey;">
+                            <a href="BooksList.html" data-toggle="tooltip" data-placement="right" title="To Load Data into Application">
+                                <span class="glyphicon glyphicon-book"></span><span class="menu-title">Books List</span>
+                            </a>
+                        </li>
+                        <li style="border-top: 1px solid grey; border-bottom: 1px solid grey;">
+                            <a href="CustomerList.html" data-toggle="tooltip" data-placement="right" title="To Load Data into Application">
+                                <span class="glyphicon glyphicon-user"></span><span class="menu-title">Customer List</span>
+                            </a>
+                        </li>
+                        <li style="border-top: 1px solid grey; border-bottom: 1px solid grey;">
+                            <a href="TypeGroups.html" data-toggle="tooltip" data-placement="right" title="DB Backup in Local">
+                                <i class="fa fa-gears"></i><span class="menu-title">Type Groups</span>
+                            </a>
+                        </li>
+                        <li class="active" style="border-top: 1px solid grey; border-bottom: 1px solid grey;">
+                            <a href="Types.html" data-toggle="tooltip" data-placement="right" title="DB Backup in Local">
+                                <i class="fa fa-gear"></i><span class="menu-title">Types</span>
+                            </a>
+                        </li>
+                        <!--<li style="border-top: 1px solid grey; border-bottom: 1px solid grey;">
+                            <a href="Gallery.html" data-toggle="tooltip" data-placement="right" title="DB Backup in Local">
+                                <i class="fa fa-question-circle"></i><span class="menu-title">Gallery</span>
+                            </a>
+                        </li>-->
+                    </ul>
+                </div>
+            </nav>                <!--END CHAT FORM--><!--BEGIN PAGE WRAPPER-->
+            <div id="page-wrapper">
+                <!--BEGIN TITLE & BREADCRUMB PAGE-->
+                <div id="title-breadcrumb-option-demo" class="page-title-breadcrumb">
+                    <div class="page-header pull-left">
+                        <div class="page-title">Order List</div>
+                    </div>
+                    <ol class="breadcrumb page-breadcrumb pull-right">
+                        <li><i class="fa fa-home"></i>&nbsp;<a href="index.html">Home</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
+                        <li><a href="#">Order List</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
+                    </ol>
+                    <div class="clearfix"></div>
+                </div>
+                <!--END TITLE & BREADCRUMB PAGE--><!--BEGIN CONTENT-->
+                <div class="page-content">
+                    <div id="tableadvancedTabContent" class="tab-content">
+                        <div id="table-sorter-tab" class="tab-pane fade in active">
+                            <!--<div class="row">
+                                            <div class="col-md-3">
+                                                Type Group: <select ng-options="s.Name for s in TypeGroups track by s.Id" ng-model="s" ng-change="getcustomerlist()" class="form-control" style="margin-bottom:10px;">
+                                                    <option value="">All</option>
+                                                </select>
+
+                                            </div>
+                                            <div class="col-md-9">
+                                                <button ng-disabled="isSuperUser == 0" type="button" data-target="#Modal-header-new" data-toggle="modal" class="btn btn-primary" ng-click="addbook();" style="float: right;">Add Book</button>
+                                            </div>
+                                </div>-->
+                        </div>
+                        <table class="table table-hover table-striped table-bordered table-advanced tablesorter">
+                            <thead>
+                                <tr>
+                                    <th>Order No</th>
+                                    <th>Customer Name</th>
+                                    <th>Quantity</th>
+                                    <th>Total Amount</th>
+                                    <th>Generatedon</th>
+                                    <th>Order Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                <tr ng-repeat="T in OrderList">
+                                    <td><a href="OrderDetails.html?Id={{T.id}}"><font color="blue"> <u> {{T.OrderId}}</u></font></a></td>
+                                    <td>{{T.UserName}}</td>
+                                    <td>{{T.Quantity}}</td>
+                                    <td>{{T.TotalAmount}}</td>
+                                    <td>{{T.Createdon}}</td>
+                                    <td>{{T.StatusName}}</td>
+                                    <td>
+                                        <select ng-options="s.Name for s in typedata track by s.Id" ng-model="s" class="form-control" style="margin-bottom:10px;">
+                                            <option value="">All</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                            </tbody>
+
+                        </table>
+                        <div class="form-actions row" ng-show="OrderList.length>0">
+
+                            <div class="col-md-5 grid">
+                                <div class="row">
+                                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12" ng-repeat="P in paggin" ng-model="OrderList">
+                                        <div>	&nbsp;</div>
+                                        <span style="border: 1px solid darkgrey; padding: 8px; border-radius: 5px;"> Page: {{page}}/{{P.totalpages}} </span>
+                                    </div>
+                                    <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12">
+                                        Page Entries:<select class="form-control" ng-model="selectedvalue" ng-change="getorderlist()">
+    <option ng-value="5">5</option>
+    <option ng-value="10">10</option>
+    <option ng-value="15">15</option>
+    <option ng-value="25">25</option>
+    <option ng-value="50">50</option>
+    <option ng-value="100">100</option>
+</select>
+                                    </div>
+                                    <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12">
+                                        Go to Page:<select class="form-control" ng-options="s for s in jumptotalpages" ng-model="selectgoto" ng-change="getorderlist()"></select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="text-align: center;margin-top:20px;" ng-repeat="P in paggin" ng-model="OrderList" class="col-lg-4">
+                                <button class="btn btn-info btn-md" ng-click="getorderlist('P')" ng-disabled="page == 1" style="background-color:#594857;">Prev page </button>
+                                <button class="btn btn-info btn-md" ng-click="getorderlist('N')" ng-disabled="page == P.totalpages" style="background-color:#594857;">Next page </button>
+
+                            </div>
+                            <div style="float: right; margin-top: 20px;" ng-repeat="P in paggin" ng-model="OrderList" class="col-lg-3">
+                                <span class="pull-right" style="border:1px solid darkgrey;padding:5px;border-radius:5px;">Showing: {{firstvalue}}-{{secondvalue}} of {{P.recordcount}}</span>
+                            </div>
+
+
+                        </div>
+                        <!--END CONTENT-->
+                    </div>
+                    <!--END PAGE WRAPPER-->
+                    <!--BEGIN FOOTER-->
+                    <div id="footer">
+                        <div class="row">
+                            <div class="col-md-6 pull-left copyright">© Copyright 2018 by Holy Book Store,Hyderabad</div>
+                            <div class="col-md-6 pull-right">Developed by Holy Book Store,Hyderabad</div>
+                        </div>
+                    </div>
+                    <!--END FOOTER-->
+                </div>
+            </div>
+
+        </div>
+    </div>
+    </div>
+    <!--Add New Types-->
+    <div id="Modal-header-new" tabindex="-1" role="dialog" aria-labelledby="modal-header-primary-label" aria-hidden="true" class="modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header modal-header-primary">
+                    <button type="button" data-dismiss="modal" aria-hidden="true" class="close">&times;</button>
+                    <h4 id="modal-header-primary-label" class="modal-title">Add New Type</h4>
+                </div>
+                <div class="modal-body" ng-model="Savetypes">
+                    <div class="row mbm">
+                        <div style="text-align:right">
+
+                            <label for="Name" class="col-md-4 control-label" style="color:red;">Name:<span class='require'>*</span></label>
+                        </div>
+
+                        <div class="col-md-6">
+                            <input id="inputFirstName" type="text" ng-model="Savetypes.Name" class="form-control" /><span class="help-block"></span>
+                        </div>
+                    </div>
+
+
+                    <div class="row mbm">
+                        <div style="text-align:right">
+                            <label for="Description" class="col-md-4 control-label"> Description: <span class='require'></span></label>
+                        </div>
+                        <div class="col-md-6">
+                            <input id="Description" type="text" ng-model="Savetypes.Description" class="form-control" /><span class="help-block"></span>
+                        </div>
+                    </div>
+                    <div class="row mbm">
+                        <div style="text-align:right">
+                            <label for="selCountry" class="col-md-4 control-label" style="color:red;">Type Group:<span class='require'>*</span></label>
+                        </div>
+
+                        <div class="col-md-6">
+                            <select ng-options="s.Name for s in TypeGroups track by s.Id" class="form-control" ng-model="Savetypes.group">
+                                <option value="">Select</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row mbm">
+
+                        <div style="text-align:right">
+                            <label for="Active" class="col-md-4 control-label">Active:<span class='require'></span></label>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="checkbox" class="icheckbox_minimal-grey activeCheckboxs" ng-model="Savetypes.Active" ng-true-value="1" ng-false-value="0" />
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="form-actions">
+                    <div class="col-md-offset-3 col-md-9">
+                        <button class="btn btn-primary" data-dismiss="modal" type="button" ng-click="saveNewType(Savetypes);">Save</button>
+                        <button type="button" data-dismiss="modal" class="btn btn-default">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+
+
+    <!--Edit Books list start-->
+    <div id="Modal-header-edit" tabindex="-1" role="dialog" aria-labelledby="modal-header-primary-label" aria-hidden="true" class="modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header modal-header-primary">
+                    <button type="button" data-dismiss="modal" aria-hidden="true" class="close">&times;</button>
+                    <h4 id="modal-header-primary-label" class="modal-title">Edit Type Details</h4>
+                </div>
+                <div class="modal-body" ng-model="edittype">
+                    <div class="row mbm">
+                        <div style="text-align:right">
+                            <label for="Name" class="col-md-4 control-label" style="color:red;">Name:<span class='require'>*</span></label>
+                        </div>
+
+                        <div class="col-md-6">
+                            <input id="inputFirstName" type="text" ng-model="edittype.editname" class="form-control" /><span class="help-block"></span>
+                        </div>
+                    </div>
+
+
+                    <div class="row mbm">
+                        <div style="text-align:right">
+                            <label for="Description" class="col-md-4 control-label"> Description: <span class='require'></span></label>
+                        </div>
+                        <div class="col-md-6">
+                            <input id="Description" type="text" ng-model="edittype.editdesc" class="form-control" /><span class="help-block"></span>
+                        </div>
+                    </div>
+                    <div class="row mbm">
+                        <div style="text-align:right">
+                            <label for="selCountry" class="col-md-4 control-label" style="color:red;">Type Group:<span class='require'>*</span></label>
+                        </div>
+
+                        <div class="col-md-6">
+                            <select ng-options="s.Name for s in TypeGroups track by s.Id" class="form-control" ng-model="edittype.edittypegroup" disabled>
+                                <option value="">Select</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row mbm">
+
+                        <div style="text-align:right">
+                            <label for="Active" class="col-md-4 control-label">Active:<span class='require'></span></label>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="checkbox" class="icheckbox_minimal-grey activeCheckboxs" ng-model="edittype.editActive" ng-true-value="1" ng-false-value="0" />
+                        </div>
+                    </div>
+
+
+                    <div class="form-actions">
+                        <div class="col-md-offset-3 col-md-9">
+                            <button class="btn btn-primary" data-dismiss="modal" type="button" ng-click="Updatetypedetails(edittype);">Save</button>
+                            <button type="button" data-dismiss="modal" class="btn btn-default">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Edit Books list End-->
+    <script type="text/ng-template" id="myModalContent.html" data-backdrop="static">
+
+        <div class="modal-header">
+            <h3 class="modal-title">Save confirmation!</h3>
+        </div>
+        <div class="modal-body">
+            <!--<ul>
+                <li ng-repeat="item in items">
+                    <a href="#" ng-click="$event.preventDefault(); selected.item = item">{{ item }}</a>
+                </li>
+            </ul>
+            Selected: <b>{{ selected.item }}</b>-->
+            {{mssg}}
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
+            <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+        </div>
+
+    </script>
+    <script src="js/jquery-1.10.2.min.js"></script>
+    <script src="js/jquery-migrate-1.2.1.min.js"></script>
+    <script src="js/jquery-ui.js"></script>
+    <!--loading bootstrap js-->
+    <script src="vendors/bootstrap/js/bootstrap.js"></script>
+    <script src="vendors/bootstrap-hover-dropdown/bootstrap-hover-dropdown.js"></script>
+    <script src="vendors/metisMenu/jquery.metisMenu.js"></script>
+    <script src="vendors/slimScroll/jquery.slimscroll.js"></script>
+    <script src="vendors/jquery-cookie/jquery.cookie.js"></script>
+    <script src="vendors/iCheck/icheck.min.js"></script>
+    <script src="vendors/iCheck/custom.min.js"></script>
+    <!--<script src="vendors/jquery-news-ticker/jquery.news-ticker.js"></script>-->
+    <script src="js/jquery.menu.js"></script>
+    <script src="vendors/jquery-pace/pace.min.js"></script>
+    <script src="vendors/holder/holder.js"></script>
+    <script src="vendors/responsive-tabs/responsive-tabs.js"></script>
+    <!--LOADING SCRIPTS FOR PAGE-->
+    <!--CORE JAVASCRIPT-->
+    <script src="js/main.js"></script>
+    <script src="js/angular.js"></script>
+    <script src="js/libs/angular-route.js"></script>
+    <script src="js/libs/angular-ui-router.js"></script>
+    <script src="js/libs/ocLazyLoad.js"></script>
+    <script src="js/libs/ui-bootstrap.js"></script>
+    <script src="js/ngStorage.js"></script>
+    <script src="js/ui-bootstrap-tpls-1.3.3.js"></script>
+    <script src="js/fileupload/angular-file-upload.js"></script>
+    <script src="js/fileupload/angular-file-upload-shim.js"></script>
+    <!--<script src="Js/Playlist.js"></script>-->
+    <script src="js/OrdersList.js"></script>
+    <script src="js/fileupload/Upload.js"></script>
+
+    <!--CORE JAVASCRIPT-->
+</body>
+</html>

@@ -51,6 +51,7 @@ namespace TattwavidanandajiBookStoreAdmin.Models
         public int booktype { get; set; }
         public int labeltype { get; set; }
         public int languagetype { get; set; }
+        public int status { get; set; }
        
     }
     public class FleetOwner

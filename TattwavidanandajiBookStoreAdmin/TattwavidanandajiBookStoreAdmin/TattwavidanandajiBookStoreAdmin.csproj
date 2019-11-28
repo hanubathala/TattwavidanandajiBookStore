@@ -207,8 +207,12 @@
     <Content Include="eshopper\shop.html" />
     <Content Include="Global.asax" />
     <Content Include="Login.html" />
+    <Content Include="UI\js\OrdersDetails.js" />
+    <Content Include="UI\js\OrdersList.js" />
     <Content Include="UI\js\Types.js" />
     <Content Include="UI\js\TypeGroups.js" />
+    <Content Include="UI\OrderDetails.html" />
+    <Content Include="UI\OrderList.html" />
     <Content Include="UI\Types.html" />
     <Content Include="UI\TypeGroups.html" />
     <Content Include="UI\CustomerList.html" />
