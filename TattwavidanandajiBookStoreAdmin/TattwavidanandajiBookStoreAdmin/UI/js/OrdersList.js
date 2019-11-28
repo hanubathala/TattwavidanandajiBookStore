@@ -84,7 +84,15 @@ var ctrl = app.controller('myCtrl', function ($scope, $http, $localStorage, $int
 
 
     }
-    
+
+    $scope.changestatus = function (s,dd) {
+        $http.get('/api/Order/OrderChangeStatus?Id=' + s.Id + '&orderId='+ dd.id).then(function (res, data) {
+            $scope.getorderlist();
+
+        });
+
+    }
+
    });
 
 

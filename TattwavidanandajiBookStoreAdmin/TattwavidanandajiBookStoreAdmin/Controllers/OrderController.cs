@@ -15,7 +15,55 @@ namespace TattwavidanandajiBookStoreAdmin.Controllers
     public class OrderController : ApiController
     {
 
-            [HttpGet]
+        [System.Web.Http.AcceptVerbs("GET", "POST")]
+
+        [System.Web.Http.HttpGet]
+        [Route("api/Order/OrderChangeStatus")]
+        public DataTable OrderChangeStatus(int Id,int orderId)
+        {
+            DataTable dt = new DataTable();
+            SqlConnection con = new SqlConnection();
+            try
+            {
+                con.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings["VIHE_DB_Connection"].ToString();
+
+                SqlCommand cmd = new SqlCommand();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "OrderChangeStatus";
+                cmd.Connection = con;
+
+                SqlParameter cpage = new SqlParameter();
+                cpage.ParameterName = "@Id";
+                cpage.SqlDbType = SqlDbType.Int;
+                cpage.Value = Id;
+                cmd.Parameters.Add(cpage);
+
+                SqlParameter orderId1 = new SqlParameter();
+                orderId1.ParameterName = "@orderId";
+                orderId1.SqlDbType = SqlDbType.Int;
+                orderId1.Value = orderId;
+                cmd.Parameters.Add(orderId1);
+
+                SqlDataAdapter db = new SqlDataAdapter(cmd);
+                db.Fill(dt);
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (con != null && con.State == ConnectionState.Open)
+                {
+                    con.Close();
+                }
+
+            }
+            return dt;
+        }
+
+        [HttpGet]
         [Route("api/Order/GetOrderDetails")]
         public DataTable GetOrderDetails(int Id)
         {

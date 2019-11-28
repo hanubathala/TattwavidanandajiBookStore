@@ -135,9 +135,11 @@
                             <thead>
                                 <tr>
                                     <th>Book Title</th>
+                                    <th>Book Image</th>
                                     <th>Quantity</th>
                                     <th>Price</th>
                                     <th>Subtotal</th>
+
                                     <th>Createdon</th>
                                 </tr>
                             </thead>
@@ -145,6 +147,7 @@
 
                                 <tr ng-repeat="T in Orderdetails">
                                     <td>{{T.BookTitle}}</td>
+                                    <td><a href="#" ng-click="openimagetoshow(T)" style="padding:10px;color:#f2994b;"><strong>VIEW</strong></a></td>
                                     <td>{{T.quanity}}</td>
                                     <td>{{T.Price}}</td>
                                     <td>{{T.Subtotal}}</td>

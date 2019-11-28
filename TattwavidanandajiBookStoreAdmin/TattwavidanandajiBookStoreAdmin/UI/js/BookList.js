@@ -289,7 +289,7 @@ var ctrl = app.controller('myCtrl', function ($scope, $http, $localStorage, $int
             BookDescription: Book.BookDescription,
             BookSKU: Book.SKU,
             BookWeight: Book.Weight,
-            BookLabelId: Book.Label.Id,
+            BookLabelId: (Book.Label == null) ? null : Book.Label.Id,
             BookBookAuthor: Book.BookAuthor,
             BookTags: Book.Tags,
             BookLanguageId: Book.Language.Id,
