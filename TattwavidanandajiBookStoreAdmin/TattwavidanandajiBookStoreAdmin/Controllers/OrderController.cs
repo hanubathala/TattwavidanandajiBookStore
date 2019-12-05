@@ -47,6 +47,73 @@ namespace TattwavidanandajiBookStoreAdmin.Controllers
                 SqlDataAdapter db = new SqlDataAdapter(cmd);
                 db.Fill(dt);
 
+               string custemail= dt.Rows[0]["Email"].ToString();
+               string UserName = dt.Rows[0]["UserName"].ToString();
+               string StatusName = dt.Rows[0]["StatusName"].ToString();
+                
+               #region send email with details
+
+               try
+               {
+                   string emailaddress = "hnmisv";
+                   string customer = "1";
+
+                   MailMessage mail = new MailMessage();
+                   string emailserver = System.Configuration.ConfigurationManager.AppSettings["emailserver"].ToString();
+
+                   string username = System.Configuration.ConfigurationManager.AppSettings["username"].ToString();
+                   string pwd = System.Configuration.ConfigurationManager.AppSettings["password"].ToString();
+                   string fromaddress = System.Configuration.ConfigurationManager.AppSettings["fromaddress"].ToString();
+                   string port = System.Configuration.ConfigurationManager.AppSettings["port"].ToString();
+
+                   SmtpClient SmtpServer = new SmtpClient(emailserver);
+
+                   mail.From = new MailAddress(fromaddress);
+                   mail.To.Add(custemail);
+
+                   mail.Subject = "Your Books Order Status";
+                   mail.IsBodyHtml = true;
+
+                   string verifcodeMail = @"<table style='background-color:#F0F8FF;border-radius:8px;'>
+                                            <tr>
+                                            <td>
+                                            <h2>Hi " +UserName+@",</h2>
+                                            <table width=\""860\"" align=\""center\"" >
+                                            <tbody >
+                                            <tr> <td><h3>Your Package :" + StatusName + @"</h3></td> </tr>
+                                            <tr> <td><a href=\""#\"" style=\""color:blue;\"">Track Your Package</a></td></tr>
+                                            <tr>
+                                            <td><strong>With Regards,</strong> <p>Support Team of Holy Book store</p></td></tr>
+
+                                            </tbody>
+                                            </table>
+                                            </td>
+                                            </tr>
+
+                                            </table>";
+
+                   mail.Body = verifcodeMail;
+                   //SmtpServer.Port = 465;
+                   //SmtpServer.Port = 587;
+                   SmtpServer.Port = Convert.ToInt32(port);
+                   SmtpServer.UseDefaultCredentials = false;
+
+                   SmtpServer.Credentials = new System.Net.NetworkCredential(username, pwd);
+                   SmtpServer.EnableSsl = true;
+                   //SmtpServer.TargetName = "STARTTLS/smtp.gmail.com";
+                   SmtpServer.Send(mail);
+
+               }
+               catch (Exception ex)
+               {
+                   //throw ex;
+
+               }
+
+                //update if email is sent
+
+               #endregion send email with details
+
             }
             catch (Exception ex)
             {
@@ -62,6 +129,48 @@ namespace TattwavidanandajiBookStoreAdmin.Controllers
             }
             return dt;
         }
+
+        [System.Web.Http.AcceptVerbs("GET", "POST")]
+
+        [System.Web.Http.HttpGet]
+        [Route("api/Order/GetCustomerOrder")]
+        public DataSet GetCustomerOrder(int Id)
+        {
+            DataSet dt = new DataSet();
+            SqlConnection con = new SqlConnection();
+            try
+            {
+                con.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings["VIHE_DB_Connection"].ToString();
+
+                SqlCommand cmd = new SqlCommand();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "GetCustomerOrder";
+                cmd.Connection = con;
+
+                SqlParameter cpage = new SqlParameter();
+                cpage.ParameterName = "@custid";
+                cpage.SqlDbType = SqlDbType.Int;
+                cpage.Value = Id;
+                cmd.Parameters.Add(cpage);
+
+                SqlDataAdapter db = new SqlDataAdapter(cmd);
+                db.Fill(dt);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (con != null && con.State == ConnectionState.Open)
+                {
+                    con.Close();
+                }
+
+            }
+            return dt;
+        }
+
 
         [HttpGet]
         [Route("api/Order/GetOrderDetails")]

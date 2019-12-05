@@ -153,7 +153,7 @@
                                     <td>{{T.Createdon}}</td>
                                     <td>{{T.StatusName}}</td>
                                     <td>
-                                        <select ng-options="s.Name for s in typedata track by s.Id" ng-model="s" class="form-control" style="margin-bottom:10px;" ng-change="changestatus(s,T);">
+                                        <select ng-value="T.Statusid2" ng-options="s.Name for s in typedata track by s.Id" ng-model="s" class="form-control" style="margin-bottom:10px;" ng-change="changestatus(s,T);">
                                             <option value="">All</option>
                                         </select>
                                     </td>

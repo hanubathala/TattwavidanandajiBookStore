@@ -187,6 +187,8 @@
     <Content Include="eshopper\images\shop\product8.jpg" />
     <Content Include="eshopper\images\shop\product9.jpg" />
     <Content Include="eshopper\images\swtattwavidananda.JPG" />
+    <Content Include="eshopper\js\Profile.js" />
+    <Content Include="eshopper\Profile.html" />
     <Content Include="eshopper\index.html" />
     <Content Include="eshopper\js\bootstrap.min.js" />
     <Content Include="eshopper\js\Login.js" />
